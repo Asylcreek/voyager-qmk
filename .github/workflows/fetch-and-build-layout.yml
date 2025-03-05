@@ -22,9 +22,6 @@ on:
           - planck_ez
           - planck_ez/glow
         default: voyager
-  push:
-    branches:
-      - main
 
 permissions:
   contents: write
