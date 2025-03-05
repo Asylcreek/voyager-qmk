@@ -16,6 +16,6 @@ const key_override_t bspc_override =
     ko_make_basic(MOD_MASK_SHIFT, KC_DOT, KC_BSPC);
 
 const key_override_t *key_overrides[] = {
-    &underscore_key_override, //
-    &bspc_override            //
+    &underscore_override, //
+    &bspc_override        //
 };
