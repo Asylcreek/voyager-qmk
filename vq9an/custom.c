@@ -9,14 +9,17 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
 // clang-format on
 
 // key overrides
-const key_override_t underscore_override =
+const key_override_t shift_quote =
     ko_make_basic(MOD_MASK_SHIFT, KC_QUOT, KC_UNDS);
 
-const key_override_t bspc_override =
-    ko_make_basic(MOD_MASK_SHIFT, KC_DOT, KC_BSPC);
+const key_override_t shift_dot = ko_make_basic(MOD_MASK_SHIFT, KC_DOT, KC_BSPC);
+
+const key_override_t shift_esc =
+    ko_make_basic(MOD_MASK_SHIFT, KC_ESC, KC_ENTER);
 
 const key_override_t **key_overrides = (const key_override_t *[]){
-    &underscore_override, //
-    &bspc_override,       //
-    NULL                  //
+    &shift_quote, //
+    &shift_dot,   //
+    &shift_esc,   //
+    NULL          //
 };
