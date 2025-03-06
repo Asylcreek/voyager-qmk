@@ -15,7 +15,7 @@ const key_override_t shift_quote =
 const key_override_t shift_dot = ko_make_basic(MOD_MASK_SHIFT, KC_DOT, KC_BSPC);
 
 const key_override_t shift_minus =
-    ko_make_basic(MOD_MASK_SHIFT, KC_MINUS, KC_ENTER);
+    ko_make_basic(MOD_MASK_SHIFT, KC_MINUS, S(KC_ENTER));
 
 const key_override_t **key_overrides = (const key_override_t *[]){
     &shift_quote, //
