@@ -6,7 +6,7 @@
 
 #define USB_SUSPEND_WAKEUP_DELAY 0
 #define HOLD_ON_OTHER_KEY_PRESS
-#define SERIAL_NUMBER "vq9an/KrrXdl"
+#define SERIAL_NUMBER "vq9an/9DDLPK"
 #define LAYER_STATE_8BIT
 #define HSS(report)                                                            \
   host_system_send(record->event.pressed ? report : 0);                        \
@@ -15,7 +15,6 @@
   host_consumer_send(record->event.pressed ? report : 0);                      \
   return false
 
-#define TAPPING_TERM_PER_KEY
 #define RGB_MATRIX_STARTUP_SPD 60
 
 #undef ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
