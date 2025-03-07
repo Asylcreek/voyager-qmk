@@ -5,7 +5,7 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
                    'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R',
                    'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R',
                    'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R',
-                   'L', 'L', 'R', 'R');
+                   '*', 'L', 'R', '*');
 // clang-format on
 
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
