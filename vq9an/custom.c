@@ -5,23 +5,19 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
                    'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R',
                    'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R',
                    'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R',
-                   '*', 'L', 'R', '*');
+                   'L', 'L', 'R', 'R');
 // clang-format on
 
-bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t *tap_hold_record,
-                      uint16_t other_keycode, keyrecord_t *other_record) {
-
-  // Exceptionally allow some one-handed chords for hotkeys.
-  switch (tap_hold_keycode) {
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
   case MT(MOD_LSFT, KC_BSPC):
-    return true;
-
   case LT(1, KC_SPACE):
+    // Immediately select the hold action when another key is pressed.
     return true;
+  default:
+    // Do not select the hold action when another key is pressed.
+    return false;
   }
-
-  // Otherwise defer to the opposite hands rule.
-  return get_chordal_hold_default(tap_hold_record, other_record);
 }
 
 // key overrides
