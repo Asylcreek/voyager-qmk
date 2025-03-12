@@ -49,15 +49,15 @@ enum tap_dance_codes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
     MAC_LOCK,       KC_BRIGHTNESS_DOWN,KC_BRIGHTNESS_UP,MAC_DND,        RGB_VAD,        RGB_VAI,                                        TD(DANCE_0),    KC_MEDIA_PLAY_PAUSE,TD(DANCE_1),    KC_AUDIO_MUTE,  KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,
-    KC_PIPE,        KC_B,           KC_L,           KC_D,           KC_W,           KC_Z,                                           KC_QUOTE,       KC_F,           KC_O,           KC_U,           KC_J,           KC_SCLN,        
-    LT(2,KC_TAB),   MT(MOD_LCTL, KC_N),MT(MOD_LALT, KC_R),MT(MOD_LGUI, KC_T),MEH_T(KC_S),    ALL_T(KC_G),                                    ALL_T(KC_Y),    MEH_T(KC_H),    MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_E),MT(MOD_LCTL, KC_I),KC_COMMA,       
-    KC_BSLS,        KC_Q,           KC_X,           KC_M,           KC_C,           KC_V,                                           KC_K,           KC_P,           KC_DOT,         KC_MINUS,       KC_SLASH,       LT(4,KC_DELETE),
+    KC_TAB,         KC_B,           KC_L,           KC_D,           KC_W,           KC_Z,                                           KC_QUOTE,       KC_F,           KC_O,           KC_U,           KC_J,           KC_SCLN,        
+    MO(2),          MT(MOD_LCTL, KC_N),MT(MOD_LALT, KC_R),MT(MOD_LGUI, KC_T),MEH_T(KC_S),    ALL_T(KC_G),                                    ALL_T(KC_Y),    MEH_T(KC_H),    MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_E),MT(MOD_LCTL, KC_I),KC_COMMA,       
+    KC_DELETE,      KC_Q,           KC_X,           KC_M,           KC_C,           KC_V,                                           KC_K,           KC_P,           KC_DOT,         KC_MINUS,       KC_SLASH,       MO(4),          
                                                     MT(MOD_LSFT, KC_BSPC),LT(5,KC_ENTER),                                 LT(3,KC_ESCAPE),LT(1,KC_SPACE)
   ),
   [1] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    KC_NO,          KC_EQUAL,       KC_LPRN,        KC_LABK,        KC_LCBR,        KC_LBRC,                                        KC_RBRC,        KC_RCBR,        KC_RABK,        KC_RPRN,        KC_NO,          KC_NO,          
-    KC_NO,          KC_1,           MT(MOD_LALT, KC_2),MT(MOD_LGUI, KC_3),KC_4,           KC_5,                                           KC_6,           KC_7,           MT(MOD_LGUI, KC_8),MT(MOD_LALT, KC_9),KC_0,           KC_COMMA,       
+    KC_PIPE,        KC_EQUAL,       KC_LPRN,        KC_LABK,        KC_LCBR,        KC_LBRC,                                        KC_RBRC,        KC_RCBR,        KC_RABK,        KC_RPRN,        KC_NO,          KC_NO,          
+    KC_BSLS,        KC_1,           MT(MOD_LALT, KC_2),MT(MOD_LGUI, KC_3),KC_4,           KC_5,                                           KC_6,           KC_7,           MT(MOD_LGUI, KC_8),MT(MOD_LALT, KC_9),KC_0,           KC_COMMA,       
     KC_NO,          KC_UNDS,        KC_PLUS,        KC_DQUO,        KC_COLN,        KC_GRAVE,                                       KC_TILD,        KC_QUES,        KC_DOT,         KC_MINUS,       KC_SLASH,       KC_NO,          
                                                     MT(MOD_LSFT, KC_BSPC),MT(MOD_LCTL, KC_SPACE),                                KC_NO,          KC_TRANSPARENT
   ),
