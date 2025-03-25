@@ -50,8 +50,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
     MAC_LOCK,       KC_BRIGHTNESS_DOWN,KC_BRIGHTNESS_UP,MAC_DND,        RGB_VAD,        RGB_VAI,                                        TD(DANCE_0),    KC_MEDIA_PLAY_PAUSE,TD(DANCE_1),    KC_AUDIO_MUTE,  KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,
     KC_TAB,         KC_B,           KC_L,           KC_D,           KC_W,           KC_Z,                                           KC_QUOTE,       KC_F,           KC_O,           KC_U,           KC_J,           KC_SCLN,        
-    KC_DELETE,      KC_N,           MT(MOD_LALT, KC_R),MT(MOD_LGUI, KC_T),MT(MOD_LCTL, KC_S),ALL_T(KC_G),                                    ALL_T(KC_Y),    MT(MOD_LCTL, KC_H),MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_E),KC_I,           KC_COMMA,       
-    KC_NO,          KC_Q,           KC_X,           LT(2,KC_M),     MEH_T(KC_C),    KC_V,                                           KC_K,           MEH_T(KC_P),    KC_DOT,         KC_MINUS,       KC_SLASH,       MO(4),          
+    KC_DELETE,      KC_N,           MT(MOD_LALT, KC_R),MT(MOD_LGUI, KC_T),MEH_T(KC_S),    ALL_T(KC_G),                                    ALL_T(KC_Y),    MEH_T(KC_H),    MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_E),KC_I,           KC_COMMA,       
+    KC_NO,          KC_Q,           KC_X,           LT(2,KC_M),     MT(MOD_LCTL, KC_C),KC_V,                                           KC_K,           MT(MOD_LCTL, KC_P),KC_DOT,         KC_MINUS,       KC_SLASH,       MO(4),          
                                                     MT(MOD_LSFT, KC_BSPC),LT(5,KC_ENTER),                                 LT(3,KC_ESCAPE),LT(1,KC_SPACE)
   ),
   [1] = LAYOUT_voyager(
@@ -95,9 +95,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case MT(MOD_LSFT, KC_BSPC):
-            return TAPPING_TERM -95;
+            return TAPPING_TERM -120;
         case LT(1,KC_SPACE):
-            return TAPPING_TERM -95;
+            return TAPPING_TERM -120;
         default:
             return TAPPING_TERM;
     }
