@@ -1,4 +1,4 @@
-// Copyright 2021-2025 Google LLC
+// Copyright 2021-2022 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,11 +14,17 @@
 
 /**
  * @file custom_shift_keys.h
- * @brief Custom Shift Keys community module: customize how keys shift.
+ * @brief Custom shift keys: customize what keycode is produced when shifted.
  *
- * This library implements custom shift keys, keys where you can customize what
- * keycode is produced when shifted. In your keymap.c, define a table of custom
- * shift keys like
+ * Overview
+ * --------
+ *
+ * This library implements custom shift keys, keys where you can customize
+ * what keycode is produced when shifted.
+ *
+ * Step 1: In your keymap.c, define a table of custom shift keys like
+ *
+ *     #include "features/custom_shift_keys.h"
  *
  *     const custom_shift_key_t custom_shift_keys[] = {
  *       {KC_DOT , KC_QUES}, // Shift . is ?
@@ -30,6 +36,19 @@
  * Each row defines one key. The first field is the keycode as it appears in
  * your layout and determines what is typed normally. The second entry is what
  * you want the key to type when shifted.
+ *
+ * Step 2: Handle custom shift keys from your `process_record_user` function as
+ *
+ *     bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+ *       if (!process_custom_shift_keys(keycode, record)) { return false; }
+ *       // Your macros ...
+ *
+ *       return true;
+ *     }
+ *
+ * Step 3: add `features/custom_shift_keys.c` to your rules.mk as
+ *
+ *     SRC += features/custom_shift_keys.c
  *
  *
  * For full documentation, see
@@ -56,6 +75,24 @@ typedef struct {
 
 /** Table of custom shift keys. */
 extern const custom_shift_key_t custom_shift_keys[];
+/** Number of entries in the `custom_shift_keys` table. */
+extern uint8_t NUM_CUSTOM_SHIFT_KEYS;
+
+/**
+ * Handler function for custom shift keys.
+ *
+ * In keymap.c, call this function from your `process_record_user` function as
+ *
+ *     #include "features/custom_shift_keys.h"
+ *
+ *     bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+ *       if (!process_custom_shift_keys(keycode, record)) { return false; }
+ *       // Your macros ...
+ *
+ *       return true;
+ *     }
+ */
+bool process_custom_shift_keys(uint16_t keycode, keyrecord_t *record);
 
 #ifdef __cplusplus
 }

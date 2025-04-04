@@ -1,4 +1,4 @@
-// Copyright 2021-2025 Google LLC
+// Copyright 2021-2024 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 
 /**
  * @file custom_shift_keys.c
- * @brief Custom Shift Keys community module implementation
+ * @brief Custom Shift Keys implementation
  *
  * For full documentation, see
  * <https://getreuer.info/posts/keyboards/custom-shift-keys>
@@ -22,13 +22,13 @@
 
 #include "custom_shift_keys.h"
 
-ASSERT_COMMUNITY_MODULES_MIN_API_VERSION(1, 0, 0);
+#if !defined(IS_QK_MOD_TAP)
+// Attempt to detect out-of-date QMK installation, which would fail with
+// implicit-function-declaration errors in the code below.
+#error "custom_shift_keys: QMK version is too old to build. Please update QMK."
+#else
 
-// Defined in introspection.c.
-uint16_t custom_shift_keys_count(void);
-const custom_shift_key_t *custom_shift_keys_get(uint16_t index);
-
-bool process_record_custom_shift_keys(uint16_t keycode, keyrecord_t *record) {
+bool process_custom_shift_keys(uint16_t keycode, keyrecord_t *record) {
   static uint16_t registered_keycode = KC_NO;
 
   // If a custom shift key is registered, then this event is either releasing
@@ -67,10 +67,9 @@ bool process_record_custom_shift_keys(uint16_t keycode, keyrecord_t *record) {
       }
 
       // Search for a custom shift key whose keycode is `keycode`.
-      for (int i = 0; i < (int)custom_shift_keys_count(); ++i) {
-        const custom_shift_key_t *custom_shift_key = custom_shift_keys_get(i);
-        if (keycode == custom_shift_key->keycode) {
-          registered_keycode = custom_shift_key->shifted_keycode;
+      for (int i = 0; i < NUM_CUSTOM_SHIFT_KEYS; ++i) {
+        if (keycode == custom_shift_keys[i].keycode) {
+          registered_keycode = custom_shift_keys[i].shifted_keycode;
           if (IS_QK_MODS(registered_keycode) && // Should keycode be shifted?
               (QK_MODS_GET_MODS(registered_keycode) & MOD_LSFT) != 0) {
             register_code16(registered_keycode); // If so, press it directly.
@@ -92,3 +91,5 @@ bool process_record_custom_shift_keys(uint16_t keycode, keyrecord_t *record) {
 
   return true; // Continue with default handling.
 }
+
+#endif // version check
