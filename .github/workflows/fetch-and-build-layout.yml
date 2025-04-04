@@ -80,9 +80,6 @@ jobs:
           git submodule update --init --remote --depth=1
           cd qmk_firmware
           git checkout -B firmware${{ steps.download-layout-source.outputs.firmware_version }} origin/firmware${{ steps.download-layout-source.outputs.firmware_version }}
-          # Add community modules
-          mkdir -p modules
-          git submodule add https://github.com/getreuer/qmk-modules.git modules/getreuer
           git submodule update --init --recursive
           cd ..
           git add qmk_firmware
