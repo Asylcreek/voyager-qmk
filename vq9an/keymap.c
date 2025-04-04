@@ -65,8 +65,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [2] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     KC_NO,          KC_NO,          KC_9,           KC_8,           KC_7,           KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    KC_NO,          KC_MINUS,       KC_3,           KC_2,           KC_1,           KC_DOT,                                         KC_NO,          KC_TRANSPARENT, KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    KC_NO,          KC_SLASH,       KC_6,           KC_5,           KC_4,           KC_COMMA,                                       KC_NO,          KC_NO,          KC_NO,          KC_LEFT_SHIFT,  KC_NO,          KC_NO,          
+    KC_NO,          KC_MINUS,       KC_3,           KC_2,           KC_1,           KC_DOT,                                         KC_NO,          KC_TRANSPARENT, KC_NO,          KC_LEFT_SHIFT,  KC_NO,          KC_NO,          
+    KC_NO,          KC_SLASH,       KC_6,           KC_5,           KC_4,           KC_COMMA,                                       KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
                                                     MT(MOD_LCTL, KC_0),KC_BSPC,                                        KC_LEFT_GUI,    KC_LEFT_ALT
   ),
   [3] = LAYOUT_voyager(
@@ -108,6 +108,8 @@ combo_t key_combos[COMBO_COUNT] = {
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
+        case MT(MOD_LSFT, KC_BSPC):
+            return TAPPING_TERM -120;
   case TD(DANCE_0):
     return TAPPING_TERM - 120;
   case TD(DANCE_1):
