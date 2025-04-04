@@ -93,4 +93,4 @@ bool process_custom_shift_keys(uint16_t keycode, keyrecord_t *record) {
   return true; // Continue with default handling.
 }
 
-#endif // version check
+/* #endif // version check */
