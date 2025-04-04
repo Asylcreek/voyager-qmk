@@ -22,11 +22,12 @@
 
 #include "custom_shift_keys.h"
 
-#if !defined(IS_QK_MOD_TAP)
-// Attempt to detect out-of-date QMK installation, which would fail with
-// implicit-function-declaration errors in the code below.
-#error "custom_shift_keys: QMK version is too old to build. Please update QMK."
-#else
+/* #if !defined(IS_QK_MOD_TAP) */
+/* // Attempt to detect out-of-date QMK installation, which would fail with */
+/* // implicit-function-declaration errors in the code below. */
+/* #error "custom_shift_keys: QMK version is too old to build. Please update
+ * QMK." */
+/* #else */
 
 bool process_custom_shift_keys(uint16_t keycode, keyrecord_t *record) {
   static uint16_t registered_keycode = KC_NO;

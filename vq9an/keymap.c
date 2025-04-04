@@ -493,13 +493,3 @@ tap_dance_action_t tap_dance_actions[] = {
     [DANCE_2] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_2, dance_2_finished,
                                              dance_2_reset),
 };
-
-const custom_shift_key_t custom_shift_keys[] = {
-    {KC_QUOT, KC_UNDS},       // Shift ' is _
-    {LT(2, KC_DOT), KC_BSPC}, // Shift . is backspace
-    {KC_DOT, KC_BSPC},        // Shift . is backspace
-    {KC_MINS, S(KC_ENTER)},   // Shift - is Shift+Enter
-};
-
-uint8_t NUM_CUSTOM_SHIFT_KEYS =
-    sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
