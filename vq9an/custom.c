@@ -1,3 +1,5 @@
+#include "features/custom_shift_keys.h"
+
 // clang-format off
 // Handedness for Chordal Hold.
 const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
@@ -9,17 +11,12 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
 // clang-format on
 
 // key overrides
-const key_override_t shift_quote =
-    ko_make_basic(MOD_MASK_SHIFT, KC_QUOT, KC_UNDS);
-
-const key_override_t shift_dot = ko_make_basic(MOD_MASK_SHIFT, KC_DOT, KC_BSPC);
-
-const key_override_t shift_minus =
-    ko_make_basic(MOD_MASK_SHIFT, KC_MINUS, S(KC_ENTER));
-
-const key_override_t **key_overrides = (const key_override_t *[]){
-    &shift_quote, //
-    &shift_dot,   //
-    &shift_minus, //
-    NULL          //
+const custom_shift_key_t custom_shift_keys[] = {
+    {KC_QUOT, KC_UNDS},       // Shift ' is _
+    {LT(2, KC_DOT), KC_BSPC}, // Shift . is backspace
+    {KC_DOT, KC_BSPC},        // Shift . is backspace
+    {KC_MINS, S(KC_ENTER)},   // Shift - is Shift+Enter
 };
+
+uint8_t NUM_CUSTOM_SHIFT_KEYS =
+    sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
