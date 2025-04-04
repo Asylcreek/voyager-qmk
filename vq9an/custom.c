@@ -1,3 +1,5 @@
+#include "features/custom_shift_keys.h"
+
 // clang-format off
 // Handedness for Chordal Hold.
 const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
