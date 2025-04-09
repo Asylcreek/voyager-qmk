@@ -51,29 +51,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
     MAC_LOCK,       KC_BRIGHTNESS_DOWN,KC_BRIGHTNESS_UP,MAC_DND,        RGB_VAD,        RGB_VAI,                                        TD(DANCE_0),    KC_MEDIA_PLAY_PAUSE,TD(DANCE_1),    KC_AUDIO_MUTE,  KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,
     KC_TAB,         KC_B,           KC_L,           KC_D,           KC_W,           KC_Z,                                           KC_QUOTE,       KC_F,           KC_O,           KC_U,           KC_J,           KC_SCLN,        
-    KC_DELETE,      KC_N,           MT(MOD_LALT, KC_R),MT(MOD_LGUI, KC_T),MEH_T(KC_S),    ALL_T(KC_G),                                    ALL_T(KC_Y),    MEH_T(KC_H),    MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_E),LT(2,KC_I),     KC_COMMA,       
-    KC_NO,          KC_Q,           KC_X,           LT(3,KC_M),     MT(MOD_LCTL, KC_C),KC_V,                                           KC_K,           MT(MOD_LCTL, KC_P),KC_DOT,         KC_MINUS,       KC_SLASH,       MO(5),          
+    KC_DELETE,      KC_N,           MT(MOD_LALT, KC_R),MT(MOD_LGUI, KC_T),LT(3,KC_S),     MEH_T(KC_G),                                    MEH_T(KC_Y),    LT(2,KC_H),     MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_E),KC_I,           KC_COMMA,       
+    KC_NO,          KC_Q,           KC_X,           KC_M,           MT(MOD_LCTL, KC_C),ALL_T(KC_V),                                    ALL_T(KC_K),    MT(MOD_LCTL, KC_P),KC_DOT,         KC_MINUS,       KC_SLASH,       MO(5),          
                                                     MT(MOD_LSFT, KC_BSPC),LT(6,KC_ENTER),                                 LT(4,KC_ESCAPE),LT(1,KC_SPACE)
   ),
   [1] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     KC_PIPE,        KC_HASH,        KC_LPRN,        KC_RPRN,        KC_EQUAL,       KC_NO,                                          KC_NO,          KC_LABK,        KC_AMPR,        KC_TILD,        KC_NO,          KC_NO,          
-    KC_BSLS,        KC_EXLM,        KC_LCBR,        KC_RCBR,        KC_DQUO,        KC_UNDS,                                        KC_PLUS,        KC_RABK,        KC_DLR,         KC_CIRC,        TD(DANCE_2),    KC_NO,          
+    KC_BSLS,        KC_EXLM,        KC_LCBR,        KC_RCBR,        KC_DQUO,        KC_UNDS,                                        KC_PLUS,        TD(DANCE_2),    KC_DLR,         KC_CIRC,        KC_PERC,        KC_NO,          
     KC_NO,          KC_AT,          KC_LBRC,        KC_RBRC,        KC_COLN,        KC_GRAVE,                                       KC_ASTR,        KC_QUES,        KC_NO,          KC_NO,          KC_NO,          KC_NO,          
                                                     KC_BSPC,        KC_SPACE,                                       KC_NO,          KC_TRANSPARENT
   ),
   [2] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     KC_PERC,        KC_EQUAL,       KC_9,           KC_8,           KC_7,           KC_COMMA,                                       KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    KC_DOT,         KC_MINUS,       KC_3,           KC_2,           KC_1,           KC_PLUS,                                        KC_NO,          KC_0,           KC_LEFT_GUI,    KC_LEFT_ALT,    KC_TRANSPARENT, KC_NO,          
+    KC_DOT,         KC_MINUS,       KC_3,           KC_2,           KC_1,           KC_PLUS,                                        KC_NO,          KC_TRANSPARENT, KC_LEFT_GUI,    KC_LEFT_ALT,    KC_TRANSPARENT, KC_NO,          
     KC_NO,          KC_SLASH,       KC_6,           KC_5,           KC_4,           KC_ASTR,                                        KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-                                                    MT(MOD_LCTL, KC_BSPC),KC_UNDS,                                        KC_NO,          LALT(KC_LEFT_SHIFT)
+                                                    MT(MOD_LCTL, KC_BSPC),KC_UNDS,                                        KC_NO,          MT(MOD_LALT | MOD_LSFT, KC_0)
   ),
   [3] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          ST_MACRO_0,     LGUI(KC_LEFT),  KC_UP,          LGUI(KC_RIGHT), KC_NO,          KC_NO,          
-    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          LALT(KC_LEFT),  KC_LEFT,        KC_DOWN,        KC_RIGHT,       LALT(KC_RIGHT), KC_NO,          
-    KC_NO,          KC_NO,          KC_LEFT_ALT,    KC_TRANSPARENT, KC_LEFT_GUI,    KC_NO,                                          KC_NO,          KC_PAGE_UP,     KC_PGDN,        KC_NO,          KC_NO,          KC_NO,          
+    KC_NO,          KC_NO,          KC_LEFT_ALT,    KC_LEFT_GUI,    KC_TRANSPARENT, KC_NO,                                          LALT(KC_LEFT),  KC_LEFT,        KC_DOWN,        KC_RIGHT,       LALT(KC_RIGHT), KC_NO,          
+    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_PAGE_UP,     KC_PGDN,        KC_NO,          KC_NO,          KC_NO,          
                                                     KC_LEFT_SHIFT,  KC_NO,                                          LALT(LSFT(KC_MINUS)),LALT(LSFT(KC_EQUAL))
   ),
   [4] = LAYOUT_voyager(
@@ -108,13 +108,15 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     return TAPPING_TERM - 120;
   case TD(DANCE_1):
     return TAPPING_TERM - 120;
-  case LT(2, KC_I):
+  case LT(2, KC_H):
     return TAPPING_TERM - 120;
   case LT(1, KC_SPACE):
     return TAPPING_TERM - 120;
   case TD(DANCE_2):
     return TAPPING_TERM - 120;
   case MT(MOD_LCTL, KC_BSPC):
+    return TAPPING_TERM - 120;
+  case MT(MOD_LALT | MOD_LSFT, KC_0):
     return TAPPING_TERM - 120;
   default:
     return TAPPING_TERM;
@@ -444,12 +446,12 @@ void dance_2_reset(tap_dance_state_t *state, void *user_data);
 
 void on_dance_2(tap_dance_state_t *state, void *user_data) {
   if (state->count == 3) {
-    tap_code16(KC_PERC);
-    tap_code16(KC_PERC);
-    tap_code16(KC_PERC);
+    tap_code16(KC_RABK);
+    tap_code16(KC_RABK);
+    tap_code16(KC_RABK);
   }
   if (state->count > 3) {
-    tap_code16(KC_PERC);
+    tap_code16(KC_RABK);
   }
 }
 
@@ -457,18 +459,18 @@ void dance_2_finished(tap_dance_state_t *state, void *user_data) {
   dance_state[2].step = dance_step(state);
   switch (dance_state[2].step) {
   case SINGLE_TAP:
-    register_code16(KC_PERC);
+    register_code16(KC_RABK);
     break;
   case SINGLE_HOLD:
     layer_on(2);
     break;
   case DOUBLE_TAP:
-    register_code16(KC_PERC);
-    register_code16(KC_PERC);
+    register_code16(KC_RABK);
+    register_code16(KC_RABK);
     break;
   case DOUBLE_SINGLE_TAP:
-    tap_code16(KC_PERC);
-    register_code16(KC_PERC);
+    tap_code16(KC_RABK);
+    register_code16(KC_RABK);
   }
 }
 
@@ -476,16 +478,16 @@ void dance_2_reset(tap_dance_state_t *state, void *user_data) {
   wait_ms(10);
   switch (dance_state[2].step) {
   case SINGLE_TAP:
-    unregister_code16(KC_PERC);
+    unregister_code16(KC_RABK);
     break;
   case SINGLE_HOLD:
     layer_off(2);
     break;
   case DOUBLE_TAP:
-    unregister_code16(KC_PERC);
+    unregister_code16(KC_RABK);
     break;
   case DOUBLE_SINGLE_TAP:
-    unregister_code16(KC_PERC);
+    unregister_code16(KC_RABK);
     break;
   }
   dance_state[2].step = 0;
