@@ -65,9 +65,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [2] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     KC_PERC,        KC_EQUAL,       KC_9,           KC_8,           KC_7,           KC_COMMA,                                       KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    KC_DOT,         KC_MINUS,       KC_3,           KC_2,           KC_1,           KC_PLUS,                                        KC_NO,          KC_TRANSPARENT, KC_LEFT_GUI,    KC_LEFT_ALT,    KC_TRANSPARENT, KC_NO,          
+    KC_DOT,         KC_MINUS,       KC_3,           KC_2,           KC_1,           KC_PLUS,                                        KC_NO,          KC_TRANSPARENT, KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     KC_NO,          KC_SLASH,       KC_6,           KC_5,           KC_4,           KC_ASTR,                                        KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-                                                    MT(MOD_LCTL, KC_BSPC),KC_UNDS,                                        KC_NO,          MT(MOD_LALT | MOD_LSFT, KC_0)
+                                                    MT(MOD_LCTL, KC_BSPC),KC_0,                                           KC_UNDS,        LALT(KC_LEFT_SHIFT)
   ),
   [3] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
@@ -129,8 +129,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   case TD(DANCE_2):
     return TAPPING_TERM - 120;
   case MT(MOD_LCTL, KC_BSPC):
-    return TAPPING_TERM - 120;
-  case MT(MOD_LALT | MOD_LSFT, KC_0):
     return TAPPING_TERM - 120;
   default:
     return TAPPING_TERM;
