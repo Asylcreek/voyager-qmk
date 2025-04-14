@@ -57,9 +57,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [1] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    KC_PIPE,        KC_HASH,        KC_LPRN,        KC_RPRN,        KC_EQUAL,       KC_NO,                                          KC_NO,          KC_LABK,        KC_AMPR,        KC_TILD,        KC_NO,          KC_NO,          
-    KC_BSLS,        KC_EXLM,        KC_LCBR,        KC_RCBR,        KC_DQUO,        KC_UNDS,                                        KC_PLUS,        TD(DANCE_2),    KC_DLR,         KC_CIRC,        KC_PERC,        KC_NO,          
-    KC_NO,          KC_AT,          KC_LBRC,        KC_RBRC,        KC_COLN,        KC_GRAVE,                                       KC_ASTR,        KC_QUES,        KC_NO,          KC_NO,          KC_NO,          KC_NO,          
+    KC_PIPE,        KC_HASH,        KC_LPRN,        KC_RPRN,        KC_EQUAL,       KC_NO,                                          KC_NO,          KC_TILD,        KC_AMPR,        KC_PLUS,        KC_NO,          KC_NO,          
+    KC_BSLS,        KC_EXLM,        KC_LCBR,        KC_RCBR,        KC_DQUO,        KC_DLR,                                         KC_UNDS,        TD(DANCE_2),    KC_LABK,        KC_ASTR,        KC_CIRC,        KC_NO,          
+    KC_NO,          KC_AT,          KC_LBRC,        KC_RBRC,        KC_COLN,        KC_PERC,                                        KC_GRAVE,       KC_QUES,        KC_NO,          KC_NO,          KC_NO,          KC_NO,          
                                                     KC_BSPC,        KC_SPACE,                                       KC_NO,          KC_TRANSPARENT
   ),
   [2] = LAYOUT_voyager(
