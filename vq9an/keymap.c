@@ -50,8 +50,8 @@ enum tap_dance_codes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
     MAC_LOCK,       KC_BRIGHTNESS_DOWN,KC_BRIGHTNESS_UP,MAC_DND,        RGB_VAD,        RGB_VAI,                                        TD(DANCE_0),    KC_MEDIA_PLAY_PAUSE,TD(DANCE_1),    KC_AUDIO_MUTE,  KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,
-    KC_TAB,         KC_B,           KC_L,           KC_D,           KC_W,           KC_Z,                                           KC_QUOTE,       KC_F,           KC_O,           KC_U,           KC_J,           KC_SCLN,        
-    KC_DELETE,      KC_N,           MT(MOD_LALT, KC_R),MT(MOD_LGUI, KC_T),LT(3,KC_S),     ALL_T(KC_G),                                    ALL_T(KC_Y),    LT(2,KC_H),     MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_E),KC_I,           KC_NO,          
+    KC_TAB,         KC_B,           KC_L,           KC_D,           KC_W,           KC_Z,                                           KC_QUOTE,       KC_F,           KC_O,           KC_U,           KC_J,           KC_NO,          
+    KC_DELETE,      KC_N,           MT(MOD_LALT, KC_R),MT(MOD_LGUI, KC_T),LT(3,KC_S),     ALL_T(KC_G),                                    ALL_T(KC_Y),    LT(2,KC_H),     MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_E),KC_I,           LSFT(KC_ENTER), 
     KC_NO,          KC_Q,           KC_X,           KC_M,           MT(MOD_LCTL, KC_C),KC_V,                                           KC_K,           MT(MOD_LCTL, KC_P),KC_DOT,         KC_MINUS,       KC_COMMA,       MO(5),          
                                                     MT(MOD_LSFT, KC_BSPC),LT(6,KC_ENTER),                                 LT(4,KC_ESCAPE),LT(1,KC_SPACE)
   ),
@@ -105,18 +105,16 @@ const uint16_t PROGMEM combo1[] = {LT(2, KC_H), MT(MOD_LGUI, KC_A), COMBO_END};
 const uint16_t PROGMEM combo2[] = {MT(MOD_LCTL, KC_C), KC_M, COMBO_END};
 const uint16_t PROGMEM combo3[] = {KC_M, KC_X, COMBO_END};
 const uint16_t PROGMEM combo4[] = {MT(MOD_LCTL, KC_C), KC_M, KC_X, COMBO_END};
-const uint16_t PROGMEM combo5[] = {MT(MOD_LGUI, KC_A), MT(MOD_LALT, KC_E),
-                                   COMBO_END};
-const uint16_t PROGMEM combo6[] = {MT(MOD_LALT, KC_R), MT(MOD_LGUI, KC_T),
+const uint16_t PROGMEM combo5[] = {MT(MOD_LALT, KC_R), MT(MOD_LGUI, KC_T),
                                    LT(3, KC_S), COMBO_END};
-const uint16_t PROGMEM combo7[] = {LT(2, KC_H), MT(MOD_LGUI, KC_A),
+const uint16_t PROGMEM combo6[] = {LT(2, KC_H), MT(MOD_LGUI, KC_A),
                                    MT(MOD_LALT, KC_E), COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo0, KC_MEH),     COMBO(combo1, KC_MEH),
     COMBO(combo2, LGUI(KC_C)), COMBO(combo3, LGUI(KC_V)),
-    COMBO(combo4, LGUI(KC_A)), COMBO(combo5, KC_SLASH),
-    COMBO(combo6, KC_LBRC),    COMBO(combo7, KC_RBRC),
+    COMBO(combo4, LGUI(KC_A)), COMBO(combo5, KC_LBRC),
+    COMBO(combo6, KC_RBRC),
 };
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
