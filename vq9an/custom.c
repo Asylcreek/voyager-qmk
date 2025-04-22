@@ -12,9 +12,10 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
 
 // key overrides
 const custom_shift_key_t custom_shift_keys[] = {
-    {KC_QUOT, KC_UNDS}, // Shift ' is _
-    {KC_DOT, KC_BSPC},  // Shift . is backspace
-    {KC_MINS, KC_SCLN}, // Shift - is ;
+    {KC_QUOT, KC_UNDS},  // Shift ' is _
+    {KC_DOT, KC_BSPC},   // Shift . is backspace
+    {KC_MINS, KC_SLASH}, // Shift - is /
+    {KC_COMMA, KC_SCLN}, // Shift , is ;
 };
 
 uint8_t NUM_CUSTOM_SHIFT_KEYS =
