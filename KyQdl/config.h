@@ -10,8 +10,12 @@
 #define SERIAL_NUMBER "KyQdl/AzP0wE"
 #define LAYER_STATE_8BIT
 #define COMBO_COUNT 9
-#define HSS(report) host_system_send(record->event.pressed ? report : 0); return false
-#define HCS(report) host_consumer_send(record->event.pressed ? report : 0); return false
+#define HSS(report)                                                            \
+  host_system_send(record->event.pressed ? report : 0);                        \
+  return false
+#define HCS(report)                                                            \
+  host_consumer_send(record->event.pressed ? report : 0);                      \
+  return false
 
 #define TAPPING_TERM_PER_KEY
 #define RGB_MATRIX_STARTUP_SPD 60
@@ -47,3 +51,8 @@
 #undef ENABLE_RGB_MATRIX_MULTISPLASH
 #undef ENABLE_RGB_MATRIX_SOLID_SPLASH
 #undef ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
+
+// Don't apply custom shift keys when any non-shift mod is held.
+#define CUSTOM_SHIFT_KEYS_NEGMODS ~MOD_MASK_SHIFT
+#define COMBO_MUST_HOLD_MODS
+#define COMBO_HOLD_TERM 180
