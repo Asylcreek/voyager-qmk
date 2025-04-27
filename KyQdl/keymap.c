@@ -154,6 +154,18 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
   return true;
 }
 
+static uint16_t get_tap_keycode(uint16_t keycode) {
+  switch (keycode) {
+  case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+    return QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+#ifndef NO_ACTION_LAYER
+  case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+    return QK_LAYER_TAP_GET_TAP_KEYCODE(keycode);
+#endif // NO_ACTION_LAYER
+  }
+  return keycode;
+}
+
 uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   keycode = get_tap_keycode(keycode);
 
