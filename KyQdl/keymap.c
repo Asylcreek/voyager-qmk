@@ -5,7 +5,7 @@
 #define ML_SAFE_RANGE SAFE_RANGE
 
 #define MAGIC QK_AREP
-#define PRE_REPEAT LT(6, KC_F23)
+#define PRE_REPEAT MT(MOD_LSFT, KC_F23)
 #define PRE_MAGIC LT(4, KC_F24)
 
 enum custom_keycodes {
@@ -42,6 +42,8 @@ enum custom_keycodes {
   ST_MACRO_26,
   MAC_DND,
   MAC_LOCK,
+  // Macros invoked through the Magic key.
+  M_EQEQ,
 };
 
 enum tap_dance_codes {
@@ -152,6 +154,34 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
   return true;
 }
 
+uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
+  keycode = get_tap_keycode(keycode);
+
+  if ((mods & ~MOD_MASK_SHIFT) == 0) {
+    switch (keycode) {
+      // For navigating next/previous search results in Vim:
+      // N -> Shift + N, Shift + N -> N.
+    case KC_N:
+      if ((mods & MOD_MASK_SHIFT) == 0) {
+        return S(KC_N);
+      }
+      return KC_N;
+
+    case KC_EQL:
+      return M_EQEQ; // = -> ==
+
+    case KC_PLUS:
+    case KC_MINS:
+    case KC_COLN:
+    case KC_TILD:
+      return KC_EQL;
+      +, -, :, ~->sym =
+    }
+  }
+
+  return KC_TRNS;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (!process_custom_shift_keys(keycode, record)) {
     return false;
@@ -169,6 +199,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       alt_repeat_key_invoke(&record->event); // Invoke alt key
       return false; // Return false to ignore further processing of key
     }
+    break;
+    // Macros invoked through the MAGIC key
+  case M_EQEQ:
+    SEND_STRING_DELAY(/*=*/"==", TAP_CODE_DELAY);
     break;
   case ST_MACRO_0:
     if (record->event.pressed) {
