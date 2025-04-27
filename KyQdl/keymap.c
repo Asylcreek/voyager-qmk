@@ -170,7 +170,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case PRE_MAGIC:
     if (record->tap.count) {
       alt_repeat_key_invoke(&record->event); // Invoke alt key
-      return false // Return false to ignore further processing of key
+      return false; // Return false to ignore further processing of key
     }
     break;
   case ST_MACRO_0:
