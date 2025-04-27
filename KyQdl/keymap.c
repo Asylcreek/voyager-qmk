@@ -174,8 +174,7 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     case KC_MINS:
     case KC_COLN:
     case KC_TILD:
-      return KC_EQL;
-      +, -, :, ~->sym =
+      return KC_EQL; // +, -, :, ~->sym =
     }
   }
 
