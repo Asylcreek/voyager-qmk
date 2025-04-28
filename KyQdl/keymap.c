@@ -180,6 +180,12 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
       }
       return KC_N;
 
+    case KC_TAB:
+      if ((mods & MOD_MASK_SHIFT) == 0)){
+          return S(KC_TAB);
+        }
+      return KC_TAB;
+
     case KC_EXCLAIM:
     case KC_EQL:
       return M_EQEQ; // = -> ==, ! -> ==
