@@ -181,9 +181,18 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
       return KC_N;
 
     case KC_TAB:
-      if ((mods & MOD_MASK_SHIFT) == 0)){
-          return S(KC_TAB);
+      bool isCtrlHeld = mods & MOD_MASK_CTRL;
+
+      if ((mods & MOD_MASK_SHIFT) == 0) {
+        if (isCtrlHeld) {
+          return C(S(KC_TAB));
         }
+        return S(KC_TAB);
+      }
+
+      if (isCtrlHeld) {
+        return C(KC_TAB);
+      }
       return KC_TAB;
 
     case KC_EXCLAIM:
