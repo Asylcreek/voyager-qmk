@@ -136,8 +136,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     return TAPPING_TERM - 120;
   case LT(2, KC_H):
     return TAPPING_TERM - 120;
-        case MT(MOD_LCTL, KC_P):
-            return TAPPING_TERM -120;
+  case MT(MOD_LCTL, KC_P):
+    return TAPPING_TERM - 120;
   case LT(1, KC_SPACE):
     return TAPPING_TERM - 120;
   case TD(DANCE_2):
@@ -183,18 +183,14 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
       return KC_N;
 
     case KC_TAB:
-      bool isCtrlHeld = mods & MOD_MASK_CTRL;
-
       if ((mods & MOD_MASK_SHIFT) == 0) {
-        if (isCtrlHeld) {
-          return C(S(KC_TAB));
-        }
         return S(KC_TAB);
       }
 
-      if (isCtrlHeld) {
-        return C(KC_TAB);
+      if (mods & MOD_MASK_CTRL) {
+        return C(S(KC_TAB));
       }
+
       return KC_TAB;
 
     case KC_EXCLAIM:
