@@ -45,6 +45,7 @@ enum custom_keycodes {
   // Macros invoked through the Magic key.
   M_EQEQ,
   M_ARROW_FUNC,
+  M_CLOSE_BRACE
 };
 
 enum tap_dance_codes {
@@ -213,6 +214,9 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
 
     case KC_RIGHT_PAREN:
       return M_ARROW_FUNC;
+
+    case KC_LEFT_CURLY_BRACE:
+      return M_CLOSE_BRACE;
     }
   }
 
@@ -246,6 +250,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case M_ARROW_FUNC:
     if (record->event.pressed) {
       SEND_STRING_DELAY(/*)*/ " => {};" SS_TAP(X_ESC) SS_TAP(X_H) SS_TAP(X_I)
+                            SS_TAP(X_ENTER) SS_TAP(X_ESC) SS_LSFT(SS_TAP(X_O)),
+                        TAP_CODE_DELAY);
+    }
+    break;
+  case M_CLOSE_BRACE:
+    if (record->event.pressed) {
+      SEND_STRING_DELAY(/*)*/ "};" SS_TAP(X_ESC) SS_TAP(X_H) SS_TAP(X_I)
                             SS_TAP(X_ENTER) SS_TAP(X_ESC) SS_LSFT(SS_TAP(X_O)),
                         TAP_CODE_DELAY);
     }
