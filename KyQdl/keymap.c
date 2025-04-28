@@ -190,6 +190,9 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     case KC_TILDE:
     case KC_ASTERISK:
       return KC_EQL; //
+
+    case KC_RIGHT_PAREN:
+      return M_ARROW_FUNC;
     }
   }
 
