@@ -44,6 +44,7 @@ enum custom_keycodes {
   MAC_LOCK,
   // Macros invoked through the Magic key.
   M_EQEQ,
+  M_ARROW_FUNC,
 };
 
 enum tap_dance_codes {
@@ -179,14 +180,16 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
       }
       return KC_N;
 
+    case KC_EXCLAIM:
     case KC_EQL:
-      return M_EQEQ; // = -> ==
+      return M_EQEQ; // = -> ==, ! -> ==
 
     case KC_PLUS:
-    case KC_MINS:
-    case KC_COLN:
-    case KC_TILD:
-      return KC_EQL; // +, -, :, ~->sym =
+    case KC_MINUS:
+    case KC_COLON:
+    case KC_TILDE:
+    case KC_ASTERISK:
+      return KC_EQL; //
     }
   }
 
@@ -214,10 +217,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Macros invoked through the MAGIC key
   case M_EQEQ:
     if (record->event.pressed) {
-      // /*=*/"=="
-      SEND_STRING(SS_TAP(X_EQUAL) SS_DELAY(100) SS_TAP(X_EQUAL));
+      SEND_STRING_DELAY(/*=*/"==", TAP_CODE_DELAY)
     }
     break;
+  case M_ARROW_FUNC:
+    if (record->event.pressed) {
+      SEND_STRING_DELAY(/*)*/ " => {};" SS_TAP(X_ESC) SS_TAP(X_H) SS_TAP(X_I)
+                            SS_TAP(X_ENTER) SS_TAP(X_ESC) SS_LSFT(SS_TAP(X_O)),
+                        TAP_CODE_DELAY)
+    };
   case ST_MACRO_0:
     if (record->event.pressed) {
       SEND_STRING(SS_LALT(SS_LSFT(SS_TAP(X_SCLN))) SS_DELAY(100) SS_TAP(X_F));
