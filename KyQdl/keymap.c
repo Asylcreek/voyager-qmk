@@ -295,6 +295,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case KC_QUOTE:
     if (record->event.pressed) {
       if (is_caps_word_on()) {
+        if (mods & MOD_MASK_SHIFT) {
+          SEND_STRING_DELAY("'", TAP_CODE_DELAY);
+          return false;
+        };
         SEND_STRING_DELAY("_", TAP_CODE_DELAY);
         return false;
       };
