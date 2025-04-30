@@ -7,7 +7,8 @@
 #define QUICK_TAP_TERM 0
 
 #define USB_SUSPEND_WAKEUP_DELAY 0
-#define SERIAL_NUMBER "KyQdl/JavJzQ"
+#define CAPS_LOCK_STATUS
+#define SERIAL_NUMBER "KyQdl/eaW5zK"
 #define LAYER_STATE_8BIT
 #define COMBO_COUNT 11
 #define HSS(report)                                                            \
