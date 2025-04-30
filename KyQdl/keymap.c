@@ -172,14 +172,6 @@ bool caps_word_press_user(uint16_t keycode) {
   }
 }
 
-void caps_word_set_user(bool active) {
-  if (active) {
-    rgb_matrix_set_color_all(255, 255, 255);
-  } else {
-    rgb_matrix_set_color_all(0, 0, 0);
-  }
-}
-
 bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
                             uint8_t *remembered_mods) {
   if (keycode == PRE_REPEAT || keycode == PRE_MAGIC || keycode == KC_F23) {
