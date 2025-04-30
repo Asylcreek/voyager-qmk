@@ -174,17 +174,9 @@ bool caps_word_press_user(uint16_t keycode) {
 
 void caps_word_set_user(bool active) {
   if (active) {
-    ML_LED_1(true);
-    ML_LED_2(true);
-    ML_LED_3(true);
-    ML_LED_4(true);
-    ML_LED_5(true);
+    rgb_matrix_set_color_all(255, 255, 255);
   } else {
-    ML_LED_1(false);
-    ML_LED_2(false);
-    ML_LED_3(false);
-    ML_LED_4(false);
-    ML_LED_5(false);
+    rgb_matrix_set_color_all(0, 0, 0);
   }
 }
 
