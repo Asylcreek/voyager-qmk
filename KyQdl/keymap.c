@@ -120,6 +120,8 @@ const uint16_t PROGMEM combo7[] = {MT(MOD_LALT, KC_R), MT(MOD_LGUI, KC_T),
                                    COMBO_END};
 const uint16_t PROGMEM combo8[] = {KC_D, KC_L, COMBO_END};
 const uint16_t PROGMEM combo9[] = {KC_DOT, KC_COMMA, COMBO_END};
+const uint16_t PROGMEM combo10[] = {MT(MOD_LALT, KC_E), MT(MOD_LGUI, KC_A),
+                                    COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo0, KC_MEH),     COMBO(combo1, KC_MEH),
@@ -127,6 +129,7 @@ combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo4, KC_RBRC),    COMBO(combo5, LGUI(KC_V)),
     COMBO(combo6, LGUI(KC_A)), COMBO(combo7, KC_ENTER),
     COMBO(combo8, KC_LBRC),    COMBO(combo9, KC_MINUS),
+    COMBO(combo10, CW_TOGG),
 };
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
@@ -149,6 +152,25 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     return TAPPING_TERM - 120;
   default:
     return TAPPING_TERM;
+  }
+}
+
+bool caps_word_press_user(uint16_t keycode) {
+  switch (keycode) {
+  // Keycodes that continue Caps Word, with shift applied.
+  case KC_A ... KC_Z:
+  case KC_QUOTE:
+    add_weak_mods(MOD_BIT(KC_LSFT)); // Apply shift to next key.
+    return true;
+
+  // Keycodes that continue Caps Word, without shifting.
+  case KC_1 ... KC_0:
+  case KC_BSPC:
+  case KC_DEL:
+    return true;
+
+  default:
+    return false; // Deactivate Caps Word.
   }
 }
 
