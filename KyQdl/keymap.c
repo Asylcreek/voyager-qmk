@@ -302,8 +302,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING_DELAY("_", TAP_CODE_DELAY);
         return false;
       };
-      break;
     };
+    break;
   case ST_MACRO_0:
     if (record->event.pressed) {
       SEND_STRING(SS_LALT(SS_LSFT(SS_TAP(X_SCLN))) SS_DELAY(100) SS_TAP(X_F));
