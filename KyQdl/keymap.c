@@ -172,6 +172,14 @@ bool caps_word_press_user(uint16_t keycode) {
   }
 }
 
+void caps_word_set_user(bool active) {
+  tap_code(RGB_TOG);
+  if (active) {
+  } else {
+    // Do something when Caps Word deactivates.
+  }
+}
+
 bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
                             uint8_t *remembered_mods) {
   if (keycode == PRE_REPEAT || keycode == PRE_MAGIC || keycode == KC_F23) {
