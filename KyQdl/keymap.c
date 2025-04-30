@@ -173,10 +173,18 @@ bool caps_word_press_user(uint16_t keycode) {
 }
 
 void caps_word_set_user(bool active) {
-  tap_code(RGB_TOG);
   if (active) {
+    ML_LED_1(true);
+    ML_LED_2(true);
+    ML_LED_3(true);
+    ML_LED_4(true);
+    ML_LED_5(true);
   } else {
-    // Do something when Caps Word deactivates.
+    ML_LED_1(false);
+    ML_LED_2(false);
+    ML_LED_3(false);
+    ML_LED_4(false);
+    ML_LED_5(false);
   }
 }
 
