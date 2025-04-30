@@ -172,6 +172,20 @@ bool caps_word_press_user(uint16_t keycode) {
   }
 }
 
+void caps_word_set_user(bool active) {
+  if (active) {
+    STATUS_LED_1(true);
+    STATUS_LED_2(true);
+    STATUS_LED_3(true);
+    STATUS_LED_4(true);
+  } else {
+    STATUS_LED_1(false);
+    STATUS_LED_2(false);
+    STATUS_LED_3(false);
+    STATUS_LED_4(false);
+  }
+}
+
 bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
                             uint8_t *remembered_mods) {
   if (keycode == PRE_REPEAT || keycode == PRE_MAGIC || keycode == KC_F23) {
