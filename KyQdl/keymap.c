@@ -157,7 +157,6 @@ bool caps_word_press_user(uint16_t keycode) {
   switch (keycode) {
   // Keycodes that continue Caps Word, with shift applied.
   case KC_A ... KC_Z:
-  case KC_QUOTE:
     add_weak_mods(MOD_BIT(KC_LSFT)); // Apply shift to next key.
     return true;
 
@@ -165,6 +164,7 @@ bool caps_word_press_user(uint16_t keycode) {
   case KC_1 ... KC_0:
   case KC_BSPC:
   case KC_DEL:
+  case KC_QUOTE:
     return true;
 
   default:
@@ -174,7 +174,7 @@ bool caps_word_press_user(uint16_t keycode) {
 
 bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
                             uint8_t *remembered_mods) {
-  if (keycode == PRE_REPEAT || keycode == PRE_MAGIC) {
+  if (keycode == PRE_REPEAT || keycode == PRE_MAGIC || keycode == KC_F23) {
     return false;
   }
   return true;
@@ -292,6 +292,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         TAP_CODE_DELAY);
     }
     break;
+  case KC_QUOTE:
+    if (record->event.pressed) {
+      if (is_caps_word_on()) {
+        SEND_STRING_DELAY("_", TAP_CODE_DELAY);
+        return false;
+      };
+      break;
+    };
   case ST_MACRO_0:
     if (record->event.pressed) {
       SEND_STRING(SS_LALT(SS_LSFT(SS_TAP(X_SCLN))) SS_DELAY(100) SS_TAP(X_F));
