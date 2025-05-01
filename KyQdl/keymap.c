@@ -10,9 +10,9 @@
 
 enum custom_keycodes {
   RGB_SLD = ML_SAFE_RANGE,
-  HSV_0_255_255,
   HSV_74_255_255,
   HSV_169_255_255,
+  HSV_0_255_255,
   ST_MACRO_0,
   ST_MACRO_1,
   ST_MACRO_2,
@@ -56,10 +56,10 @@ enum tap_dance_codes {
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
-    MAC_LOCK,       KC_BRIGHTNESS_DOWN,KC_BRIGHTNESS_UP,MAC_DND,        RGB_VAD,        RGB_VAI,                                        TD(DANCE_0),    KC_MEDIA_PLAY_PAUSE,TD(DANCE_1),    KC_AUDIO_MUTE,  KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,
+    MAC_LOCK,       KC_NO,          LALT(LGUI(LCTL(LSFT(KC_M)))),MAC_DND,        LALT(LGUI(KC_E)),LGUI(LCTL(LSFT(KC_4))),                                TD(DANCE_0),    KC_MEDIA_PLAY_PAUSE,TD(DANCE_1),    KC_AUDIO_MUTE,  KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,
     KC_TAB,         KC_B,           KC_L,           KC_D,           KC_W,           KC_Z,                                           KC_QUOTE,       KC_F,           KC_O,           KC_U,           KC_J,           KC_SCLN,        
     KC_NO,          KC_N,           MT(MOD_LALT, KC_R),MT(MOD_LGUI, KC_T),MT(MOD_LSFT, KC_S),ALL_T(KC_G),                                    ALL_T(KC_Y),    MT(MOD_LSFT, KC_H),MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_E),KC_I,           LSFT(KC_ENTER), 
-    KC_NO,          KC_Q,           KC_X,           LT(3,KC_M),     MT(MOD_LCTL, KC_C),KC_V,                                           KC_K,           MT(MOD_LCTL, KC_P),KC_DOT,         KC_COMMA,       KC_SLASH,       MO(5),          
+    KC_NO,          KC_Q,           LT(7,KC_X),     LT(3,KC_M),     MT(MOD_LCTL, KC_C),KC_V,                                           KC_K,           MT(MOD_LCTL, KC_P),KC_DOT,         LT(7,KC_COMMA), KC_SLASH,       MO(5),          
                                                     LT(2,KC_F23),   LT(6,KC_BSPC),                                  LT(4,KC_F24),   LT(1,KC_SPACE)
   ),
   [1] = LAYOUT_voyager(
@@ -78,23 +78,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [3] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          ST_MACRO_0,     LGUI(KC_LEFT),  KC_UP,          LGUI(KC_RIGHT), KC_NO,          KC_NO,          
+    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          LGUI(KC_LEFT),  KC_UP,          LGUI(KC_RIGHT), KC_NO,          KC_NO,          
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          LALT(KC_LEFT),  KC_LEFT,        KC_DOWN,        KC_RIGHT,       LALT(KC_RIGHT), KC_NO,          
     KC_NO,          KC_NO,          KC_LEFT_ALT,    KC_TRANSPARENT, KC_LEFT_SHIFT,  KC_NO,                                          KC_NO,          KC_PAGE_UP,     KC_PGDN,        KC_NO,          KC_NO,          KC_NO,          
                                                     KC_LEFT_GUI,    KC_NO,                                          LALT(LSFT(KC_MINUS)),LALT(LSFT(KC_EQUAL))
   ),
   [4] = LAYOUT_voyager(
-    ST_MACRO_1,     ST_MACRO_2,     ST_MACRO_3,     ST_MACRO_4,     ST_MACRO_5,     ST_MACRO_6,                                     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    ST_MACRO_7,     ST_MACRO_8,     ST_MACRO_9,     ST_MACRO_10,    ST_MACRO_11,    ST_MACRO_12,                                    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    ST_MACRO_13,    ST_MACRO_14,    ST_MACRO_15,    ST_MACRO_16,    ST_MACRO_17,    ST_MACRO_18,                                    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    ST_MACRO_19,    ST_MACRO_20,    ST_MACRO_21,    ST_MACRO_22,    ST_MACRO_23,    ST_MACRO_24,                                    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-                                                    ST_MACRO_25,    ST_MACRO_26,                                    KC_TRANSPARENT, KC_NO
+    ST_MACRO_0,     ST_MACRO_1,     ST_MACRO_2,     ST_MACRO_3,     ST_MACRO_4,     ST_MACRO_5,                                     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
+    ST_MACRO_6,     ST_MACRO_7,     ST_MACRO_8,     ST_MACRO_9,     ST_MACRO_10,    ST_MACRO_11,                                    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
+    ST_MACRO_12,    ST_MACRO_13,    ST_MACRO_14,    ST_MACRO_15,    ST_MACRO_16,    ST_MACRO_17,                                    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
+    ST_MACRO_18,    ST_MACRO_19,    ST_MACRO_20,    ST_MACRO_21,    ST_MACRO_22,    ST_MACRO_23,                                    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
+                                                    ST_MACRO_24,    ST_MACRO_25,                                    KC_TRANSPARENT, KC_NO
   ),
   [5] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    KC_NO,          KC_NO,          RGB_SAD,        RGB_HUD,        KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    KC_NO,          KC_NO,          RGB_SAI,        RGB_HUI,        RGB_MODE_FORWARD,RGB_TOG,                                        KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    QK_BOOT,        KC_NO,          HSV_0_255_255,  HSV_74_255_255, HSV_169_255_255,KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_TRANSPARENT, 
+    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
+    KC_NO,          KC_NO,          KC_NO,          KC_BRIGHTNESS_UP,KC_BRIGHTNESS_DOWN,KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          HSV_74_255_255, KC_NO,          
+    KC_NO,          KC_NO,          KC_NO,          RGB_VAI,        RGB_VAD,        KC_NO,                                          QK_BOOT,        RGB_TOG,        RGB_MODE_FORWARD,HSV_169_255_255,HSV_0_255_255,  KC_TRANSPARENT, 
                                                     KC_NO,          KC_NO,                                          KC_NO,          KC_NO
   ),
   [6] = LAYOUT_voyager(
@@ -103,6 +103,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_MS_WH_LEFT,  KC_MS_LEFT,     KC_MS_DOWN,     KC_MS_RIGHT,    KC_MS_WH_RIGHT, KC_NO,          
     KC_NO,          KC_NO,          KC_NO,          KC_LEFT_GUI,    KC_NO,          KC_NO,                                          KC_NO,          KC_MS_WH_DOWN,  KC_MS_WH_UP,    KC_NO,          KC_NO,          KC_NO,          
                                                     KC_NO,          KC_TRANSPARENT,                                 LGUI(KC_MS_BTN1),LSFT(KC_MS_BTN1)
+  ),
+  [7] = LAYOUT_voyager(
+    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
+    KC_NO,          KC_NO,          LGUI(LSFT(KC_R)),LGUI(LSFT(KC_T)),LGUI(LSFT(KC_4)),KC_NO,                                          ST_MACRO_26,    LALT(LSFT(KC_7)),LALT(LSFT(KC_8)),LALT(LSFT(KC_9)),LALT(LSFT(KC_0)),KC_NO,          
+    KC_NO,          LGUI(KC_EQUAL), LGUI(KC_3),     LGUI(KC_2),     LGUI(KC_1),     LGUI(KC_GRAVE),                                 KC_NO,          LCTL(KC_1),     LCTL(KC_2),     LCTL(KC_3),     LALT(KC_0),     KC_NO,          
+    KC_NO,          LGUI(KC_MINUS), LGUI(KC_6),     LGUI(KC_5),     LGUI(KC_4),     KC_NO,                                          KC_NO,          LCTL(KC_4),     LCTL(KC_5),     LCTL(KC_6),     KC_NO,          KC_NO,          
+                                                    LGUI(KC_0),     LALT(LGUI(KC_BSPC)),                                LALT(LSFT(KC_L)),LALT(LSFT(KC_H))
   ),
 };
 // clang-format on
@@ -115,13 +122,13 @@ const uint16_t PROGMEM combo2[] = {MT(MOD_LCTL, KC_C), LT(3, KC_M), COMBO_END};
 const uint16_t PROGMEM combo3[] = {MT(MOD_LALT, KC_R), MT(MOD_LGUI, KC_T),
                                    MT(MOD_LSFT, KC_S), COMBO_END};
 const uint16_t PROGMEM combo4[] = {KC_O, KC_U, COMBO_END};
-const uint16_t PROGMEM combo5[] = {KC_X, LT(3, KC_M), COMBO_END};
-const uint16_t PROGMEM combo6[] = {KC_X, MT(MOD_LCTL, KC_C), LT(3, KC_M),
+const uint16_t PROGMEM combo5[] = {LT(3, KC_M), LT(7, KC_X), COMBO_END};
+const uint16_t PROGMEM combo6[] = {MT(MOD_LCTL, KC_C), LT(3, KC_M), LT(7, KC_X),
                                    COMBO_END};
 const uint16_t PROGMEM combo7[] = {MT(MOD_LALT, KC_R), MT(MOD_LGUI, KC_T),
                                    COMBO_END};
 const uint16_t PROGMEM combo8[] = {KC_D, KC_L, COMBO_END};
-const uint16_t PROGMEM combo9[] = {KC_DOT, KC_COMMA, COMBO_END};
+const uint16_t PROGMEM combo9[] = {KC_DOT, LT(7, KC_COMMA), COMBO_END};
 const uint16_t PROGMEM combo10[] = {MT(MOD_LALT, KC_E), MT(MOD_LGUI, KC_A),
                                     COMBO_END};
 
@@ -157,7 +164,6 @@ bool caps_word_press_user(uint16_t keycode) {
   switch (keycode) {
   // Keycodes that continue Caps Word, with shift applied.
   case KC_A ... KC_Z:
-  case KC_QUOTE:
     add_weak_mods(MOD_BIT(KC_LSFT)); // Apply shift to next key.
     return true;
 
@@ -165,6 +171,7 @@ bool caps_word_press_user(uint16_t keycode) {
   case KC_1 ... KC_0:
   case KC_BSPC:
   case KC_DEL:
+  case KC_QUOTE:
     return true;
 
   default:
@@ -260,6 +267,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   switch (keycode) {
   case KC_F23:
+    if (record->event.pressed) {
+      repeat_key_invoke(&record->event); // Repeat last key
+      return false; // Return false to ignore further processing of key
+    }
+    break;
   case PRE_REPEAT:
     if (record->tap.count) {
       repeat_key_invoke(&record->event); // Repeat last key
