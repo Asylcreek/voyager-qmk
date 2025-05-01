@@ -294,7 +294,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case KC_QUOTE:
     if (record->event.pressed) {
-      if (get_weak_mods() & MOD_MASK_SHIFT) {
+      if (is_caps_word_on()) {
         SEND_STRING_DELAY("_", TAP_CODE_DELAY);
         return false;
       };
