@@ -56,10 +56,10 @@ enum tap_dance_codes {
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
-    MAC_LOCK,       KC_NO,          LALT(LGUI(LCTL(LSFT(KC_M)))),MAC_DND,        LALT(LGUI(KC_E)),LGUI(LCTL(LSFT(KC_4))),                                TD(DANCE_0),    KC_MEDIA_PLAY_PAUSE,TD(DANCE_1),    KC_AUDIO_MUTE,  KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,
+    MAC_LOCK,       KC_NO,          LALT(LGUI(LCTL(LSFT(KC_M)))),MAC_DND,        LALT(LGUI(KC_J)),LGUI(LCTL(LSFT(KC_4))),                                TD(DANCE_0),    KC_MEDIA_PLAY_PAUSE,TD(DANCE_1),    KC_AUDIO_MUTE,  KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,
     KC_TAB,         KC_B,           KC_L,           KC_D,           KC_W,           KC_Z,                                           KC_QUOTE,       KC_F,           KC_O,           KC_U,           KC_J,           KC_SCLN,        
-    KC_NO,          LT(7,KC_N),     MT(MOD_LALT, KC_R),MT(MOD_LGUI, KC_T),MT(MOD_LSFT, KC_S),ALL_T(KC_G),                                    ALL_T(KC_Y),    MT(MOD_LSFT, KC_H),MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_E),LT(7,KC_I),     LSFT(KC_ENTER), 
-    KC_NO,          KC_Q,           KC_X,           LT(3,KC_M),     MT(MOD_LCTL, KC_C),KC_V,                                           KC_K,           MT(MOD_LCTL, KC_P),KC_DOT,         KC_COMMA,       KC_SLASH,       MO(5),          
+    KC_DELETE,      LT(7,KC_N),     MT(MOD_LALT, KC_R),MT(MOD_LGUI, KC_T),MT(MOD_LSFT, KC_S),ALL_T(KC_G),                                    ALL_T(KC_Y),    MT(MOD_LSFT, KC_H),MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_E),LT(7,KC_I),     LSFT(KC_ENTER), 
+    CW_TOGG,        KC_Q,           KC_X,           LT(3,KC_M),     MT(MOD_LCTL, KC_C),KC_V,                                           KC_K,           MT(MOD_LCTL, KC_P),KC_DOT,         KC_COMMA,       KC_SLASH,       MO(5),          
                                                     LT(2,KC_F23),   LT(6,KC_BSPC),                                  LT(4,KC_F24),   LT(1,KC_SPACE)
   ),
   [1] = LAYOUT_voyager(
@@ -128,7 +128,7 @@ const uint16_t PROGMEM combo6[] = {MT(MOD_LCTL, KC_C), LT(3, KC_M), KC_X,
 const uint16_t PROGMEM combo7[] = {MT(MOD_LALT, KC_R), MT(MOD_LGUI, KC_T),
                                    COMBO_END};
 const uint16_t PROGMEM combo8[] = {KC_D, KC_L, COMBO_END};
-const uint16_t PROGMEM combo9[] = {KC_DOT, KC_COMMA, COMBO_END};
+const uint16_t PROGMEM combo9[] = {KC_DOT, MT(MOD_LCTL, KC_P), COMBO_END};
 const uint16_t PROGMEM combo10[] = {MT(MOD_LALT, KC_E), MT(MOD_LGUI, KC_A),
                                     COMBO_END};
 
