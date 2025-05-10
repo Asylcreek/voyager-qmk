@@ -56,11 +56,11 @@ enum tap_dance_codes {
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
-    MAC_LOCK,       KC_NO,          LALT(LGUI(LCTL(LSFT(KC_M)))),MAC_DND,        LALT(LGUI(KC_J)),LGUI(LCTL(LSFT(KC_4))),                                TD(DANCE_0),    KC_MEDIA_PLAY_PAUSE,TD(DANCE_1),    KC_AUDIO_MUTE,  KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,
-    KC_TAB,         KC_B,           KC_L,           KC_D,           KC_W,           KC_Z,                                           KC_QUOTE,       KC_F,           KC_O,           KC_U,           KC_J,           KC_SCLN,        
-    KC_DELETE,      LT(7,KC_N),     MT(MOD_LALT, KC_R),MT(MOD_LGUI, KC_T),MT(MOD_LSFT, KC_S),ALL_T(KC_G),                                    ALL_T(KC_Y),    MT(MOD_LSFT, KC_H),MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_E),LT(7,KC_I),     LSFT(KC_ENTER), 
-    CW_TOGG,        KC_Q,           KC_X,           LT(3,KC_M),     MT(MOD_LCTL, KC_C),KC_V,                                           KC_K,           MT(MOD_LCTL, KC_P),KC_DOT,         KC_COMMA,       KC_SLASH,       MO(5),          
-                                                    LT(2,KC_F23),   LT(6,KC_BSPC),                                  LT(4,KC_F24),   LT(1,KC_SPACE)
+    MAC_LOCK,       LGUI(LCTL(LSFT(KC_4))),LGUI(KC_V),     LGUI(KC_A),     LGUI(KC_C),     CW_TOGG,                                        KC_NO,          KC_NO,          LALT(LGUI(KC_J)),KC_MEDIA_PLAY_PAUSE,KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,
+    KC_TAB,         KC_B,           KC_L,           KC_D,           KC_W,           KC_Z,                                           KC_QUOTE,       KC_F,           KC_O,           KC_U,           KC_J,           KC_MINUS,       
+    KC_BSPC,        LT(7,KC_N),     MT(MOD_LALT, KC_R),MT(MOD_LGUI, KC_T),MT(MOD_LSFT, KC_S),MEH_T(KC_G),                                    MEH_T(KC_Y),    MT(MOD_LSFT, KC_H),MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_E),LT(7,KC_I),     KC_DELETE,      
+    KC_SCLN,        KC_Q,           KC_X,           LT(3,KC_M),     MT(MOD_LCTL, KC_C),ALL_T(KC_V),                                    ALL_T(KC_K),    MT(MOD_LCTL, KC_P),KC_DOT,         KC_COMMA,       KC_SLASH,       LT(5,KC_ESCAPE),
+                                                    LT(2,KC_F23),   LT(6,KC_ENTER),                                 LT(4,KC_F24),   LT(1,KC_SPACE)
   ),
   [1] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
@@ -114,54 +114,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-const uint16_t PROGMEM combo0[] = {MT(MOD_LGUI, KC_T), MT(MOD_LSFT, KC_S),
-                                   COMBO_END};
-const uint16_t PROGMEM combo1[] = {MT(MOD_LSFT, KC_H), MT(MOD_LGUI, KC_A),
-                                   COMBO_END};
-const uint16_t PROGMEM combo2[] = {MT(MOD_LCTL, KC_C), LT(3, KC_M), COMBO_END};
-const uint16_t PROGMEM combo3[] = {MT(MOD_LALT, KC_R), MT(MOD_LGUI, KC_T),
-                                   MT(MOD_LSFT, KC_S), COMBO_END};
-const uint16_t PROGMEM combo4[] = {KC_O, KC_U, COMBO_END};
-const uint16_t PROGMEM combo5[] = {LT(3, KC_M), KC_X, COMBO_END};
-const uint16_t PROGMEM combo6[] = {MT(MOD_LCTL, KC_C), LT(3, KC_M), KC_X,
-                                   COMBO_END};
-const uint16_t PROGMEM combo7[] = {MT(MOD_LALT, KC_R), MT(MOD_LGUI, KC_T),
-                                   COMBO_END};
-const uint16_t PROGMEM combo8[] = {KC_D, KC_L, COMBO_END};
-const uint16_t PROGMEM combo9[] = {KC_DOT, MT(MOD_LCTL, KC_P), COMBO_END};
-const uint16_t PROGMEM combo10[] = {MT(MOD_LALT, KC_E), MT(MOD_LGUI, KC_A),
-                                    COMBO_END};
+const uint16_t PROGMEM combo0[] = { LT(2,KC_F23), LT(1,KC_SPACE), COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
-    COMBO(combo0, KC_MEH),     COMBO(combo1, KC_MEH),
-    COMBO(combo2, LGUI(KC_C)), COMBO(combo3, KC_ESCAPE),
-    COMBO(combo4, KC_RBRC),    COMBO(combo5, LGUI(KC_V)),
-    COMBO(combo6, LGUI(KC_A)), COMBO(combo7, KC_ENTER),
-    COMBO(combo8, KC_LBRC),    COMBO(combo9, KC_MINUS),
-    COMBO(combo10, CW_TOGG),
+    COMBO(combo0, CW_TOGG),
 };
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-  case MT(MOD_LSFT, KC_S):
-    return TAPPING_TERM - 120;
-  case MT(MOD_LCTL, KC_C):
-    return TAPPING_TERM - 120;
-  case LT(2, KC_F23):
-    return TAPPING_TERM - 120;
-  case TD(DANCE_0):
-    return TAPPING_TERM - 120;
-  case TD(DANCE_1):
-    return TAPPING_TERM - 120;
-  case MT(MOD_LSFT, KC_H):
-    return TAPPING_TERM - 120;
-  case MT(MOD_LCTL, KC_P):
-    return TAPPING_TERM - 120;
-  case LT(1, KC_SPACE):
-    return TAPPING_TERM - 120;
-  default:
-    return TAPPING_TERM;
-  }
+    switch (keycode) {
+        case LT(2,KC_F23):
+            return TAPPING_TERM -120;
+        case LT(1,KC_SPACE):
+            return TAPPING_TERM -120;
+        case TD(DANCE_0):
+            return TAPPING_TERM -120;
+        case TD(DANCE_1):
+            return TAPPING_TERM -120;
+        default:
+            return TAPPING_TERM;
+    }
 }
 
 bool caps_word_press_user(uint16_t keycode) {
@@ -191,18 +162,6 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
   return true;
 }
 
-/* uint16_t get_tap_keycode(uint16_t keycode) { */
-/*   switch (keycode) { */
-/*   case QK_MOD_TAP ... QK_MOD_TAP_MAX: */
-/*     return QK_MOD_TAP_GET_TAP_KEYCODE(keycode); */
-/* #ifndef NO_ACTION_LAYER */
-/*   case QK_LAYER_TAP ... QK_LAYER_TAP_MAX: */
-/*     return QK_LAYER_TAP_GET_TAP_KEYCODE(keycode); */
-/* #endif // NO_ACTION_LAYER */
-/*   } */
-/*   return keycode; */
-/* } */
-/**/
 uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   keycode = get_tap_keycode(keycode);
 
