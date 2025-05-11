@@ -7,6 +7,9 @@
 #define MAGIC QK_AREP
 #define PRE_REPEAT LT(2, KC_F23)
 #define PRE_MAGIC LT(4, KC_F24)
+#define PRE_SELLINE KC_F20
+#define PRE_SELWORD KC_F21
+#define PRE_SELWORDBAK KC_F22
 
 enum custom_keycodes {
   RGB_SLD = ML_SAFE_RANGE,
@@ -114,29 +117,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-const uint16_t PROGMEM combo0[] = { LT(2,KC_F23), LT(1,KC_SPACE), COMBO_END};
+const uint16_t PROGMEM combo0[] = {LT(2, KC_F23), LT(1, KC_SPACE), COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo0, CW_TOGG),
 };
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case MT(MOD_LSFT, KC_S):
-            return TAPPING_TERM -120;
-        case LT(2,KC_F23):
-            return TAPPING_TERM -120;
-        case MT(MOD_LSFT, KC_H):
-            return TAPPING_TERM -120;
-        case LT(1,KC_SPACE):
-            return TAPPING_TERM -120;
-        case TD(DANCE_0):
-            return TAPPING_TERM -120;
-        case TD(DANCE_1):
-            return TAPPING_TERM -120;
-        default:
-            return TAPPING_TERM;
-    }
+  switch (keycode) {
+  case MT(MOD_LSFT, KC_S):
+    return TAPPING_TERM - 120;
+  case LT(2, KC_F23):
+    return TAPPING_TERM - 120;
+  case MT(MOD_LSFT, KC_H):
+    return TAPPING_TERM - 120;
+  case LT(1, KC_SPACE):
+    return TAPPING_TERM - 120;
+  case TD(DANCE_0):
+    return TAPPING_TERM - 120;
+  case TD(DANCE_1):
+    return TAPPING_TERM - 120;
+  default:
+    return TAPPING_TERM;
+  }
 }
 
 bool caps_word_press_user(uint16_t keycode) {
@@ -224,11 +227,22 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     }
   }
 
+  switch (keycode) {
+  case PRE_SELWORDBAK:
+    return PRE_SELWORD;
+  case PRE_SELWORD:
+    return PRE_SELWORDBAK;
+  }
+
   return KC_TRNS;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (!process_custom_shift_keys(keycode, record)) {
+    return false;
+  }
+
+  if (!process_select_word(keycode, record)) {
     return false;
   }
 
@@ -278,6 +292,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
       };
     };
+    break;
+  case PRE_SELWORDBAK: // Backward word selection.
+    if (record->event.pressed) {
+      select_word_register('B');
+    } else {
+      select_word_unregister();
+    }
+    break;
+  case PRE_SELWORD: // Forward word selection.
+    if (record->event.pressed) {
+      select_word_register('W');
+    } else {
+      select_word_unregister();
+    }
+    break;
+  case PRE_SELLINE: // Line selection.
+    if (record->event.pressed) {
+      select_word_register('L');
+    } else {
+      select_word_unregister();
+    }
     break;
   case ST_MACRO_0:
     if (record->event.pressed) {

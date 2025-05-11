@@ -1,4 +1,5 @@
 SRC += features/custom_shift_keys.c
+SRC += features/select_word.c
 
 KEY_OVERRIDE_ENABLE = yes
 REPEAT_KEY_ENABLE = yes
