@@ -246,6 +246,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
   }
 
+  const uint8_t mods = get_mods();
+  const uint8_t all_mods = (mods | get_weak_mods());
+
   switch (keycode) {
   case KC_F23:
     if (record->event.pressed) {
@@ -285,14 +288,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         TAP_CODE_DELAY);
     }
     break;
-  case KC_QUOTE:
+  case KC_QUOTE: {
+    static uint16_t registered_keycode = KC_NO;
+
     if (record->event.pressed) {
-      if (is_caps_word_on()) {
-        SEND_STRING_DELAY("_", TAP_CODE_DELAY);
-        return false;
-      };
-    };
-    break;
+      process_caps_word(keycode, record);
+      const bool shifted = (mods | get_weak_mods()) & MOD_MASK_SHIFT;
+      clear_weak_mods();
+      clear_mods();
+
+      if (registered_keycode) { // Invoked through Repeat key.
+        unregister_code16(registered_keycode);
+      } else {
+        registered_keycode = shifted ? KC_UNDS : KC_QUOTE;
+      }
+
+      register_code16(registered_keycode);
+      set_mods(mods);
+    } else if (registered_keycode) {
+      unregister_code16(registered_keycode);
+      registered_keycode = KC_NO;
+    }
+  } break;
   case PRE_SELWORDBAK: // Backward word selection.
     if (record->event.pressed) {
       select_word_register('B');
