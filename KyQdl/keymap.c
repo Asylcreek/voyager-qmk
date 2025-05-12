@@ -308,7 +308,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       unregister_code16(registered_keycode);
       registered_keycode = KC_NO;
     }
-  } break;
+  }
+    return false;
   case PRE_SELWORDBAK: // Backward word selection.
     if (record->event.pressed) {
       select_word_register('B');
