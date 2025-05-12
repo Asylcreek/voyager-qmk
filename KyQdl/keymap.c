@@ -247,7 +247,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   const uint8_t mods = get_mods();
-  const uint8_t all_mods = (mods | get_weak_mods());
 
   switch (keycode) {
   case KC_F23:
