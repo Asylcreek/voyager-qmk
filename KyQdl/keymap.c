@@ -299,8 +299,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (registered_keycode) { // Invoked through Repeat key.
         unregister_code16(registered_keycode);
       } else {
-        registered_keycode =
-            shifted ? is_caps_word_on() ? KC_QUOTE : KC_UNDS : KC_QUOTE;
+        registered_keycode = shifted ? KC_UNDS : KC_QUOTE;
       }
 
       register_code16(registered_keycode);
