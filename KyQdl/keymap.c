@@ -10,6 +10,9 @@
 #define PRE_SELLINE KC_F20
 #define PRE_SELWORD KC_F21
 #define PRE_SELWORDBAK KC_F22
+#define HRM_S MT(MOD_LSFT, KC_S)
+#define HRM_H MT(MOD_LSFT, KC_H)
+#define HRM_SPC LT(1, KC_SPACE)
 
 enum custom_keycodes {
   RGB_SLD = ML_SAFE_RANGE,
@@ -126,20 +129,47 @@ combo_t key_combos[COMBO_COUNT] = {
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case MT(MOD_LSFT, KC_S):
-            return TAPPING_TERM -45;
+    return TAPPING_TERM - 45;
   case LT(2, KC_F23):
-            return TAPPING_TERM -45;
+    return TAPPING_TERM - 45;
   case MT(MOD_LSFT, KC_H):
-            return TAPPING_TERM -45;
+    return TAPPING_TERM - 45;
   case LT(1, KC_SPACE):
-            return TAPPING_TERM -45;
+    return TAPPING_TERM - 45;
   case TD(DANCE_0):
-            return TAPPING_TERM -45;
+    return TAPPING_TERM - 45;
   case TD(DANCE_1):
-            return TAPPING_TERM -45;
+    return TAPPING_TERM - 45;
   default:
     return TAPPING_TERM;
   }
+}
+
+bool is_tap_flow_key(uint16_t keycode) {
+  switch (keycode) {
+  case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+    keycode = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+    break;
+  case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+    keycode = QK_LAYER_TAP_GET_TAP_KEYCODE(keycode);
+    break;
+  }
+  switch (keycode) {
+  case KC_SPC:
+  case KC_A ... KC_Z:
+  case KC_DOT:
+  case KC_COMM:
+  case KC_SCLN:
+  case KC_SLSH:
+    return true;
+
+  case HRM_S:
+  case HRM_H:
+  case HRM_SPC:
+  case PRE_REPEAT:
+    return false;
+  }
+  return false;
 }
 
 bool caps_word_press_user(uint16_t keycode) {
