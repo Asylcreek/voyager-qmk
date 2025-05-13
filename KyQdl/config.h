@@ -1,4 +1,3 @@
-#define FLOW_TAP_TERM 80
 #define CHORDAL_HOLD
 #undef TAPPING_TERM
 #define TAPPING_TERM 225
@@ -8,7 +7,7 @@
 #define QUICK_TAP_TERM 0
 
 #define USB_SUSPEND_WAKEUP_DELAY 0
-#define SERIAL_NUMBER "KyQdl/RjQVYb"
+#define SERIAL_NUMBER "KyQdl/AzPV6E"
 #define LAYER_STATE_16BIT
 #define COMBO_COUNT 1
 #define HSS(report)                                                            \
