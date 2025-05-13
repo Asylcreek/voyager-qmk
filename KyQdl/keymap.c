@@ -147,20 +147,21 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 
 uint16_t get_tap_flow_term(uint16_t keycode, keyrecord_t *record,
                            uint16_t prev_keycode) {
-  if (prev_keycode == KC_BSPC) {
-    return 0; // Disable filter when immediately following backspace.
+
+  if (get_tap_keycode(prev_keycode) <= KC_Z) {
+    switch (keycode) {
+    case HRM_S:
+    case HRM_H:
+    case HRM_SPC:
+    case PRE_REPEAT:
+      return 0; // Disable filter for these keys.
+
+    default:
+      return FLOW_TAP_TERM; // Longer timeout otherwise.
+    }
   }
 
-  switch (keycode) {
-  case HRM_S:
-  case HRM_H:
-  case HRM_SPC:
-  case PRE_REPEAT:
-    return 0; // Disable filter for these keys.
-
-  default:
-    return g_tap_flow_term; // Longer timeout otherwise.
-  }
+  return 0;
 }
 
 bool caps_word_press_user(uint16_t keycode) {
