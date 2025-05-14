@@ -6,13 +6,10 @@
 
 #define MAGIC QK_AREP
 #define PRE_REPEAT LT(2, KC_F23)
-#define PRE_MAGIC LT(4, KC_F24)
+#define PRE_MAGIC LT(6, KC_F24)
 #define PRE_SELLINE KC_F20
 #define PRE_SELWORD KC_F21
 #define PRE_SELWORDBAK KC_F22
-#define HRM_S MT(MOD_LSFT, KC_S)
-#define HRM_H MT(MOD_LSFT, KC_H)
-#define HRM_SPC LT(1, KC_SPACE)
 
 enum custom_keycodes {
   RGB_SLD = ML_SAFE_RANGE,
@@ -62,11 +59,11 @@ enum tap_dance_codes {
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
-    MAC_LOCK,       KC_NO,          LGUI(KC_V),     LGUI(KC_A),     LGUI(KC_C),     LGUI(LCTL(LSFT(KC_4))),                                CW_TOGG,        LALT(LGUI(KC_J)),KC_ENTER,       KC_MINUS,       KC_NO,          KC_MEDIA_PLAY_PAUSE,
-    KC_TAB,         KC_B,           KC_L,           KC_D,           KC_W,           KC_Z,                                           KC_QUOTE,       KC_F,           KC_O,           KC_U,           KC_J,           KC_SCLN,        
-    KC_ESCAPE,      LT(7,KC_N),     MT(MOD_LALT, KC_R),MT(MOD_LGUI, KC_T),MT(MOD_LSFT, KC_S),MEH_T(KC_G),                                    MEH_T(KC_Y),    MT(MOD_LSFT, KC_H),MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_E),LT(7,KC_I),     KC_DELETE,      
-    KC_AUDIO_VOL_DOWN,KC_Q,           KC_X,           LT(3,KC_M),     MT(MOD_LCTL, KC_C),ALL_T(KC_V),                                    ALL_T(KC_K),    MT(MOD_LCTL, KC_P),KC_DOT,         KC_COMMA,       KC_SLASH,       LT(5,KC_AUDIO_VOL_UP),
-                                                    LT(2,KC_F23),   LT(6,KC_BSPC),                                  LT(4,KC_F24),   LT(1,KC_SPACE)
+    MAC_LOCK,       KC_NO,          LGUI(KC_V),     LGUI(KC_A),     LGUI(KC_C),     LGUI(LCTL(LSFT(KC_4))),                                CW_TOGG,        LALT(LGUI(KC_J)),KC_ENTER,       KC_SCLN,        KC_NO,          KC_MEDIA_PLAY_PAUSE,
+    KC_TAB,         KC_B,           KC_L,           KC_D,           KC_W,           KC_Z,                                           KC_QUOTE,       KC_F,           KC_O,           KC_U,           KC_J,           KC_MINUS,       
+    LT(6,KC_F24),   LT(7,KC_N),     MT(MOD_LALT, KC_R),MT(MOD_LGUI, KC_T),MT(MOD_LSFT, KC_S),MEH_T(KC_G),                                    MEH_T(KC_Y),    MT(MOD_LSFT, KC_H),MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_E),LT(7,KC_I),     KC_DELETE,      
+    KC_AUDIO_VOL_DOWN,KC_Q,           KC_X,           KC_M,           MT(MOD_LCTL, KC_C),ALL_T(KC_V),                                    ALL_T(KC_K),    MT(MOD_LCTL, KC_P),KC_DOT,         KC_COMMA,       KC_SLASH,       LT(5,KC_AUDIO_VOL_UP),
+                                                    LT(2,KC_F23),   LT(3,KC_BSPC),                                  LT(4,KC_ESCAPE),LT(1,KC_SPACE)
   ),
   [1] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
@@ -121,9 +118,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 const uint16_t PROGMEM combo0[] = {LT(2, KC_F23), LT(1, KC_SPACE), COMBO_END};
+const uint16_t PROGMEM combo1[] = {KC_X, KC_M, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo0, CW_TOGG),
+    COMBO(combo1, KC_ENTER),
 };
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
