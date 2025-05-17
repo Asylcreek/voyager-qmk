@@ -48,10 +48,10 @@ enum tap_dance_codes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
-    MAC_LOCK,       KC_NO,          LGUI(KC_V),     LGUI(KC_A),     LGUI(KC_C),     LGUI(LCTL(LSFT(KC_4))),                                KC_TRANSPARENT, LALT(LGUI(KC_J)),KC_SCLN,        LALT(KC_BSPC),  KC_NO,          KC_MEDIA_PLAY_PAUSE,
-    KC_TAB,         KC_B,           KC_L,           KC_D,           KC_W,           KC_Z,                                           KC_QUOTE,       KC_F,           KC_O,           KC_U,           KC_J,           KC_MINUS,       
-    CW_TOGG,        MT(MOD_LALT, KC_N),MT(MOD_LGUI, KC_R),MT(MOD_LCTL, KC_T),MT(MOD_LSFT, KC_S),MEH_T(KC_G),                                    MEH_T(KC_Y),    MT(MOD_LSFT, KC_H),MT(MOD_LCTL, KC_A),MT(MOD_LGUI, KC_E),MT(MOD_LALT, KC_I),KC_DELETE,      
-    LT(6,KC_AUDIO_VOL_DOWN),KC_Q,           KC_X,           KC_M,           KC_C,           ALL_T(KC_V),                                    ALL_T(KC_K),    KC_P,           KC_DOT,         KC_COMMA,       KC_SLASH,       LT(5,KC_AUDIO_VOL_UP),
+    MAC_LOCK,       LALT(LGUI(KC_J)),LGUI(KC_V),     LGUI(KC_A),     LGUI(KC_C),     LGUI(LCTL(LSFT(KC_4))),                                KC_NO,          KC_NO,          KC_SCLN,        LALT(KC_BSPC),  KC_NO,          KC_MEDIA_PLAY_PAUSE,
+    KC_TAB,         KC_B,           KC_L,           MEH_T(KC_D),    KC_W,           KC_Z,                                           KC_QUOTE,       KC_F,           MEH_T(KC_O),    KC_U,           KC_J,           KC_MINUS,       
+    CW_TOGG,        MT(MOD_LALT, KC_N),MT(MOD_LGUI, KC_R),MT(MOD_LCTL, KC_T),MT(MOD_LSFT, KC_S),ALL_T(KC_G),                                    ALL_T(KC_Y),    MT(MOD_LSFT, KC_H),MT(MOD_LCTL, KC_A),MT(MOD_LGUI, KC_E),MT(MOD_LALT, KC_I),KC_DELETE,      
+    LT(6,KC_AUDIO_VOL_DOWN),KC_Q,           KC_X,           KC_M,           KC_C,           KC_V,                                           KC_K,           KC_P,           KC_DOT,         KC_COMMA,       KC_SLASH,       LT(5,KC_AUDIO_VOL_UP),
                                                     LT(2,KC_F23),   LT(3,KC_BSPC),                                  LT(4,KC_F24),   LT(1,KC_SPACE)
   ),
   [1] = LAYOUT_voyager(
