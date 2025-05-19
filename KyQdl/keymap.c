@@ -260,13 +260,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     break;
   case PRE_REPEAT:
-    if (record->tap.count) {
+    if (record->tap.count && record->event.pressed) {
       repeat_key_invoke(&record->event); // Repeat last key
       return false; // Return false to ignore further processing of key
     }
     break;
   case PRE_MAGIC:
-    if (record->tap.count) {
+    if (record->tap.count && record->event.pressed) {
       alt_repeat_key_invoke(&record->event); // Invoke alt key
       return false; // Return false to ignore further processing of key
     }
