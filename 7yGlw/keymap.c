@@ -51,8 +51,8 @@ enum custom_keycodes {
   M_CLOSE_BRACE
 };
 
-#define DUAL_FUNC_0 LT(30, KC_F16)
-#define DUAL_FUNC_1 LT(24, KC_F10)
+#define DUAL_FUNC_0 LT(28, KC_J)
+#define DUAL_FUNC_1 LT(21, KC_Q)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -115,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-const uint16_t PROGMEM combo0[] = {LT(3, KC_ENTER), LT(4, KC_F24), COMBO_END};
+const uint16_t PROGMEM combo0[] = {LT(1, KC_SPACE), LT(2, KC_F23), COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo0, OSL(7)),
