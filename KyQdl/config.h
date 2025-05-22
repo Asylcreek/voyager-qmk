@@ -7,7 +7,7 @@
 #define QUICK_TAP_TERM 0
 
 #define USB_SUSPEND_WAKEUP_DELAY 0
-#define SERIAL_NUMBER "KyQdl/yoEgNP"
+#define SERIAL_NUMBER "KyQdl/rbOgWJ"
 #define LAYER_STATE_16BIT
 #define COMBO_COUNT 4
 #define HSS(report)                                                            \
