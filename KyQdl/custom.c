@@ -1,5 +1,4 @@
 #include "features/custom_shift_keys.h"
-#include "features/select_word.h"
 
 // clang-format off
 // Handedness for Chordal Hold.
@@ -13,7 +12,8 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
 
 // key overrides
 const custom_shift_key_t custom_shift_keys[] = {
-    {KC_QUOT, KC_UNDS}, // Shift ' is _
+    {KC_QUOT, KC_UNDS},               // Shift ' is _
+    {LT(3, KC_BACKSPACE), KC_DELETE}, // Shift backspace is del
 };
 
 uint8_t NUM_CUSTOM_SHIFT_KEYS =
