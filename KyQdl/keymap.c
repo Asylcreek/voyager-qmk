@@ -186,8 +186,6 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
       return C(KC_L);
     case KC_R:
       return KC_DOUBLE_QUOTE;
-    case KC_R:
-      return KC_U;
     }
   }
 
