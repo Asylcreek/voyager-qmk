@@ -231,6 +231,7 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
 
   case KC_ESCAPE:
   case KC_SEMICOLON:
+  case KC_COMMA:
     return KC_ENTER;
 
   case KC_RIGHT_PAREN:
