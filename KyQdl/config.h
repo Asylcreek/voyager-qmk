@@ -7,9 +7,9 @@
 #define QUICK_TAP_TERM 0
 
 #define USB_SUSPEND_WAKEUP_DELAY 0
-#define SERIAL_NUMBER "KyQdl/v6KnGo"
-#define LAYER_STATE_16BIT
-#define COMBO_COUNT 5
+#define SERIAL_NUMBER "KyQdl/GGlrgM"
+#define LAYER_STATE_8BIT
+#define COMBO_COUNT 1
 #define HSS(report) host_system_send(record->event.pressed ? report : 0); return false
 #define HCS(report) host_consumer_send(record->event.pressed ? report : 0); return false
 
