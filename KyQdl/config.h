@@ -1,15 +1,14 @@
-#define CHORDAL_HOLD
 #undef TAPPING_TERM
-#define TAPPING_TERM 225
+#define TAPPING_TERM 180
 
 #define PERMISSIVE_HOLD
 
 #define QUICK_TAP_TERM 0
 
 #define USB_SUSPEND_WAKEUP_DELAY 0
-#define SERIAL_NUMBER "KyQdl/GGlrgM"
+#define SERIAL_NUMBER "KyQdl/YnWALb"
 #define LAYER_STATE_8BIT
-#define COMBO_COUNT 1
+#define COMBO_COUNT 2
 #define HSS(report)                                                            \
   host_system_send(record->event.pressed ? report : 0);                        \
   return false
@@ -17,7 +16,6 @@
   host_consumer_send(record->event.pressed ? report : 0);                      \
   return false
 
-#define TAPPING_TERM_PER_KEY
 #define RGB_MATRIX_STARTUP_SPD 60
 
 #undef ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
