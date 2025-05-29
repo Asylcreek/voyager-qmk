@@ -199,12 +199,6 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   }
 
   switch (keycode) {
-  case PRE_SELWORDBAK:
-    return PRE_SELWORD;
-
-  case PRE_SELWORD:
-    return PRE_SELWORDBAK;
-
   case KC_ENTER:
     return KC_ESCAPE;
 
@@ -232,19 +226,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
   }
 
-  if (!process_select_word(keycode, record)) {
-    return false;
-  }
-
   const uint8_t mods = get_mods();
 
   switch (keycode) {
-  case KC_F23:
-    if (record->event.pressed) {
-      repeat_key_invoke(&record->event); // Repeat last key
-      return false; // Return false to ignore further processing of key
-    }
-    break;
   case PRE_REPEAT:
     if (record->tap.count) {
       repeat_key_invoke(&record->event); // Repeat last key
