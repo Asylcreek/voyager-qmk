@@ -72,11 +72,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     KC_NO,          KC_TRANSPARENT,                                 LALT(LCTL(LSFT(KC_SPACE))),LGUI(KC_SPACE)
   ),
   [3] = LAYOUT_voyager(
-    ST_MACRO_0,     ST_MACRO_1,     ST_MACRO_2,     ST_MACRO_3,     ST_MACRO_4,     ST_MACRO_5,                                     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    ST_MACRO_6,     ST_MACRO_7,     ST_MACRO_8,     ST_MACRO_9,     ST_MACRO_10,    ST_MACRO_11,                                    KC_NO,          LCTL(KC_V),     LCTL(KC_J),     LCTL(KC_O),     KC_NO,          KC_NO,          
-    ST_MACRO_12,    ST_MACRO_13,    ST_MACRO_14,    ST_MACRO_15,    ST_MACRO_16,    ST_MACRO_17,                                    LCTL(KC_Q),     LCTL(KC_H),     LCTL(KC_K),     LCTL(KC_L),     LCTL(KC_R),     KC_NO,          
-    ST_MACRO_18,    ST_MACRO_19,    ST_MACRO_20,    ST_MACRO_21,    ST_MACRO_22,    ST_MACRO_23,                                    LCTL(KC_C),     LCTL(KC_W),     LCTL(KC_D),     LCTL(KC_U),     LCTL(KC_P),     KC_NO,          
-                                                    ST_MACRO_24,    ST_MACRO_25,                                    KC_TRANSPARENT, KC_NO
+    ST_MACRO_0,     KC_NO,          ST_MACRO_1,     ST_MACRO_2,     ST_MACRO_3,     ST_MACRO_4,                                     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
+    ST_MACRO_5,     ST_MACRO_6,     LCTL(KC_O),     LCTL(KC_K),     LCTL(KC_V),     KC_NO,                                          ST_MACRO_11,    ST_MACRO_12,    ST_MACRO_13,    ST_MACRO_14,    ST_MACRO_15,    KC_NO,          
+    ST_MACRO_7,     ST_MACRO_8,     LCTL(KC_H),     LCTL(KC_J),     LCTL(KC_L),     LCTL(KC_Q),                                     ST_MACRO_16,    ST_MACRO_17,    ST_MACRO_18,    ST_MACRO_19,    ST_MACRO_20,    KC_NO,          
+    ST_MACRO_9,     ST_MACRO_10,    LCTL(KC_P),     LCTL(KC_R),     LCTL(KC_W),     LCTL(KC_C),                                     ST_MACRO_21,    ST_MACRO_22,    ST_MACRO_23,    ST_MACRO_24,    ST_MACRO_25,    KC_NO,          
+                                                    LCTL(KC_D),     LCTL(KC_U),                                     KC_TRANSPARENT, KC_NO
   ),
   [4] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
@@ -281,131 +281,131 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case ST_MACRO_1:
     if (record->event.pressed) {
-      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_0));
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_9));
     }
     break;
   case ST_MACRO_2:
     if (record->event.pressed) {
-      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_9));
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_8));
     }
     break;
   case ST_MACRO_3:
     if (record->event.pressed) {
-      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_8));
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_7));
     }
     break;
   case ST_MACRO_4:
     if (record->event.pressed) {
-      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_7));
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_6));
     }
     break;
   case ST_MACRO_5:
     if (record->event.pressed) {
-      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_6));
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_LSFT(SS_TAP(X_L)));
     }
     break;
   case ST_MACRO_6:
     if (record->event.pressed) {
-      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_LSFT(SS_TAP(X_L)));
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_0));
     }
     break;
   case ST_MACRO_7:
     if (record->event.pressed) {
-      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_1));
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_L));
     }
     break;
   case ST_MACRO_8:
     if (record->event.pressed) {
-      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_2));
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_QUOTE));
     }
     break;
   case ST_MACRO_9:
     if (record->event.pressed) {
-      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_3));
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_C));
     }
     break;
   case ST_MACRO_10:
     if (record->event.pressed) {
-      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_4));
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_COMMA));
     }
     break;
   case ST_MACRO_11:
     if (record->event.pressed) {
-      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_5));
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_1));
     }
     break;
   case ST_MACRO_12:
     if (record->event.pressed) {
-      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_L));
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_2));
     }
     break;
   case ST_MACRO_13:
     if (record->event.pressed) {
-      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_QUOTE));
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_3));
     }
     break;
   case ST_MACRO_14:
     if (record->event.pressed) {
-      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_O));
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_4));
     }
     break;
   case ST_MACRO_15:
     if (record->event.pressed) {
-      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_LSFT(SS_TAP(X_5)));
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_5));
     }
     break;
   case ST_MACRO_16:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_S));
+    }
+    break;
+  case ST_MACRO_17:
     if (record->event.pressed) {
       SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100)
                       SS_LSFT(SS_TAP(X_QUOTE)));
     }
     break;
-  case ST_MACRO_17:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_S));
-    }
-    break;
   case ST_MACRO_18:
     if (record->event.pressed) {
-      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_C));
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_LSFT(SS_TAP(X_5)));
     }
     break;
   case ST_MACRO_19:
     if (record->event.pressed) {
-      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_COMMA));
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_O));
     }
     break;
   case ST_MACRO_20:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_D));
-    }
-    break;
-  case ST_MACRO_21:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100)
-                      SS_LALT(SS_TAP(X_RIGHT)));
-    }
-    break;
-  case ST_MACRO_22:
     if (record->event.pressed) {
       SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100)
                       SS_LALT(SS_TAP(X_LEFT)));
     }
     break;
-  case ST_MACRO_23:
+  case ST_MACRO_21:
     if (record->event.pressed) {
       SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_LBRC));
     }
     break;
-  case ST_MACRO_24:
+  case ST_MACRO_22:
     if (record->event.pressed) {
       SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100)
                       SS_LALT(SS_TAP(X_DOWN)));
     }
     break;
-  case ST_MACRO_25:
+  case ST_MACRO_23:
     if (record->event.pressed) {
       SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_LALT(SS_TAP(X_UP)));
+    }
+    break;
+  case ST_MACRO_24:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_D));
+    }
+    break;
+  case ST_MACRO_25:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100)
+                      SS_LALT(SS_TAP(X_RIGHT)));
     }
     break;
   case ST_MACRO_26:
