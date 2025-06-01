@@ -6,9 +6,9 @@
 #define QUICK_TAP_TERM 0
 
 #define USB_SUSPEND_WAKEUP_DELAY 0
-#define SERIAL_NUMBER "KyQdl/bvngdQ"
+#define SERIAL_NUMBER "KyQdl/Yn5WEa"
 #define LAYER_STATE_8BIT
-#define COMBO_COUNT 2
+#define COMBO_COUNT 4
 #define HSS(report)                                                            \
   host_system_send(record->event.pressed ? report : 0);                        \
   return false
@@ -53,7 +53,5 @@
 // Don't apply custom shift keys when any non-shift mod is held.
 #define CUSTOM_SHIFT_KEYS_NEGMODS ~MOD_MASK_SHIFT
 
-#define CAPS_WORD_IDLE_TIMEOUT 5000
+#define CAPS_WORD_IDLE_TIMEOUT 3500
 #define CAPS_WORD_INVERT_ON_SHIFT
-
-#define SELECT_WORD_OS_MAC
