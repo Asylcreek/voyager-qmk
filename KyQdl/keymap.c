@@ -6,6 +6,7 @@
 
 #define MAGIC QK_AREP
 #define PRE_REPEAT MT(MOD_LSFT, KC_F23)
+#define PRE_MAGIC LT(3, KC_F24)
 
 enum custom_keycodes {
   RGB_SLD = ML_SAFE_RANGE,
