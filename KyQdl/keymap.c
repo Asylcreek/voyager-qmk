@@ -95,8 +95,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint16_t PROGMEM combo0[] = { LT(4, KC_F24), LT(3, KC_BSPC), COMBO_END};
-const uint16_t PROGMEM combo1[] = { LT(2, KC_SPACE), KC_V, COMBO_END};
-const uint16_t PROGMEM combo2[] = { LT(4, KC_F24), KC_V, COMBO_END};
+const uint16_t PROGMEM combo1[] = { LT(2, KC_SPACE), LT(1, KC_F23), COMBO_END};
+const uint16_t PROGMEM combo2[] = { LT(4, KC_F24), LT(1, KC_F23), COMBO_END};
 const uint16_t PROGMEM combo3[] = { LT(2, KC_SPACE), LT(3, KC_BSPC), COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
