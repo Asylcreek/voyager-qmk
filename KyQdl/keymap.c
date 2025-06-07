@@ -103,8 +103,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 const uint16_t PROGMEM combo0[] = {LT(4, KC_F24), LT(3, KC_BSPC), COMBO_END};
-const uint16_t PROGMEM combo1[] = { LT(2, KC_SPACE), LT(1, KC_F23), COMBO_END};
-const uint16_t PROGMEM combo2[] = { LT(4, KC_F24), LT(1, KC_F23), COMBO_END};
+const uint16_t PROGMEM combo1[] = {LT(2, KC_SPACE), LT(1, KC_F23), COMBO_END};
+const uint16_t PROGMEM combo2[] = {LT(4, KC_F24), LT(1, KC_F23), COMBO_END};
 const uint16_t PROGMEM combo3[] = {LT(2, KC_SPACE), LT(3, KC_BSPC), COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
@@ -204,7 +204,8 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   case KC_ESCAPE:
   case KC_SEMICOLON:
   case KC_COMMA:
-  case KC_O: // so that alt-repeat gives enter with o or O in vim
+  case KC_O:    // so that alt-repeat gives enter with o or O in vim
+  case S(KC_O): // so that alt-repeat gives enter with o or O in vim
     return KC_ENTER;
 
   case KC_RIGHT_PAREN:
