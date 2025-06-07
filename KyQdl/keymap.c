@@ -47,38 +47,45 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     MAC_LOCK,       LALT(LGUI(KC_J)),LGUI(KC_V),     LGUI(KC_A),     LGUI(KC_C),     LGUI(LCTL(LSFT(KC_4))),                                KC_NO,          KC_DELETE,      LALT(KC_BSPC),  KC_MEDIA_PLAY_PAUSE,KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,
     KC_NO,          KC_B,           KC_L,           KC_D,           KC_W,           KC_Z,                                           KC_QUOTE,       KC_F,           KC_O,           KC_U,           KC_J,           KC_NO,          
     KC_NO,          KC_N,           KC_R,           KC_T,           KC_S,           KC_G,                                           KC_Y,           KC_H,           KC_A,           KC_E,           KC_I,           KC_NO,          
-    KC_NO,          KC_Q,           KC_X,           KC_M,           KC_C,           KC_V,                                           KC_K,           KC_P,           KC_DOT,         KC_COMMA,       KC_SCLN,        MO(4),          
-                                                    MT(MOD_LSFT, KC_F23),LT(2, KC_BSPC),                                 LT(3, KC_F24),  LT(1, KC_SPACE)
+    KC_NO,          KC_Q,           KC_X,           KC_M,           KC_C,           KC_V,                                           KC_K,           KC_P,           KC_DOT,         KC_COMMA,       KC_SCLN,        MO(5),          
+                                                    LT(1, KC_F23),  LT(3, KC_BSPC),                                 LT(4, KC_F24),  LT(2, KC_SPACE)
   ),
   [1] = LAYOUT_voyager(
+    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
+    KC_NO,          LSFT(KC_B),     LSFT(KC_L),     LSFT(KC_D),     LSFT(KC_W),     LSFT(KC_Z),                                     KC_UNDS,        LSFT(KC_F),     LSFT(KC_O),     LSFT(KC_U),     LSFT(KC_J),     KC_NO,          
+    KC_NO,          LSFT(KC_N),     LSFT(KC_R),     LSFT(KC_T),     LSFT(KC_S),     LSFT(KC_G),                                     LSFT(KC_Y),     LSFT(KC_H),     LSFT(KC_A),     LSFT(KC_E),     LSFT(KC_I),     KC_NO,          
+    KC_NO,          LSFT(KC_Q),     LSFT(KC_X),     LSFT(KC_M),     LSFT(KC_C),     LSFT(KC_V),                                     LSFT(KC_K),     LSFT(KC_P),     KC_NO,          KC_NO,          KC_NO,          KC_NO,          
+                                                    KC_TRANSPARENT, KC_NO,                                          KC_ESCAPE,      KC_ENTER
+  ),
+  [2] = LAYOUT_voyager(
     KC_TILD,        KC_EXLM,        KC_LBRC,        KC_RBRC,        KC_AMPR,        KC_DLR,                                         KC_NO,          KC_CIRC,        KC_PERC,        KC_NO,          KC_NO,          KC_NO,          
     KC_PIPE,        KC_AT,          KC_9,           KC_8,           KC_7,           KC_GRAVE,                                       KC_UNDS,        KC_EQUAL,       KC_RPRN,        KC_LPRN,        KC_PLUS,        KC_NO,          
     KC_BSLS,        KC_DQUO,        KC_3,           KC_2,           KC_1,           KC_COLN,                                        KC_MINUS,       KC_0,           KC_RCBR,        KC_LCBR,        KC_ASTR,        KC_NO,          
     KC_NO,          KC_SLASH,       KC_6,           KC_5,           KC_4,           KC_RABK,                                        KC_LABK,        KC_QUES,        KC_HASH,        KC_NO,          KC_NO,          KC_NO,          
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_NO,          KC_TRANSPARENT
   ),
-  [2] = LAYOUT_voyager(
+  [3] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          LGUI(KC_LEFT),  KC_UP,          LGUI(KC_RIGHT), KC_NO,          KC_NO,          
     KC_NO,          OSM(MOD_LSFT),  OSM(MOD_LALT),  OSM(MOD_LGUI),  OSM(MOD_LCTL),  OSM(MOD_HYPR),                                  LALT(KC_LEFT),  KC_LEFT,        KC_DOWN,        KC_RIGHT,       LALT(KC_RIGHT), KC_NO,          
     KC_NO,          CW_TOGG,        KC_TAB,         KC_ESCAPE,      KC_ENTER,       KC_NO,                                          LALT(LGUI(LCTL(LSFT(KC_H)))),KC_PAGE_UP,     KC_PGDN,        KC_NO,          KC_NO,          KC_NO,          
                                                     KC_NO,          KC_TRANSPARENT,                                 CW_TOGG,        KC_TAB
   ),
-  [3] = LAYOUT_voyager(
+  [4] = LAYOUT_voyager(
     ST_MACRO_0,     ST_MACRO_1,     ST_MACRO_2,     ST_MACRO_3,     ST_MACRO_4,     ST_MACRO_5,                                     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     ST_MACRO_6,     ST_MACRO_7,     LCTL(KC_L),     LCTL(KC_D),     LCTL(KC_W),     ST_MACRO_8,                                     ST_MACRO_12,    ST_MACRO_13,    ST_MACRO_14,    ST_MACRO_15,    ST_MACRO_16,    KC_NO,          
     ST_MACRO_9,     LCTL(KC_N),     LCTL(KC_R),     LCTL(KC_U),     LCTL(KC_P),     ST_MACRO_10,                                    ST_MACRO_17,    ST_MACRO_18,    ST_MACRO_19,    ST_MACRO_20,    ST_MACRO_21,    KC_NO,          
     ST_MACRO_11,    LCTL(KC_Q),     LCTL(KC_O),     LCTL(KC_H),     LCTL(KC_C),     LCTL(KC_V),                                     ST_MACRO_22,    ST_MACRO_23,    ST_MACRO_24,    KC_NO,          ST_MACRO_25,    KC_NO,          
                                                     LCTL(KC_J),     LCTL(KC_K),                                     KC_TRANSPARENT, KC_NO
   ),
-  [4] = LAYOUT_voyager(
+  [5] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     KC_NO,          QK_BOOT,        KC_MEDIA_NEXT_TRACK,KC_AUDIO_MUTE,  LALT(LGUI(LCTL(LSFT(KC_M)))),KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     KC_NO,          MAC_DND,        KC_MEDIA_PREV_TRACK,KC_BRIGHTNESS_UP,KC_BRIGHTNESS_DOWN,KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     KC_NO,          HSV_0_255_255,  HSV_169_255_255,RGB_VAI,        RGB_VAD,        RGB_TOG,                                        KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_TRANSPARENT, 
                                                     HSV_74_255_255, RGB_MODE_FORWARD,                                KC_NO,          KC_NO
   ),
-  [5] = LAYOUT_voyager(
+  [6] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          LALT(LSFT(KC_MINUS)),LALT(LSFT(KC_EQUAL)),KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     KC_NO,          LGUI(KC_0),     LGUI(LSFT(KC_R)),LGUI(LSFT(KC_T)),LGUI(LSFT(KC_4)),LALT(LGUI(KC_BSPC)),                                ST_MACRO_26,    LALT(LSFT(KC_7)),LALT(LSFT(KC_8)),LALT(LSFT(KC_9)),LALT(LSFT(KC_0)),KC_NO,          
     KC_NO,          LGUI(KC_EQUAL), LGUI(KC_3),     LGUI(KC_2),     LGUI(KC_1),     LGUI(KC_GRAVE),                                 LALT(LSFT(KC_H)),LCTL(KC_1),     LCTL(KC_2),     LCTL(KC_3),     LALT(KC_0),     KC_NO,          
@@ -87,13 +94,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-const uint16_t PROGMEM combo0[] = { LT(3, KC_F24), LT(2, KC_BSPC), COMBO_END};
-const uint16_t PROGMEM combo1[] = { LT(1, KC_SPACE), MT(MOD_LSFT, KC_F23), COMBO_END};
-const uint16_t PROGMEM combo2[] = { MT(MOD_LSFT, KC_F23), LT(3, KC_F24), COMBO_END};
-const uint16_t PROGMEM combo3[] = { LT(1, KC_SPACE), LT(2, KC_BSPC), COMBO_END};
+const uint16_t PROGMEM combo0[] = { LT(4, KC_F24), LT(3, KC_BSPC), COMBO_END};
+const uint16_t PROGMEM combo1[] = { LT(2, KC_SPACE), KC_V, COMBO_END};
+const uint16_t PROGMEM combo2[] = { LT(4, KC_F24), KC_V, COMBO_END};
+const uint16_t PROGMEM combo3[] = { LT(2, KC_SPACE), LT(3, KC_BSPC), COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
-    COMBO(combo0, OSL(5)),
+    COMBO(combo0, OSL(6)),
     COMBO(combo1, OSM(MOD_MEH)),
     COMBO(combo2, OSM(MOD_LGUI)),
     COMBO(combo3, OSM(MOD_LCTL)),
