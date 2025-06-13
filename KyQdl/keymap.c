@@ -138,6 +138,7 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
   if (keycode == PRE_REPEAT || keycode == PRE_MAGIC || keycode == KC_F23) {
     return false;
   }
+  *remembered_mods &= get_mods();
   return true;
 }
 
@@ -151,6 +152,16 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
         return C(S(KC_TAB));
       }
       return C(KC_TAB);
+    case KC_K:
+      return C(KC_J);
+    case KC_J:
+      return C(KC_K);
+    case KC_L:
+      return C(KC_H);
+    case KC_H:
+      return C(KC_L);
+    case KC_R:
+      return KC_DOUBLE_QUOTE;
     }
   }
 
@@ -197,18 +208,6 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   case KC_O:    // so that alt-repeat gives enter with o or O in vim
   case S(KC_O): // so that alt-repeat gives enter with o or O in vim
     return KC_ENTER;
-
-    // accounting for if I add these as dedicated shortcuts to my board
-  case C(KC_K):
-    return C(KC_J);
-  case C(KC_J):
-    return C(KC_K);
-  case C(KC_L):
-    return C(KC_H);
-  case C(KC_H):
-    return C(KC_L);
-  case C(KC_R):
-    return KC_DOUBLE_QUOTE;
 
   case KC_RIGHT_PAREN:
     return M_ARROW_FUNC;
