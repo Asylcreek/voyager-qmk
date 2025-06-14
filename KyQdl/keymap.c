@@ -1,6 +1,6 @@
 #include QMK_KEYBOARD_H
 // clang-format off
-#include print.h
+#include "print.h"
 // clang-format on
 #include "custom.c"
 #include "version.h"
@@ -138,16 +138,6 @@ bool caps_word_press_user(uint16_t keycode) {
 
 bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
                             uint8_t *remembered_mods) {
-  if ((*remembered_mods & MOD_MASK_CTRL) != 0) {
-    xprintf("C(KC_K) was specifically remembered with Ctrl modifier!\n");
-  }
-  if ((get_mods() & MOD_MASK_CTRL) != 0) {
-    xprintf("C(KC_J) was specifically remembered with Ctrl modifier!\n");
-  };
-  if ((QK_MODS_GET_MODS(keycode) & MOD_MASK_CTRL) != 0) {
-    xprintf("C was specifically remembered with Ctrl modifier!\n");
-  };
-
   switch (keycode) {
   case PRE_REPEAT:
   case PRE_MAGIC:
@@ -155,16 +145,27 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
     return false;
   };
 
-  uprintf("kc: %s\n", get_keycode_string(keycode));
-  /* if (QK_MODS_GET_MODS(keycode)) { */
-  /*   *remembered_mods |= QK_MODS_GET_MODS(keycode); */
-  /* }; */
-
   return true;
 }
 
 uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   mods = mods | get_mods() | get_weak_mods() | get_oneshot_mods();
+
+  uprintf("kc: %d\n", get_keycode_string(keycode));
+
+  if ((mods & MOD_MASK_CTRL) != 0) {
+    xprintf("C(KC_K) was specifically remembered with Ctrl modifier!\n");
+  }
+  if ((QK_MODS_GET_MODS(keycode) & MOD_MASK_CTRL) != 0) {
+    xprintf("C was specifically remembered with Ctrl modifier!\n");
+  };
+
+  switch (keycode) {
+  case QK_MODS ... QK_MODS_MAX: // Unpack modifier + basic key.
+    mods |= QK_MODS_GET_MODS(keycode);
+    keycode = QK_MODS_GET_BASIC_KEYCODE(keycode);
+    break;
+  }
 
   if (mods & MOD_MASK_CTRL) {
     switch (keycode) {
