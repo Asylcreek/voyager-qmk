@@ -141,6 +141,11 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
   if ((get_mods() & MOD_MASK_CTRL) != 0) {
     xprintf("C(KC_J) was specifically remembered with Ctrl modifier!\n");
   };
+  if ((QK_MODS_GET_MODS(keycode) & MOD_MASK_CTRL) != 0) {
+    xprintf("C was specifically remembered with Ctrl modifier!\n");
+  };
+  xprintf(get_keycode_string(keycode));
+
   switch (keycode) {
   case PRE_REPEAT:
   case PRE_MAGIC:
