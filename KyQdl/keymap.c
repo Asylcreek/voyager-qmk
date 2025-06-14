@@ -145,9 +145,8 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
   return true;
 }
 
-uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t _mods) {
-  keycode = get_tap_keycode(keycode);
-  mods = _mods | get_mods() | get_weak_mods() | get_oneshot_mods();
+uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
+  mods = mods | get_mods() | get_weak_mods() | get_oneshot_mods();
 
   if (mods & MOD_MASK_CTRL) {
     switch (keycode) {
