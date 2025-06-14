@@ -148,14 +148,8 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
 uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   mods = mods | get_mods() | get_weak_mods() | get_oneshot_mods();
 
-  if ((mods & MOD_MASK_CTRL) != 0) {
-    xprintf("C(KC_K) was specifically remembered with Ctrl modifier!\n");
-  }
-  if ((QK_MODS_GET_MODS(keycode) & MOD_MASK_CTRL) != 0) {
-    xprintf("C was specifically remembered with Ctrl modifier!\n");
-  };
-  uprintf("KL: kc: 0x%04X\n", keycode);
-
+  // add modifiers for shortcut like keys like
+  // C(KC_S), G(KC_C), S(KC_N), O(KC_N)
   switch (keycode) {
   case QK_MODS ... QK_MODS_MAX: // Unpack modifier + basic key.
     mods |= QK_MODS_GET_MODS(keycode);
@@ -224,8 +218,7 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   case KC_ESCAPE:
   case KC_SEMICOLON:
   case KC_COMMA:
-  case KC_O:    // so that alt-repeat gives enter with o or O in vim
-  case S(KC_O): // so that alt-repeat gives enter with o or O in vim
+  case KC_O: // so that alt-repeat gives enter with o or O in vim
     return KC_ENTER;
 
   case KC_RIGHT_PAREN:
