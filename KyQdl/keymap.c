@@ -1,7 +1,4 @@
 #include QMK_KEYBOARD_H
-// clang-format off
-#include "print.h"
-// clang-format on
 #include "custom.c"
 #include "version.h"
 #define MOON_LED_LEVEL LED_LEVEL
@@ -150,8 +147,6 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
 
 uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   mods = mods | get_mods() | get_weak_mods() | get_oneshot_mods();
-
-  uprintf("kc: %d\n", get_keycode_string(keycode));
 
   if ((mods & MOD_MASK_CTRL) != 0) {
     xprintf("C(KC_K) was specifically remembered with Ctrl modifier!\n");
