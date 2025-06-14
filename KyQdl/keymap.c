@@ -45,7 +45,8 @@ enum custom_keycodes {
   // Macros invoked through the Magic key.
   M_EQEQ,
   M_ARROW_FUNC,
-  M_CLOSE_BRACE
+  M_CLOSE_BRACE,
+  M_ALT_DOLLAR
 };
 
 // clang-format off
@@ -211,7 +212,6 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   }
 
   switch (keycode) {
-
   case KC_ENTER:
     return KC_ESCAPE;
 
@@ -229,6 +229,9 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
 
   case KC_DOUBLE_QUOTE:
     return KC_PLUS;
+
+  case KC_DOLLAR:
+    return M_ALT_DOLLAR;
   }
 
   return KC_TRNS;
@@ -269,9 +272,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case M_CLOSE_BRACE:
     if (record->event.pressed) {
-      SEND_STRING_DELAY(/*)*/ "};" SS_TAP(X_ESC) SS_TAP(X_H) SS_TAP(X_I)
+      SEND_STRING_DELAY(/*{*/ "};" SS_TAP(X_ESC) SS_TAP(X_H) SS_TAP(X_I)
                             SS_TAP(X_ENTER) SS_TAP(X_ESC) SS_LSFT(SS_TAP(X_O)),
                         TAP_CODE_DELAY);
+    }
+    break;
+  case M_ALT_DOLLAR:
+    if (record->event.pressed) {
+      SEND_STRING_DELAY(/*$*/ "{}" SS_TAP(X_ESC) SS_TAP(X_I), TAP_CODE_DELAY);
     }
     break;
   case KC_QUOTE: {
