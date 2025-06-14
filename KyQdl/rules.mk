@@ -3,7 +3,7 @@ SRC += features/custom_shift_keys.c
 KEY_OVERRIDE_ENABLE = yes
 REPEAT_KEY_ENABLE = yes
 
-CONSOLE_ENABLE = no
+CONSOLE_ENABLE = yes
 COMMAND_ENABLE = no
 MOUSEKEY_ENABLE = no
 ORYX_ENABLE = yes

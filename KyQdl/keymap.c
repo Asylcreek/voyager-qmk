@@ -142,6 +142,9 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
     return false;
   };
 
+  if ((*remembered_mods & MOD_MASK_CTRL) != 0) {
+    xprintf("C(KC_K) was specifically remembered with Ctrl modifier!\n");
+  }
   return true;
 }
 
