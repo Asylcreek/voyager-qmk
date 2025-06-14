@@ -135,6 +135,12 @@ bool caps_word_press_user(uint16_t keycode) {
 
 bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
                             uint8_t *remembered_mods) {
+  if ((*remembered_mods & MOD_MASK_CTRL) != 0) {
+    xprintf("C(KC_K) was specifically remembered with Ctrl modifier!\n");
+  }
+  if (get_mods() & MOD_MASK_CTRL != 0) {
+    xprintf("C(KC_J) was specifically remembered with Ctrl modifier!\n");
+  };
   switch (keycode) {
   case PRE_REPEAT:
   case PRE_MAGIC:
@@ -142,9 +148,6 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
     return false;
   };
 
-  if ((*remembered_mods & MOD_MASK_CTRL) != 0) {
-    xprintf("C(KC_K) was specifically remembered with Ctrl modifier!\n");
-  }
   return true;
 }
 
