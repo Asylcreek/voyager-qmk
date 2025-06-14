@@ -103,7 +103,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-
 const uint16_t PROGMEM combo0[] = {LT(4, KC_F24), LT(3, KC_BSPC), COMBO_END};
 const uint16_t PROGMEM combo1[] = {LT(2, KC_SPACE), LT(1, KC_F23), COMBO_END};
 const uint16_t PROGMEM combo2[] = {LT(4, KC_F24), LT(1, KC_F23), COMBO_END};
@@ -148,6 +147,30 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
 }
 
 uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
+  // basic and expected complex keycodes
+  switch (keycode) {
+  case KC_ENTER:
+    return KC_ESCAPE;
+
+  case KC_ESCAPE:
+  case KC_SEMICOLON:
+  case KC_COMMA:
+  case KC_O: // so that alt-repeat gives enter with o or O in vim
+    return KC_ENTER;
+
+  case KC_RIGHT_PAREN:
+    return M_ARROW_FUNC;
+
+  case KC_LEFT_CURLY_BRACE:
+    return M_CLOSE_BRACE;
+
+  case KC_DOUBLE_QUOTE:
+    return KC_PLUS;
+
+  case KC_DOLLAR:
+    return M_ALT_DOLLAR;
+  }
+
   mods = mods | get_mods() | get_weak_mods() | get_oneshot_mods();
 
   // add modifiers for shortcut like keys like
@@ -210,29 +233,6 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     case KC_U:
       return C(KC_R);
     }
-  }
-
-  switch (keycode) {
-  case KC_ENTER:
-    return KC_ESCAPE;
-
-  case KC_ESCAPE:
-  case KC_SEMICOLON:
-  case KC_COMMA:
-  case KC_O: // so that alt-repeat gives enter with o or O in vim
-    return KC_ENTER;
-
-  case KC_RIGHT_PAREN:
-    return M_ARROW_FUNC;
-
-  case KC_LEFT_CURLY_BRACE:
-    return M_CLOSE_BRACE;
-
-  case KC_DOUBLE_QUOTE:
-    return KC_PLUS;
-
-  case KC_DOLLAR:
-    return M_ALT_DOLLAR;
   }
 
   return KC_TRNS;
