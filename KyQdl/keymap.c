@@ -144,7 +144,8 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
   if ((QK_MODS_GET_MODS(keycode) & MOD_MASK_CTRL) != 0) {
     xprintf("C was specifically remembered with Ctrl modifier!\n");
   };
-  xprintf(get_keycode_string(keycode));
+  const char *key_name = get_keycode_string(keycode);
+  dprintf("kc: %s\n", key_name);
 
   switch (keycode) {
   case PRE_REPEAT:
