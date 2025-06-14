@@ -139,7 +139,7 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
   case PRE_REPEAT:
   case PRE_MAGIC:
   case KC_F23:
-    return false
+    return false;
   };
 
   return true;
