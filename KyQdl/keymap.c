@@ -154,6 +154,7 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   if ((QK_MODS_GET_MODS(keycode) & MOD_MASK_CTRL) != 0) {
     xprintf("C was specifically remembered with Ctrl modifier!\n");
   };
+  uprintf("KL: kc: 0x%04X\n", keycode);
 
   switch (keycode) {
   case QK_MODS ... QK_MODS_MAX: // Unpack modifier + basic key.
