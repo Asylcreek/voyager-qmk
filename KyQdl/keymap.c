@@ -58,10 +58,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     KC_TRANSPARENT, KC_NO,                                          KC_ESCAPE,      KC_ENTER
   ),
   [2] = LAYOUT_voyager(
-    KC_TILD,        KC_EXLM,        KC_LBRC,        KC_RBRC,        KC_AMPR,        KC_DLR,                                         KC_NO,          KC_CIRC,        KC_PERC,        KC_NO,          KC_NO,          KC_NO,          
-    KC_PIPE,        KC_AT,          KC_9,           KC_8,           KC_7,           KC_GRAVE,                                       KC_UNDS,        KC_EQUAL,       KC_RPRN,        KC_LPRN,        KC_PLUS,        KC_NO,          
-    KC_BSLS,        KC_DQUO,        KC_3,           KC_2,           KC_1,           KC_COLN,                                        KC_MINUS,       KC_0,           KC_RCBR,        KC_LCBR,        KC_ASTR,        KC_NO,          
-    KC_NO,          KC_SLASH,       KC_6,           KC_5,           KC_4,           KC_RABK,                                        KC_LABK,        KC_QUES,        KC_HASH,        KC_NO,          KC_NO,          KC_NO,          
+    KC_TILD,        KC_DLR,         KC_GRAVE,       KC_AT,          KC_AMPR,        KC_EXLM,                                        KC_NO,          KC_NO,          KC_CIRC,        KC_NO,          KC_NO,          KC_NO,          
+    KC_PIPE,        KC_RPRN,        KC_9,           KC_8,           KC_7,           KC_LPRN,                                        KC_UNDS,        KC_PERC,        KC_COLN,        KC_DQUO,        KC_ASTR,        KC_NO,          
+    KC_BSLS,        KC_RCBR,        KC_3,           KC_2,           KC_1,           KC_LCBR,                                        KC_MINUS,       KC_0,           KC_LABK,        KC_RABK,        KC_EQUAL,       KC_NO,          
+    KC_HASH,        KC_RBRC,        KC_6,           KC_5,           KC_4,           KC_LBRC,                                        KC_PLUS,        KC_QUES,        KC_DOT,         KC_COMMA,       KC_SLASH,       KC_NO,          
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_NO,          KC_TRANSPARENT
   ),
   [3] = LAYOUT_voyager(
@@ -93,6 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     LGUI(LSFT(KC_C)),KC_NO,                                          LGUI(KC_ENTER), LSFT(KC_ENTER)
   ),
 };
+
 
 const uint16_t PROGMEM combo0[] = { LT(4, KC_F24), LT(3, KC_BSPC), COMBO_END};
 const uint16_t PROGMEM combo1[] = { LT(2, KC_SPACE), LT(1, KC_F23), COMBO_END};
