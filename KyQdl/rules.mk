@@ -1,8 +1,9 @@
 SRC += features/custom_shift_keys.c
+SRC += features/keycode_string.c
 
 KEY_OVERRIDE_ENABLE = yes
 REPEAT_KEY_ENABLE = yes
-KEYCODE_STRING_ENABLE=yes
+
 CONSOLE_ENABLE = yes
 COMMAND_ENABLE = no
 MOUSEKEY_ENABLE = no

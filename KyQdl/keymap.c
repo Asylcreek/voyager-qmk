@@ -1,6 +1,9 @@
 #include QMK_KEYBOARD_H
+// clang-format off
+#include "print.h"
+// clang-format on
 #include "custom.c"
-#include "keycode_string.h"
+#include "features/keycode_string.c"
 #include "version.h"
 #define MOON_LED_LEVEL LED_LEVEL
 #define ML_SAFE_RANGE SAFE_RANGE
