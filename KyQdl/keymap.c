@@ -152,6 +152,10 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
     return false;
   };
 
+  if (QK_MODS_GET_MODS(keycode)) {
+    *remembered_mods |= QK_MODS_GET_MODS(keycode);
+  };
+
   return true;
 }
 
