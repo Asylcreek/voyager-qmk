@@ -1,4 +1,7 @@
 #include QMK_KEYBOARD_H
+// clang-format off
+#include print.h
+// clang-format on
 #include "custom.c"
 #include "version.h"
 #define MOON_LED_LEVEL LED_LEVEL
@@ -152,9 +155,10 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
     return false;
   };
 
-  if (QK_MODS_GET_MODS(keycode)) {
-    *remembered_mods |= QK_MODS_GET_MODS(keycode);
-  };
+  uprintf("kc: %s\n", get_keycode_string(keycode));
+  /* if (QK_MODS_GET_MODS(keycode)) { */
+  /*   *remembered_mods |= QK_MODS_GET_MODS(keycode); */
+  /* }; */
 
   return true;
 }
@@ -216,6 +220,7 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   }
 
   switch (keycode) {
+
   case KC_ENTER:
     return KC_ESCAPE;
 
