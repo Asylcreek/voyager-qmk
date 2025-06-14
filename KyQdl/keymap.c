@@ -1,9 +1,5 @@
 #include QMK_KEYBOARD_H
-// clang-format off
-#include "print.h"
-// clang-format on
 #include "custom.c"
-#include "features/keycode_string.c"
 #include "version.h"
 #define MOON_LED_LEVEL LED_LEVEL
 #define ML_SAFE_RANGE SAFE_RANGE
@@ -148,8 +144,6 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
   if ((QK_MODS_GET_MODS(keycode) & MOD_MASK_CTRL) != 0) {
     xprintf("C was specifically remembered with Ctrl modifier!\n");
   };
-  const char *key_name = get_keycode_string(keycode);
-  dprintf("kc: %s\n", key_name);
 
   switch (keycode) {
   case PRE_REPEAT:
