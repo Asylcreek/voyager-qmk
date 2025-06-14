@@ -135,15 +135,19 @@ bool caps_word_press_user(uint16_t keycode) {
 
 bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
                             uint8_t *remembered_mods) {
-  if (keycode == PRE_REPEAT || keycode == PRE_MAGIC || keycode == KC_F23) {
-    return false;
-  }
-  *remembered_mods &= get_mods();
+  switch (keycode) {
+  case PRE_REPEAT:
+  case PRE_MAGIC:
+  case KC_F23:
+    return false
+  };
+
   return true;
 }
 
-uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
+uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t _mods) {
   keycode = get_tap_keycode(keycode);
+  mods = _mods | get_mods() | get_weak_mods() | get_oneshot_mods();
 
   if (mods & MOD_MASK_CTRL) {
     switch (keycode) {
