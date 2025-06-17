@@ -170,6 +170,17 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
 
   case KC_DOLLAR:
     return M_ALT_DOLLAR;
+
+  case KC_EXCLAIM:
+  case KC_EQL:
+    return M_EQEQ; // = -> ==, ! -> ==
+
+  case KC_PLUS:
+  case KC_MINUS:
+  case KC_COLON:
+  case KC_TILDE:
+  case KC_ASTERISK:
+    return KC_EQL; //
   }
 
   mods = mods | get_mods() | get_weak_mods() | get_oneshot_mods();
@@ -219,17 +230,6 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
       }
 
       return KC_TAB;
-
-    case KC_EXCLAIM:
-    case KC_EQL:
-      return M_EQEQ; // = -> ==, ! -> ==
-
-    case KC_PLUS:
-    case KC_MINUS:
-    case KC_COLON:
-    case KC_TILDE:
-    case KC_ASTERISK:
-      return KC_EQL; //
 
     case KC_U:
       return C(KC_R);
