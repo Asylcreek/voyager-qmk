@@ -2,14 +2,16 @@
 #include "custom.c"
 #include "version.h"
 #define MOON_LED_LEVEL LED_LEVEL
-#define ML_SAFE_RANGE SAFE_RANGE
+#ifndef ZSA_SAFE_RANGE
+#define ZSA_SAFE_RANGE SAFE_RANGE
+#endif
 
 #define MAGIC QK_AREP
 #define PRE_REPEAT LT(1, KC_F23)
 #define PRE_MAGIC LT(4, KC_F24)
 
 enum custom_keycodes {
-  RGB_SLD = ML_SAFE_RANGE,
+  RGB_SLD = ZSA_SAFE_RANGE,
   HSV_0_255_255,
   HSV_169_255_255,
   HSV_74_255_255,
@@ -66,10 +68,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     KC_TRANSPARENT, KC_NO,                                          KC_ESCAPE,      KC_ENTER
   ),
   [2] = LAYOUT_voyager(
-    KC_TILD,        KC_DLR,         KC_GRAVE,       KC_AT,          KC_AMPR,        KC_EXLM,                                        KC_NO,          KC_NO,          KC_CIRC,        KC_NO,          KC_NO,          KC_NO,          
+    KC_TILD,        KC_DLR,         KC_AT,          KC_AMPR,        KC_GRAVE,       KC_EXLM,                                        KC_NO,          KC_NO,          KC_SPACE,       KC_CIRC,        KC_NO,          KC_NO,          
     KC_PIPE,        KC_RBRC,        KC_9,           KC_8,           KC_7,           KC_LBRC,                                        KC_UNDS,        KC_PERC,        KC_COLN,        KC_DQUO,        KC_ASTR,        KC_NO,          
     KC_BSLS,        KC_RPRN,        KC_3,           KC_2,           KC_1,           KC_LPRN,                                        KC_MINUS,       KC_0,           KC_LABK,        KC_RABK,        KC_EQUAL,       KC_NO,          
-    KC_HASH,        KC_RCBR,        KC_6,           KC_5,           KC_4,           KC_LCBR,                                        KC_PLUS,        KC_QUES,        KC_DOT,         KC_COMMA,       KC_SLASH,       KC_NO,          
+    KC_HASH,        KC_RCBR,        KC_6,           KC_5,           KC_4,           KC_LCBR,                                        KC_SLASH,       KC_QUES,        KC_DOT,         KC_COMMA,       KC_PLUS,        KC_NO,          
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_NO,          KC_TRANSPARENT
   ),
   [3] = LAYOUT_voyager(
