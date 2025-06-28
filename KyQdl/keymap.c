@@ -238,6 +238,17 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     }
   }
 
+  if (mods & MOD_MASK_CSA) {
+    switch (keycode) {
+    case KC_Z:
+      return MEH(KC_G);
+    case KC_S:
+      return MEH(KC_W);
+    case KC_W:
+      return MEH(KC_S);
+    }
+  };
+
   return KC_TRNS;
 }
 
