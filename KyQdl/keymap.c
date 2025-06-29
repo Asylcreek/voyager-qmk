@@ -51,13 +51,15 @@ enum custom_keycodes {
   M_ALT_DOLLAR
 };
 
+#define DUAL_FUNC_0 LT(9, KC_F18)
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
-    MAC_LOCK,       LALT(LGUI(KC_J)),LGUI(KC_V),     LGUI(KC_A),     LGUI(KC_C),     LGUI(LCTL(LSFT(KC_4))),                                KC_NO,          KC_DELETE,      LALT(KC_BSPC),  KC_MEDIA_PLAY_PAUSE,KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,
-    KC_NO,          KC_B,           KC_L,           KC_D,           KC_W,           KC_Z,                                           KC_QUOTE,       KC_F,           KC_O,           KC_U,           KC_J,           KC_NO,          
-    KC_NO,          KC_N,           KC_R,           KC_T,           KC_S,           KC_G,                                           KC_Y,           KC_H,           KC_A,           KC_E,           KC_I,           KC_NO,          
-    KC_NO,          KC_Q,           KC_X,           KC_M,           KC_C,           KC_V,                                           KC_K,           KC_P,           KC_DOT,         KC_COMMA,       KC_SCLN,        MO(5),          
+    MAC_LOCK,       LALT(LGUI(KC_J)),LGUI(KC_V),     LGUI(KC_A),     LGUI(KC_C),     LGUI(LCTL(LSFT(KC_4))),                                LGUI(LSFT(KC_5)),KC_DELETE,      LALT(KC_BSPC),  KC_MEDIA_PLAY_PAUSE,KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,
+    OSL(6),         KC_B,           KC_L,           KC_D,           KC_W,           KC_Z,                                           KC_QUOTE,       KC_F,           KC_O,           KC_U,           KC_J,           OSM(MOD_LGUI),  
+    LGUI(KC_SPACE), KC_N,           KC_R,           KC_T,           KC_S,           KC_G,                                           KC_Y,           KC_H,           KC_A,           KC_E,           KC_I,           OSM(MOD_MEH),   
+    KC_NO,          KC_Q,           KC_X,           KC_M,           KC_C,           KC_V,                                           KC_K,           KC_P,           KC_DOT,         KC_COMMA,       KC_SCLN,        DUAL_FUNC_0,    
                                                     LT(1, KC_F23),  LT(3, KC_BSPC),                                 LT(4, KC_F24),  LT(2, KC_SPACE)
   ),
   [1] = LAYOUT_voyager(
@@ -97,25 +99,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [6] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          LALT(LSFT(KC_MINUS)),LALT(LSFT(KC_EQUAL)),KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    KC_NO,          LGUI(KC_0),     LGUI(LSFT(KC_R)),LGUI(LSFT(KC_T)),LGUI(LSFT(KC_4)),LALT(LGUI(KC_BSPC)),                                ST_MACRO_26,    LALT(LSFT(KC_7)),LALT(LSFT(KC_8)),LALT(LSFT(KC_9)),LALT(LSFT(KC_0)),KC_NO,          
-    KC_NO,          LGUI(KC_EQUAL), LGUI(KC_3),     LGUI(KC_2),     LGUI(KC_1),     LGUI(KC_GRAVE),                                 LALT(LSFT(KC_H)),LCTL(KC_1),     LCTL(KC_2),     LCTL(KC_3),     LALT(KC_0),     KC_NO,          
-    KC_NO,          LGUI(KC_MINUS), LGUI(KC_6),     LGUI(KC_5),     LGUI(KC_4),     LALT(LGUI(KC_M)),                                LALT(LSFT(KC_L)),LCTL(KC_4),     LCTL(KC_5),     LCTL(KC_6),     LALT(KC_SLASH), KC_NO,          
+    KC_NO,          LGUI(KC_0),     LGUI(LSFT(KC_R)),LGUI(LSFT(KC_T)),LGUI(LSFT(KC_4)),LALT(LGUI(KC_BSPC)),                                ST_MACRO_26,    LALT(LSFT(KC_7)),LALT(LSFT(KC_8)),LALT(LSFT(KC_9)),LALT(LSFT(KC_0)),LALT(KC_SLASH), 
+    KC_NO,          LGUI(KC_EQUAL), LGUI(KC_3),     LGUI(KC_2),     LGUI(KC_1),     LGUI(KC_GRAVE),                                 LALT(LSFT(KC_H)),LCTL(KC_1),     LCTL(KC_2),     LCTL(KC_3),     LALT(KC_0),     LALT(KC_COMMA), 
+    KC_NO,          LGUI(KC_MINUS), LGUI(KC_6),     LGUI(KC_5),     LGUI(KC_4),     LALT(LGUI(KC_M)),                                LALT(LSFT(KC_L)),LCTL(KC_4),     LCTL(KC_5),     LCTL(KC_6),     KC_NO,          KC_NO,          
                                                     LGUI(LSFT(KC_C)),KC_NO,                                          LGUI(KC_ENTER), LSFT(KC_ENTER)
   ),
 };
 // clang-format on
-
-const uint16_t PROGMEM combo0[] = {LT(4, KC_F24), LT(3, KC_BSPC), COMBO_END};
-const uint16_t PROGMEM combo1[] = {LT(2, KC_SPACE), LT(1, KC_F23), COMBO_END};
-const uint16_t PROGMEM combo2[] = {LT(4, KC_F24), LT(1, KC_F23), COMBO_END};
-const uint16_t PROGMEM combo3[] = {LT(2, KC_SPACE), LT(3, KC_BSPC), COMBO_END};
-
-combo_t key_combos[COMBO_COUNT] = {
-    COMBO(combo0, OSL(6)),
-    COMBO(combo1, OSM(MOD_MEH)),
-    COMBO(combo2, OSM(MOD_LGUI)),
-    COMBO(combo3, OSM(MOD_LCTL)),
-};
 
 bool caps_word_press_user(uint16_t keycode) {
   switch (keycode) {
