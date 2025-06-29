@@ -79,8 +79,7 @@ jobs:
         run: |
           git submodule update --init --remote --depth=1
           cd qmk_firmware
-          # git checkout -B firmware${{ steps.download-layout-source.outputs.firmware_version }} origin/firmware${{ steps.download-layout-source.outputs.firmware_version }}
-          git checkout -B firmware24 origin/firmware24
+          git checkout -B firmware${{ steps.download-layout-source.outputs.firmware_version }} origin/firmware${{ steps.download-layout-source.outputs.firmware_version }}
           git submodule update --init --recursive
           cd ..
           git add qmk_firmware
