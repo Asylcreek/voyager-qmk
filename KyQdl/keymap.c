@@ -43,7 +43,6 @@ enum custom_keycodes {
   ST_MACRO_25,
   ST_MACRO_26,
   MAC_DND,
-  MAC_LOCK,
   // Macros invoked through the Magic key.
   M_EQEQ,
   M_ARROW_FUNC,
@@ -51,13 +50,15 @@ enum custom_keycodes {
   M_ALT_DOLLAR
 };
 
+#define DUAL_FUNC_0 LT(13, KC_0)
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
-    MAC_LOCK,       LALT(LGUI(KC_J)),LGUI(KC_V),     LGUI(KC_A),     LGUI(KC_C),     LGUI(LCTL(LSFT(KC_4))),                                LGUI(LSFT(KC_5)),KC_DELETE,      LALT(KC_BSPC),  KC_MEDIA_PLAY_PAUSE,KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,
-    OSL(6),         KC_B,           KC_L,           KC_D,           KC_W,           KC_Z,                                           KC_QUOTE,       KC_F,           KC_O,           KC_U,           KC_J,           OSM(MOD_MEH),   
+    LGUI(LSFT(KC_5)),LALT(LGUI(KC_J)),LGUI(KC_V),     LGUI(KC_A),     LGUI(KC_C),     LGUI(LCTL(LSFT(KC_4))),                                KC_NO,          KC_MEDIA_PLAY_PAUSE,OSM(MOD_MEH),   LALT(KC_BSPC),  KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,
+    OSL(6),         KC_B,           KC_L,           KC_D,           KC_W,           KC_Z,                                           KC_QUOTE,       KC_F,           KC_O,           KC_U,           KC_J,           KC_DELETE,      
     LGUI(KC_SPACE), KC_N,           KC_R,           KC_T,           KC_S,           KC_G,                                           KC_Y,           KC_H,           KC_A,           KC_E,           KC_I,           KC_NO,          
-    OSM(MOD_LGUI),  KC_Q,           KC_X,           KC_M,           KC_C,           KC_V,                                           KC_K,           KC_P,           KC_DOT,         KC_COMMA,       KC_SCLN,        MO(5),          
+    OSM(MOD_LGUI),  KC_Q,           KC_X,           KC_M,           KC_C,           KC_V,                                           KC_K,           KC_P,           KC_DOT,         KC_COMMA,       KC_SCLN,        DUAL_FUNC_0,    
                                                     LT(1, KC_F23),  LT(3, KC_BSPC),                                 LT(4, KC_F24),  LT(2, KC_SPACE)
   ),
   [1] = LAYOUT_voyager(
@@ -451,9 +452,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case MAC_DND:
     HSS(0x9B);
-  case MAC_LOCK:
-    HCS(0x19E);
 
+  case DUAL_FUNC_0:
+    if (record->tap.count > 0) {
+      if (record->event.pressed) {
+        register_code16(LGUI(LCTL(KC_Q)));
+      } else {
+        unregister_code16(LGUI(LCTL(KC_Q)));
+      }
+    } else {
+      if (record->event.pressed) {
+        layer_on(5);
+      } else {
+        layer_off(5);
+      }
+    }
+    return false;
   case RGB_SLD:
     if (record->event.pressed) {
       rgblight_mode(1);
