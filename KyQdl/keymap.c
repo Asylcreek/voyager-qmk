@@ -147,6 +147,7 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   case KC_COMMA:
   case KC_O:    // so that alt-repeat gives enter with o or O in vim
   case S(KC_O): // so that alt-repeat gives enter with o or O in vim
+  case KC_V:
     return KC_ENTER;
 
   case KC_RIGHT_PAREN:
