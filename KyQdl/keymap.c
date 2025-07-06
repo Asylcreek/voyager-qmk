@@ -67,8 +67,8 @@ enum tap_dance_codes {
   DANCE_13,
 };
 
-#define DUAL_FUNC_0 LT(3, KC_N)
-#define DUAL_FUNC_1 LT(15, KC_F12)
+#define DUAL_FUNC_0 LT(8, KC_F18)
+#define DUAL_FUNC_1 LT(14, KC_F24)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
