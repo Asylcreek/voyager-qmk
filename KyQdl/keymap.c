@@ -143,6 +143,8 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   // basic and expected complex keycodes
   switch (keycode) {
   case KC_ENTER:
+  case C(S(KC_4)):
+  case C(S(KC_5)):
     return KC_ESCAPE;
 
   case KC_ESCAPE:
@@ -187,14 +189,6 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     keycode = QK_MODS_GET_BASIC_KEYCODE(keycode);
     break;
   }
-
-  if (mods & MOD_MASK_CTRL & MOD_MASK_SHIFT) {
-    switch (keycode) {
-    case KC_4:
-    case KC_5:
-      return KC_ESC;
-    };
-  };
 
   if (mods & MOD_MASK_CTRL) {
     switch (keycode) {
@@ -261,8 +255,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   switch (keycode) {
   case PRE_REPEAT:
-  case MT(MOD_LSFT, KC_F23):
     if (record->tap.count) {
+      repeat_key_invoke(&record->event); // Repeat last key
+      return false; // Return false to ignore further processing of key
+    }
+    break;
+  case LSFT_T(KC_F23):
+    if (record->tap.count && record->event.pressed) {
       repeat_key_invoke(&record->event); // Repeat last key
       return false; // Return false to ignore further processing of key
     }
