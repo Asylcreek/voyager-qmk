@@ -50,9 +50,9 @@ enum custom_keycodes {
   M_ALT_DOLLAR
 };
 
-#define DUAL_FUNC_0 LT(9, KC_J)
-#define DUAL_FUNC_1 LT(3, KC_K)
-#define DUAL_FUNC_2 LT(4, KC_X)
+#define DUAL_FUNC_0 LT(11, KC_F7)
+#define DUAL_FUNC_1 LT(6, KC_H)
+#define DUAL_FUNC_2 LT(1, KC_4)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -143,8 +143,8 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   // basic and expected complex keycodes
   switch (keycode) {
   case KC_ENTER:
-  case C(S(KC_4)):
-  case C(S(KC_5)):
+  case LGUI(LCTL(LSFT(KC_4))):
+  case LGUI(LSFT(KC_5)):
     return KC_ESCAPE;
 
   case KC_ESCAPE:
