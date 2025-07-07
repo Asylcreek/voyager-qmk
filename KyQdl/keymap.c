@@ -50,9 +50,9 @@ enum custom_keycodes {
   M_ALT_DOLLAR
 };
 
-#define DUAL_FUNC_0 LT(11, KC_F7)
-#define DUAL_FUNC_1 LT(6, KC_H)
-#define DUAL_FUNC_2 LT(1, KC_4)
+#define DUAL_FUNC_0 LT(2, KC_3)
+#define DUAL_FUNC_1 LT(15, KC_F20)
+#define DUAL_FUNC_2 LT(8, KC_Q)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -81,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_PAGE_UP,     LGUI(KC_LEFT),  KC_UP,          LGUI(KC_RIGHT), KC_PGDN,        KC_NO,          
     KC_NO,          OSM(MOD_LSFT),  OSM(MOD_LALT),  OSM(MOD_LGUI),  OSM(MOD_LCTL),  OSM(MOD_HYPR),                                  LALT(KC_LEFT),  KC_LEFT,        KC_DOWN,        KC_RIGHT,       LALT(KC_RIGHT), KC_NO,          
-    KC_NO,          CW_TOGG,        KC_TAB,         KC_ESCAPE,      KC_ENTER,       KC_NO,                                          LALT(LGUI(LCTL(LSFT(KC_H)))),LGUI(KC_SPACE), LALT(LCTL(LSFT(KC_SPACE))),LALT(KC_SPACE), KC_NO,          KC_NO,          
+    KC_NO,          CW_TOGG,        KC_TAB,         KC_ESCAPE,      KC_ENTER,       LALT(KC_F),                                     LALT(LGUI(LCTL(LSFT(KC_H)))),LGUI(KC_SPACE), LALT(LCTL(LSFT(KC_SPACE))),LALT(KC_SPACE), KC_NO,          KC_NO,          
                                                     KC_NO,          KC_TRANSPARENT,                                 CW_TOGG,        KC_TAB
   ),
   [4] = LAYOUT_voyager(
@@ -467,12 +467,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->tap.count > 0) {
       if (record->event.pressed) {
         register_code16(LGUI(LCTL(LSFT(KC_4))));
+        set_last_keycode(KC_4);
+        set_last_mods(get_mods());
       } else {
         unregister_code16(LGUI(LCTL(LSFT(KC_4))));
       }
     } else {
       if (record->event.pressed) {
         register_code16(LGUI(LSFT(KC_5)));
+        set_last_keycode(KC_5);
+        set_last_mods(get_mods());
       } else {
         unregister_code16(LGUI(LSFT(KC_5)));
       }
@@ -482,12 +486,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->tap.count > 0) {
       if (record->event.pressed) {
         register_code16(KC_AUDIO_VOL_DOWN);
+        set_last_keycode(KC_AUDIO_VOL_DOWN);
       } else {
         unregister_code16(KC_AUDIO_VOL_DOWN);
       }
     } else {
       if (record->event.pressed) {
         register_code16(KC_AUDIO_VOL_UP);
+        set_last_keycode(KC_AUDIO_VOL_UP);
       } else {
         unregister_code16(KC_AUDIO_VOL_UP);
       }
