@@ -166,6 +166,7 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     return KC_PLUS;
 
   case KC_DOLLAR:
+  case S(KC_4):
     return M_ALT_DOLLAR;
 
   case KC_EXCLAIM:
