@@ -260,8 +260,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false; // Return false to ignore further processing of key
     }
     break;
-  case LSFT_T(KC_F23):
-    if (record->tap.count && record->event.pressed) {
+  case MT(MOD_LSFT, KC_F23):
+    if (record->tap.count) {
       repeat_key_invoke(&record->event); // Repeat last key
       return false; // Return false to ignore further processing of key
     }
