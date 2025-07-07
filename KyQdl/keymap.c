@@ -42,9 +42,9 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(11, KC_F7)
-#define DUAL_FUNC_1 LT(6, KC_H)
-#define DUAL_FUNC_2 LT(1, KC_4)
+#define DUAL_FUNC_0 LT(2, KC_3)
+#define DUAL_FUNC_1 LT(15, KC_F20)
+#define DUAL_FUNC_2 LT(8, KC_Q)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_PAGE_UP,     LGUI(KC_LEFT),  KC_UP,          LGUI(KC_RIGHT), KC_PGDN,        KC_NO,          
     KC_NO,          OSM(MOD_LSFT),  OSM(MOD_LALT),  OSM(MOD_LGUI),  OSM(MOD_LCTL),  OSM(MOD_HYPR),                                  LALT(KC_LEFT),  KC_LEFT,        KC_DOWN,        KC_RIGHT,       LALT(KC_RIGHT), KC_NO,          
-    KC_NO,          CW_TOGG,        KC_TAB,         KC_ESCAPE,      KC_ENTER,       KC_NO,                                          LALT(LGUI(LCTL(LSFT(KC_H)))),LGUI(KC_SPACE), LALT(LCTL(LSFT(KC_SPACE))),LALT(KC_SPACE), KC_NO,          KC_NO,          
+    KC_NO,          CW_TOGG,        KC_TAB,         KC_ESCAPE,      KC_ENTER,       LALT(KC_F),                                     LALT(LGUI(LCTL(LSFT(KC_H)))),LGUI(KC_SPACE), LALT(LCTL(LSFT(KC_SPACE))),LALT(KC_SPACE), KC_NO,          KC_NO,          
                                                     KC_NO,          KC_TRANSPARENT,                                 CW_TOGG,        KC_TAB
   ),
   [4] = LAYOUT_voyager(
