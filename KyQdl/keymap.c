@@ -254,19 +254,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   const uint8_t mods = get_mods();
 
   switch (keycode) {
-  case PRE_REPEAT:
+  case MT(MOD_LSFT, KC_F23):
     if (record->tap.count) {
       repeat_key_invoke(&record->event); // Repeat last key
       return false; // Return false to ignore further processing of key
     }
     break;
-  case KC_F23:
-    if (record->event.pressed) {
-      repeat_key_invoke(&record->event); // Repeat last key
-      return false; // Return false to ignore further processing of key
-    }
-    break;
-  case MT(MOD_LSFT, KC_F23):
+  case PRE_REPEAT:
     if (record->tap.count) {
       repeat_key_invoke(&record->event); // Repeat last key
       return false; // Return false to ignore further processing of key
