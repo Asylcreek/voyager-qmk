@@ -263,6 +263,13 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     }
   }
 
+  if (mods == MOD_BIT(KC_LALT)) {
+    switch (keycode) {
+    case KC_BSPC:
+      return G(KC_BSPC);
+    };
+  }
+
   return KC_TRNS;
 }
 
