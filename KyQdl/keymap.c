@@ -183,6 +183,16 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   }
 
   mods = mods | get_mods() | get_weak_mods() | get_oneshot_mods();
+  if (mods == MOD_BIT(KC_LCTL)) {
+    xprintf("mod bit shift\n");
+  } else {
+    xprintf("not mod bit shift\n");
+  };
+  if (mods == MOD_BIT(KC_LCTL)) {
+    xprintf("mod bit ctrl\n");
+  } else {
+    xprintf("not mod bit ctrl\n");
+  };
   if (mods == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI))) {
     xprintf("mod mask csg\n");
   } else {
@@ -198,6 +208,7 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   } else {
     xprintf("not mod mask csa\n");
   };
+  uprintf("above: kc: 0x%04X\n", keycode);
 
   // add modifiers for shortcut like keys like
   // C(KC_S), G(KC_C), S(KC_N), O(KC_N)
@@ -219,7 +230,7 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   };
   uprintf("KL: kc: 0x%04X\n", keycode);
 
-  if (mods & MOD_MASK_CTRL) {
+  if (mods == MOD_BIT(KC_LCTL)) {
     switch (keycode) {
     case KC_TAB:
       if ((mods & MOD_MASK_SHIFT) == 0) {
@@ -514,7 +525,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         register_code16(LGUI(LCTL(LSFT(KC_4))));
         set_last_keycode(KC_4);
-        set_last_mods(get_mods());
+        set_last_mods(MOD_MASK_CTRL | MOD_MASK_SHIFT | MOD_MASK_GUI);
       } else {
         unregister_code16(LGUI(LCTL(LSFT(KC_4))));
       }
@@ -522,7 +533,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         register_code16(LGUI(LSFT(KC_5)));
         set_last_keycode(KC_5);
-        set_last_mods(get_mods());
+        set_last_mods(MOD_MASK_SHIFT | MOD_MASK_GUI);
       } else {
         unregister_code16(LGUI(LSFT(KC_5)));
       }
