@@ -183,30 +183,30 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   }
 
   mods = mods | get_mods() | get_weak_mods() | get_oneshot_mods();
-  if ((mods & MOD_MASK_SHIFT) != 0) {
-    xprintf("mod mask shift");
+  if (mods == MOD_MASK_SHIFT) {
+    xprintf("mod mask shift\n");
   } else {
-    xprintf("not mod mask shift");
+    xprintf("not mod mask shift\n");
   };
-  if (mods & MOD_MASK_CSG) {
-    xprintf("mod mask csg");
+  if (mods == MOD_MASK_CSG) {
+    xprintf("mod mask csg\n");
   } else {
-    xprintf("not mod mask csg");
+    xprintf("not mod mask csg\n");
   };
-  if (mods & MOD_MASK_SG) {
-    xprintf("mod mask sg");
+  if (mods == MOD_MASK_SG) {
+    xprintf("mod mask sg\n");
   } else {
-    xprintf("not mod mask sg");
+    xprintf("not mod mask sg\n");
   };
-  if ((mods & MOD_MASK_CTRL) != 0) {
-    xprintf("C(KC_K) was specifically remembered with Ctrl modifier!\n");
+  if (mods == MOD_MASK_CTRL) {
+    xprintf("mod mask ctrl\n");
   } else {
-    xprintf("not mod mask ctrl");
+    xprintf("not mod mask ctrl\n");
   };
-  if (mods & MOD_MASK_CSA) {
-    xprintf("mod mask csa");
+  if (mods == MOD_MASK_CSA) {
+    xprintf("mod mask csa\n");
   } else {
-    xprintf("not mod mask csa");
+    xprintf("not mod mask csa\n");
   };
   uprintf("KL: kc: 0x%04X\n", keycode);
 
