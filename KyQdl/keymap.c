@@ -1,6 +1,5 @@
 #include QMK_KEYBOARD_H
 #include "custom.c"
-#include "quantum/action_tapping.h"
 #include "version.h"
 #define MOON_LED_LEVEL LED_LEVEL
 #ifndef ZSA_SAFE_RANGE
@@ -136,11 +135,11 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
   case KC_F23:
     return false;
   case MT(MOD_LSFT, KC_F23):
-    if (record->tap.count == 0) {
-      *remembered_mods |= MOD_BIT(KC_LSFT);
-    };
-    return false; // For releases, let QMK handle if it needs to update
-                  // remembered_keycode.
+    if (record->tap.count == 0 || record->tap.interrupted) {
+      // Held = use mod
+      *remembered_mods = MOD_LSFT;
+    }
+    return false;
   };
 
   return true;
