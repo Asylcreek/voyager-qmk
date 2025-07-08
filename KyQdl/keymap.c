@@ -120,6 +120,7 @@ bool caps_word_press_user(uint16_t keycode) {
   case KC_1 ... KC_0:
   case KC_BSPC:
   case KC_DEL:
+  case KC_LPRN:
     return true;
 
   default:
@@ -135,11 +136,9 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
   case KC_F23:
     return false;
   case MT(MOD_LSFT, KC_F23):
-    if (record->tap.count == 0 || record->tap.interrupted) {
-      // Held = use mod
-      *remembered_mods = MOD_LSFT;
+    if (record->tap.count && record->event.pressed) {
+      return false;
     }
-    return false;
   };
 
   return true;
@@ -149,8 +148,6 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   // basic and expected complex keycodes
   switch (keycode) {
   case KC_ENTER:
-  case LGUI(LCTL(LSFT(KC_4))):
-  case LGUI(LSFT(KC_5)):
     return KC_ESCAPE;
 
   case KC_ESCAPE:
@@ -249,6 +246,20 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     }
   };
 
+  if (mods & MOD_MASK_CSG) {
+    switch (keycode) {
+    case KC_4:
+      return KC_ESCAPE;
+    }
+  }
+
+  if (mods & MOD_MASK_SG) {
+    switch (keycode) {
+    case KC_5:
+      return KC_ESCAPE;
+    }
+  }
+
   return KC_TRNS;
 }
 
@@ -264,7 +275,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->tap.count) {
       repeat_key_invoke(&record->event); // Repeat last key
       return false; // Return false to ignore further processing of key
-    }
+    } else {
+      set_last_mods(MOD_MASK_SHIFT);
+      return true
+    };
     break;
   case PRE_REPEAT:
     if (record->tap.count) {
