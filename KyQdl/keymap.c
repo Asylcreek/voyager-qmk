@@ -183,27 +183,27 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   }
 
   mods = mods | get_mods() | get_weak_mods() | get_oneshot_mods();
-  if (mods == MOD_MASK_SHIFT) {
+  if (mods == MOD_BIT(KC_LSFT)) {
     xprintf("mod mask shift\n");
   } else {
     xprintf("not mod mask shift\n");
   };
-  if (mods == MOD_MASK_CSG) {
+  if (mods == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI))) {
     xprintf("mod mask csg\n");
   } else {
     xprintf("not mod mask csg\n");
   };
-  if (mods == MOD_MASK_SG) {
+  if (mods == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI))) {
     xprintf("mod mask sg\n");
   } else {
     xprintf("not mod mask sg\n");
   };
-  if (mods == MOD_MASK_CTRL) {
+  if (mods == MOD_BIT(KC_LCTL)) {
     xprintf("mod mask ctrl\n");
   } else {
     xprintf("not mod mask ctrl\n");
   };
-  if (mods == MOD_MASK_CSA) {
+  if (mods == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT) | MOD_BIT(KC_LALT))) {
     xprintf("mod mask csa\n");
   } else {
     xprintf("not mod mask csa\n");
