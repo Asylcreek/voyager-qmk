@@ -136,33 +136,11 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
   case KC_F23:
     return false;
   case MT(MOD_LSFT, KC_F23):
-    if (record->event.pressed) { // Only act on key press
-      // Check if the mod-tap key is being held as a modifier
-      // `mod_tap_is_pressed(keycode)` checks if the modifier part of the
-      // mod-tap is active.
-      if (mod_tap_is_pressed(keycode)) {
-        // Add the desired modifier to the remembered_mods
-        // Use bitwise OR to set the specific modifier bit
-        *remembered_mods |= MOD_BIT(KC_LSFT);
-        return true; // Indicate that we've handled it and want to remember this
-                     // state
-      } else {
-        // It was a tap (KC_F23 was sent)
-        // If you want to ignore the tap keycode from being remembered,
-        // but still allow other mods to be remembered, you might return false
-        // here. If you want the tap to clear the mod, set it to 0. If you want
-        // to *only* remember the tap keycode, you'd handle that separately.
-        return false; // Based on your original code's intent to ignore the tap
-                      // keycode. This prevents the KC_F23 from being the
-                      // `remembered_keycode`.
-      }
-    }
-    // If the key is released (record->event.pressed is false),
-    // and you want to potentially remove the mod from remembered_mods
-    // (though remember_last_key often just sets on press),
-    // you'd add logic here. For simplicity, we're focusing on the "set" action.
-    return true; // For releases, let QMK handle if it needs to update
-                 // remembered_keycode.
+    if (record->tap.count == 0) {
+      *remembered_mods |= MOD_BIT(KC_LSFT);
+    };
+    return false; // For releases, let QMK handle if it needs to update
+                  // remembered_keycode.
   };
 
   return true;
