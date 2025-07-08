@@ -262,7 +262,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->tap.count) {
       repeat_key_invoke(&record->event); // Repeat last key
       return false; // Return false to ignore further processing of key
-    }
+    } else {
+      set_mods(get_mods());
+      return true;
+    };
     break;
   case PRE_REPEAT:
     if (record->tap.count) {
