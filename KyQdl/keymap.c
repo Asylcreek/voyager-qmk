@@ -153,8 +153,7 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   case KC_ESCAPE:
   case KC_SEMICOLON:
   case KC_COMMA:
-  case KC_O:    // so that alt-repeat gives enter with o or O in vim
-  case S(KC_O): // so that alt-repeat gives enter with o or O in vim
+  case KC_O: // so that alt-repeat gives enter with o or O in vim
   case KC_V:
     return KC_ENTER;
 
@@ -166,9 +165,6 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
 
   case KC_DOUBLE_QUOTE:
     return KC_PLUS;
-
-  case S(KC_4):
-    return M_ALT_DOLLAR;
 
   case KC_EXCLAIM:
   case KC_EQL:
@@ -250,6 +246,15 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     }
   }
 
+  if (mods == MOD_BIT(KC_LSFT)) {
+    switch (keycode) {
+    case KC_O:
+      return KC_ENTER;
+    case KC_4:
+      return M_ALT_DOLLAR;
+    };
+  };
+
   if ((mods & ~MOD_MASK_SHIFT) == 0) {
     switch (keycode) {
       // For navigating next/previous search results in Vim:
@@ -313,7 +318,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       repeat_key_invoke(&record->event); // Repeat last key
       return false; // Return false to ignore further processing of key
     } else {
-      set_last_mods(MOD_MASK_SHIFT);
+      set_last_mods(MOD_BIT(KC_LSFT));
       return true;
     };
     break;
