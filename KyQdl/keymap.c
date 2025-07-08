@@ -277,7 +277,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false; // Return false to ignore further processing of key
     } else {
       set_last_mods(MOD_MASK_SHIFT);
-      return true
+      return true;
     };
     break;
   case PRE_REPEAT:
