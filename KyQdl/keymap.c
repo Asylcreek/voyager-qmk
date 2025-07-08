@@ -134,11 +134,8 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
   case PRE_REPEAT:
   case PRE_MAGIC:
   case KC_F23:
-    return false;
   case MT(MOD_LSFT, KC_F23):
-    if (record->tap.count && record->event.pressed) {
-      return false;
-    }
+    return false;
   };
 
   return true;
@@ -166,9 +163,8 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   case KC_DOUBLE_QUOTE:
     return KC_PLUS;
 
-  case KC_EXCLAIM:
   case KC_EQL:
-    return M_EQEQ; // = -> ==, ! -> ==
+    return M_EQEQ; // = -> ==
 
   case KC_PLUS:
   case KC_MINUS:
@@ -250,8 +246,10 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     switch (keycode) {
     case KC_O:
       return KC_ENTER;
+    case KC_1:
+      return M_EQEQ; // ! -> ==
     case KC_4:
-      return M_ALT_DOLLAR;
+      return M_ALT_DOLLAR; // $ -> {};
     };
   };
 
