@@ -183,7 +183,7 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   }
 
   mods = mods | get_mods() | get_weak_mods() | get_oneshot_mods();
-  if (mods == MOD_BIT(KC_LCTL)) {
+  if (mods == MOD_BIT(KC_LSFT)) {
     xprintf("mod bit shift\n");
   } else {
     xprintf("not mod bit shift\n");
@@ -525,7 +525,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         register_code16(LGUI(LCTL(LSFT(KC_4))));
         set_last_keycode(KC_4);
-        set_last_mods(MOD_MASK_CTRL | MOD_MASK_SHIFT | MOD_MASK_GUI);
+        set_last_mods(MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI));
       } else {
         unregister_code16(LGUI(LCTL(LSFT(KC_4))));
       }
@@ -533,7 +533,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         register_code16(LGUI(LSFT(KC_5)));
         set_last_keycode(KC_5);
-        set_last_mods(MOD_MASK_SHIFT | MOD_MASK_GUI);
+        set_last_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI));
       } else {
         unregister_code16(LGUI(LSFT(KC_5)));
       }
