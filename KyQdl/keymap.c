@@ -175,32 +175,6 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   }
 
   mods = mods | get_mods() | get_weak_mods() | get_oneshot_mods();
-  if (mods == MOD_BIT(KC_LSFT)) {
-    xprintf("mod bit shift\n");
-  } else {
-    xprintf("not mod bit shift\n");
-  };
-  if (mods == MOD_BIT(KC_LCTL)) {
-    xprintf("mod bit ctrl\n");
-  } else {
-    xprintf("not mod bit ctrl\n");
-  };
-  if (mods == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI))) {
-    xprintf("mod mask csg\n");
-  } else {
-    xprintf("not mod mask csg\n");
-  };
-  if (mods == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI))) {
-    xprintf("mod mask sg\n");
-  } else {
-    xprintf("not mod mask sg\n");
-  };
-  if (mods == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT) | MOD_BIT(KC_LALT))) {
-    xprintf("mod mask csa\n");
-  } else {
-    xprintf("not mod mask csa\n");
-  };
-  uprintf("above: kc: 0x%04X\n", keycode);
 
   // add modifiers for shortcut like keys like
   // C(KC_S), G(KC_C), S(KC_N), O(KC_N)
@@ -210,17 +184,6 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     keycode = QK_MODS_GET_BASIC_KEYCODE(keycode);
     break;
   }
-  if (mods == MOD_BIT(KC_LSFT)) {
-    xprintf("mod mask shift\n");
-  } else {
-    xprintf("not mod mask shift\n");
-  };
-  if (mods == MOD_BIT(KC_LCTL)) {
-    xprintf("mod mask ctrl\n");
-  } else {
-    xprintf("not mod mask ctrl\n");
-  };
-  uprintf("KL: kc: 0x%04X\n", keycode);
 
   if (mods == MOD_BIT(KC_LCTL)) {
     switch (keycode) {
