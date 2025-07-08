@@ -183,6 +183,32 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   }
 
   mods = mods | get_mods() | get_weak_mods() | get_oneshot_mods();
+  if ((mods & MOD_MASK_SHIFT) != 0) {
+    xprintf("mod mask shift");
+  } else {
+    xprintf("not mod mask shift");
+  };
+  if (mods & MOD_MASK_CSG) {
+    xprintf("mod mask csg");
+  } else {
+    xprintf("not mod mask csg");
+  };
+  if (mods & MOD_MASK_SG) {
+    xprintf("mod mask sg");
+  } else {
+    xprintf("not mod mask sg");
+  };
+  if ((mods & MOD_MASK_CTRL) != 0) {
+    xprintf("C(KC_K) was specifically remembered with Ctrl modifier!\n");
+  } else {
+    xprintf("not mod mask ctrl");
+  };
+  if (mods & MOD_MASK_CSA) {
+    xprintf("mod mask csa");
+  } else {
+    xprintf("not mod mask csa");
+  };
+  uprintf("KL: kc: 0x%04X\n", keycode);
 
   // add modifiers for shortcut like keys like
   // C(KC_S), G(KC_C), S(KC_N), O(KC_N)
