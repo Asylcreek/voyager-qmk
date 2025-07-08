@@ -272,7 +272,7 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     }
   }
 
-  if (mods & MOD_MASK_CSA) {
+  if (mods == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT) | MOD_BIT(KC_LALT))) {
     switch (keycode) {
     case KC_Z:
       return MEH(KC_G);
@@ -283,14 +283,14 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     }
   };
 
-  if (mods & MOD_MASK_CSG) {
+  if (mods == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI))) {
     switch (keycode) {
     case KC_4:
       return KC_ESCAPE;
     }
   }
 
-  if (mods & MOD_MASK_SG) {
+  if (mods == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI))) {
     switch (keycode) {
     case KC_5:
       return KC_ESCAPE;
