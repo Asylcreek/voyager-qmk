@@ -228,6 +228,9 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     mods |= QK_MODS_GET_MODS(keycode);
     keycode = QK_MODS_GET_BASIC_KEYCODE(keycode);
     break;
+  case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+    keycode = QK_LAYER_TAP_GET_TAP_KEYCODE(keycode);
+    break;
   }
   if (mods == MOD_BIT(KC_LSFT)) {
 
