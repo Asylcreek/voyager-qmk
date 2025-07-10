@@ -42,15 +42,15 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(8, KC_F19)
-#define DUAL_FUNC_1 LT(13, KC_6)
-#define DUAL_FUNC_2 LT(2, KC_F4)
+#define DUAL_FUNC_0 LT(7, KC_F10)
+#define DUAL_FUNC_1 LT(15, KC_F24)
+#define DUAL_FUNC_2 LT(3, KC_1)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
-    KC_TAB,         LALT(LGUI(KC_J)),LGUI(KC_V),     LGUI(KC_A),     LGUI(KC_C),     DUAL_FUNC_0,                                    DUAL_FUNC_1,    KC_MEDIA_PLAY_PAUSE,LALT(KC_BSPC),  LGUI(KC_BSPC),  KC_DELETE,      KC_NO,          
-    KC_ESCAPE,      KC_B,           KC_L,           KC_D,           KC_W,           KC_Z,                                           KC_QUOTE,       KC_F,           KC_O,           KC_U,           KC_J,           KC_NO,          
-    CW_TOGG,        KC_N,           MT(MOD_LALT, KC_R),MT(MOD_LGUI, KC_T),MEH_T(KC_S),    ALL_T(KC_G),                                    ALL_T(KC_Y),    MEH_T(KC_H),    MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_E),KC_I,           KC_NO,          
+    KC_NO,          LALT(LGUI(KC_J)),LGUI(KC_V),     LGUI(KC_A),     LGUI(KC_C),     DUAL_FUNC_0,                                    DUAL_FUNC_1,    KC_MEDIA_PLAY_PAUSE,LALT(KC_BSPC),  LGUI(KC_BSPC),  KC_DELETE,      KC_NO,          
+    KC_ESCAPE,      KC_B,           KC_L,           KC_D,           KC_W,           KC_Z,                                           KC_QUOTE,       KC_F,           KC_O,           KC_U,           KC_J,           KC_BSPC,        
+    CW_TOGG,        KC_N,           MT(MOD_LALT, KC_R),MT(MOD_LGUI, KC_T),MEH_T(KC_S),    ALL_T(KC_G),                                    ALL_T(KC_Y),    MEH_T(KC_H),    MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_E),KC_I,           KC_TAB,         
     KC_NO,          KC_Q,           KC_X,           KC_M,           MT(MOD_LCTL, KC_C),LT(5, KC_V),                                    LT(5, KC_K),    MT(MOD_LCTL, KC_P),KC_DOT,         KC_COMMA,       KC_SCLN,        DUAL_FUNC_2,    
                                                     MT(MOD_LSFT, KC_F23),LT(2, KC_ENTER),                                LT(3, KC_F24),  LT(1, KC_SPACE)
   ),
