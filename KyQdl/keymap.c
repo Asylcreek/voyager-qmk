@@ -205,7 +205,6 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   case KC_MINUS:
   case KC_COLON:
   case KC_TILDE:
-  case KC_ASTERISK:
     return KC_EQL; //
   }
 
@@ -275,6 +274,8 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
       return M_EQEQ; // ! -> ==
     case KC_4:
       return M_ALT_DOLLAR; // $ -> {};
+    case KC_8:
+      return KC_EQL; // * -> *=
     };
   };
 
@@ -343,15 +344,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   const uint8_t mods = get_mods();
 
   switch (keycode) {
-  /* case MT(MOD_LSFT, KC_F23): */
-  /*   if (record->tap.count) { */
-  /*     repeat_key_invoke(&record->event); // Repeat last key */
-  /*     return false; // Return false to ignore further processing of key */
-  /*   } else { */
-  /*     set_last_mods(MOD_BIT(KC_LSFT)); */
-  /*     return true; */
-  /*   }; */
-  /*   break; */
   case PRE_REPEAT:
     if (record->tap.count) {
       repeat_key_invoke(&record->event); // Repeat last key
