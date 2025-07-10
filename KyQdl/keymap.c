@@ -169,7 +169,7 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
 
 uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   // basic and expected complex keycodes
-  if(IS_QK_LAYER_TAP(keycode){
+  if (IS_QK_LAYER_TAP(keycode)) {
     keycode = QK_LAYER_TAP_GET_TAP_KEYCODE(keycode);
   };
 
