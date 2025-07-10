@@ -126,6 +126,14 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   }
 }
 
+bool is_flow_tap_key(uint16_t keycode) {
+  switch (get_tap_keycode(keycode)) {
+  case KC_A ... KC_Z:
+    return true;
+  }
+  return false;
+}
+
 bool caps_word_press_user(uint16_t keycode) {
   switch (keycode) {
   // Keycodes that continue Caps Word, with shift applied.
@@ -161,6 +169,10 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
 
 uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   // basic and expected complex keycodes
+  if(IS_QK_LAYER_TAP(keycode){
+    keycode = QK_LAYER_TAP_GET_TAP_KEYCODE(keycode);
+  };
+
   switch (keycode) {
   case KC_ENTER:
     return KC_ESCAPE;
@@ -194,29 +206,23 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
 
   mods = mods | get_mods() | get_weak_mods() | get_oneshot_mods();
   if (mods == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI))) {
-
     xprintf("mod mask csg\n");
 
   } else {
-
     xprintf("not mod mask csg\n");
   };
 
   if (mods == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI))) {
-
     xprintf("mod mask sg\n");
 
   } else {
-
     xprintf("not mod mask sg\n");
   };
 
   if (mods == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT) | MOD_BIT(KC_LALT))) {
-
     xprintf("mod mask csa\n");
 
   } else {
-
     xprintf("not mod mask csa\n");
   };
   uprintf("KL: kc: 0x%04X\n", keycode);
@@ -228,25 +234,18 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     mods |= QK_MODS_GET_MODS(keycode);
     keycode = QK_MODS_GET_BASIC_KEYCODE(keycode);
     break;
-  case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
-    keycode = QK_LAYER_TAP_GET_TAP_KEYCODE(keycode);
-    break;
   }
   if (mods == MOD_BIT(KC_LSFT)) {
-
     xprintf("mod mask shift\n");
 
   } else {
-
     xprintf("not mod mask shift\n");
   };
 
   if (mods == MOD_BIT(KC_LCTL)) {
-
     xprintf("mod mask ctrl\n");
 
   } else {
-
     xprintf("not mod mask ctrl\n");
   };
 
