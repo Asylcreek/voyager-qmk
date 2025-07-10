@@ -219,6 +219,7 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
 
     xprintf("not mod mask csa\n");
   };
+  uprintf("KL: kc: 0x%04X\n", keycode);
 
   // add modifiers for shortcut like keys like
   // C(KC_S), G(KC_C), S(KC_N), O(KC_N)
