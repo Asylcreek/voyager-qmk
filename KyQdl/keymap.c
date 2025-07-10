@@ -168,9 +168,14 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
 }
 
 uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
-  // basic and expected complex keycodes
-  if (IS_QK_LAYER_TAP(keycode)) {
-    keycode = QK_LAYER_TAP_GET_TAP_KEYCODE(keycode);
+  mods = mods | get_mods() | get_weak_mods() | get_oneshot_mods();
+  keycode = get_tap_keycode(keycode);
+
+  // add modifiers for shortcut like keys like
+  // C(KC_S), G(KC_C), S(KC_N), O(KC_N)
+  if (IS_QK_MODS(keycode)) {
+    mods |= QK_MODS_GET_MODS(keycode);
+    keycode = QK_MODS_GET_BASIC_KEYCODE(keycode);
   };
 
   switch (keycode) {
@@ -204,7 +209,6 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     return KC_EQL; //
   }
 
-  mods = mods | get_mods() | get_weak_mods() | get_oneshot_mods();
   if (mods == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI))) {
     xprintf("mod mask csg\n");
 
@@ -227,14 +231,6 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   };
   uprintf("KL: kc: 0x%04X\n", keycode);
 
-  // add modifiers for shortcut like keys like
-  // C(KC_S), G(KC_C), S(KC_N), O(KC_N)
-  switch (keycode) {
-  case QK_MODS ... QK_MODS_MAX: // Unpack modifier + basic key.
-    mods |= QK_MODS_GET_MODS(keycode);
-    keycode = QK_MODS_GET_BASIC_KEYCODE(keycode);
-    break;
-  }
   if (mods == MOD_BIT(KC_LSFT)) {
     xprintf("mod mask shift\n");
 
