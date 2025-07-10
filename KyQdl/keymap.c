@@ -160,7 +160,6 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
   case PRE_REPEAT:
   case PRE_MAGIC:
   case KC_F23:
-    /* case MT(MOD_LSFT, KC_F23): */
     return false;
   };
 
@@ -207,44 +206,6 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   case KC_TILDE:
     return KC_EQL; //
   }
-
-  if (mods == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI))) {
-    xprintf("mod mask csg\n");
-
-  } else {
-    xprintf("not mod mask csg\n");
-  };
-
-  if (mods == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI))) {
-    xprintf("mod mask sg\n");
-
-  } else {
-    xprintf("not mod mask sg\n");
-  };
-
-  if (mods == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT) | MOD_BIT(KC_LALT))) {
-    xprintf("mod mask csa\n");
-
-  } else {
-    xprintf("not mod mask csa\n");
-  };
-  uprintf("KL: kc: 0x%04X\n", keycode);
-
-  if (mods == MOD_BIT(KC_LSFT)) {
-    xprintf("mod mask shift\n");
-
-  } else {
-    xprintf("not mod mask shift\n");
-  };
-
-  if (mods == MOD_BIT(KC_LCTL)) {
-    xprintf("mod mask ctrl\n");
-
-  } else {
-    xprintf("not mod mask ctrl\n");
-  };
-
-  uprintf("KL: kc: 0x%04X\n", keycode);
 
   if (mods == MOD_BIT(KC_LCTL)) {
     switch (keycode) {
