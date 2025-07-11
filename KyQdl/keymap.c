@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESCAPE,      KC_B,           KC_L,           KC_D,           KC_W,           KC_Z,                                           KC_QUOTE,       KC_F,           KC_O,           KC_U,           KC_J,           KC_BSPC,        
     CW_TOGG,        LT(2, KC_N),    MT(MOD_LALT, KC_R),MT(MOD_LGUI, KC_T),MEH_T(KC_S),    ALL_T(KC_G),                                    ALL_T(KC_Y),    MEH_T(KC_H),    MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_E),LT(3, KC_I),    KC_TAB,         
     KC_NO,          KC_Q,           KC_X,           KC_M,           MT(MOD_LCTL, KC_C),LT(5, KC_V),                                    LT(5, KC_K),    MT(MOD_LCTL, KC_P),KC_DOT,         KC_COMMA,       KC_SCLN,        DUAL_FUNC_2,    
-                                                    MT(MOD_LSFT, KC_F23),KC_ENTER,                                       KC_F24,         LT(1, KC_SPACE)
+                                                    MT(MOD_LSFT, KC_F23),KC_ENTER,                                       MAGIC,         LT(1, KC_SPACE)
   ),
   [1] = LAYOUT_voyager(
     KC_NO,          KC_SPACE,       KC_GRAVE,       KC_AMPR,        KC_TILD,        KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
@@ -155,6 +155,7 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
   switch (keycode) {
   case PRE_REPEAT:
   case PRE_MAGIC:
+  case MAGIC:
   case KC_F23:
     return false;
   };
