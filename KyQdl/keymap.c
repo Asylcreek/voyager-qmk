@@ -310,9 +310,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case PRE_MAGIC:
     if (record->event.pressed) {
       alt_repeat_key_invoke(&record->event); // Invoke alt key
-      return false; // Return false to ignore further processing of key
     }
-    break;
+    return false; // Return false to ignore further processing of key
     // Macros invoked through the MAGIC key
   case M_EQEQ:
     if (record->event.pressed) {
