@@ -191,9 +191,6 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   case KC_LEFT_CURLY_BRACE:
     return M_CLOSE_BRACE;
 
-  case KC_DOUBLE_QUOTE:
-    return KC_PLUS;
-
   case KC_EQL:
     return M_EQEQ; // = -> ==
 
@@ -234,6 +231,8 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
       return M_ALT_DOLLAR; // $ -> {};
     case KC_8:
       return KC_EQL; // * -> *=
+    case KC_QUOTE:
+      return KC_PLUS; // " -> "+
     };
   };
 
