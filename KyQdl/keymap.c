@@ -185,19 +185,10 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   case KC_V:
     return KC_ENTER;
 
-  case KC_RIGHT_PAREN:
-    return M_ARROW_FUNC;
-
-  case KC_LEFT_CURLY_BRACE:
-    return M_CLOSE_BRACE;
-
   case KC_EQL:
     return M_EQEQ; // = -> ==
 
-  case KC_PLUS:
   case KC_MINUS:
-  case KC_COLON:
-  case KC_TILDE:
     return KC_EQL; //
   }
 
@@ -233,6 +224,14 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
       return KC_EQL; // * -> *=
     case KC_QUOTE:
       return KC_PLUS; // " -> "+
+    case KC_0:
+      return M_ARROW_FUNC;
+    case KC_LEFT_BRACKET:
+      return M_CLOSE_BRACE;
+    case KC_SEMICOLON:
+    case KC_GRAVE:
+    case KC_EQUAL:
+      return KC_EQL; //
     };
   };
 
