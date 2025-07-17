@@ -264,6 +264,8 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     switch (keycode) {
     case KC_EQL:
       return G(KC_MINUS);
+    case KC_MINUS:
+      return G(KC_EQL);
     };
   }
 
@@ -299,17 +301,17 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   if (mods == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_LALT))) {
     switch (keycode) {
     case KC_EQL:
-      return KC_MINUS;
+      return A(S(KC_MINUS));
     case KC_MINUS:
-      return KC_EQL;
+      return A(S(KC_EQL));
     case KC_L:
-      return KC_H;
+      return A(S(KC_H));
     case KC_H:
-      return KC_L;
+      return A(S(KC_L));
     case KC_K:
-      return KC_J;
+      return A(S(KC_J));
     case KC_J:
-      return KC_H;
+      return A(S(KC_K));
     };
   };
 
