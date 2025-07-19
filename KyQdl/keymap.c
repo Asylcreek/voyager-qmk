@@ -168,24 +168,6 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     keycode = QK_MODS_GET_BASIC_KEYCODE(keycode);
   };
 
-  switch (keycode) {
-  case KC_ENTER:
-    return KC_ESCAPE;
-
-  case KC_ESCAPE:
-  case KC_SEMICOLON:
-  case KC_COMMA:
-  case KC_O: // so that alt-repeat gives enter with o or O in vim
-  case KC_V:
-    return KC_ENTER;
-
-  case KC_EQL:
-    return M_EQEQ; // = -> ==
-
-  case KC_MINUS:
-    return KC_EQL; //
-  }
-
   if (mods == MOD_BIT(KC_LCTL)) {
     switch (keycode) {
     case KC_TAB:
@@ -301,9 +283,9 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   if (mods == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_LALT))) {
     switch (keycode) {
     case KC_EQL:
-      return A(KC_UNDERSCORE);
+      return A(S(KC_MINUS));
     case KC_MINUS:
-      return A(KC_PLUS);
+      return A(S(KC_EQL));
     case KC_L:
       return A(S(KC_H));
     case KC_H:
@@ -314,6 +296,26 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
       return A(S(KC_K));
     };
   };
+
+  // add this last so that any combinations that have modifiers
+  // would trigger first
+  switch (keycode) {
+  case KC_ENTER:
+    return KC_ESCAPE;
+
+  case KC_ESCAPE:
+  case KC_SEMICOLON:
+  case KC_COMMA:
+  case KC_O: // so that alt-repeat gives enter with o or O in vim
+  case KC_V:
+    return KC_ENTER;
+
+  case KC_EQL:
+    return M_EQEQ; // = -> ==
+
+  case KC_MINUS:
+    return KC_EQL; //
+  }
 
   return KC_TRNS;
 }
