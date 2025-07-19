@@ -301,9 +301,9 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   if (mods == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_LALT))) {
     switch (keycode) {
     case KC_EQL:
-      return A(S(KC_MINUS));
+      return A(KC_UNDERSCORE);
     case KC_MINUS:
-      return A(S(KC_EQL));
+      return A(KC_PLUS);
     case KC_L:
       return A(S(KC_H));
     case KC_H:
