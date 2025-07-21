@@ -51,16 +51,16 @@ enum custom_keycodes {
   M_ALT_DOLLAR
 };
 
-#define DUAL_FUNC_0 LT(7, KC_O)
-#define DUAL_FUNC_1 LT(12, KC_B)
-#define DUAL_FUNC_2 LT(13, KC_F16)
+#define DUAL_FUNC_0 LT(12, KC_2)
+#define DUAL_FUNC_1 LT(7, KC_3)
+#define DUAL_FUNC_2 LT(11, KC_F12)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
     MAC_LOCK,       ST_MACRO_0,     LGUI(KC_V),     LGUI(KC_A),     LGUI(KC_C),     DUAL_FUNC_0,                                    KC_AUDIO_MUTE,  KC_MEDIA_PREV_TRACK,DUAL_FUNC_1,    KC_MEDIA_PLAY_PAUSE,KC_MEDIA_NEXT_TRACK,MAC_DND,        
     KC_ESCAPE,      KC_B,           KC_L,           KC_D,           KC_W,           KC_Z,                                           KC_QUOTE,       KC_F,           KC_O,           KC_U,           KC_J,           KC_TAB,         
-MAGIC,         LT(2, KC_N),    MT(MOD_LALT, KC_R),MT(MOD_LGUI, KC_T),MEH_T(KC_S),    ALL_T(KC_G),                                    ALL_T(KC_Y),    MEH_T(KC_H),    MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_E),LT(4, KC_I),    CW_TOGG,        
+    MAGIC,         LT(2, KC_N),    MT(MOD_LALT, KC_R),MT(MOD_LGUI, KC_T),MEH_T(KC_S),    ALL_T(KC_G),                                    ALL_T(KC_Y),    MEH_T(KC_H),    MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_E),LT(4, KC_I),    CW_TOGG,        
     KC_DELETE,      KC_Q,           KC_X,           KC_M,           MT(MOD_LCTL, KC_C),KC_V,                                           KC_K,           MT(MOD_LCTL, KC_P),KC_DOT,         KC_COMMA,       KC_SCLN,        MO(3),          
                                                     MT(MOD_LSFT, KC_F23),KC_BSPC,                                        KC_ENTER,       LT(1, KC_SPACE)
   ),
@@ -531,6 +531,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     HSS(0x9B);
   case MAC_LOCK:
     HCS(0x19E);
+
   case DUAL_FUNC_0:
     if (record->tap.count > 0) {
       if (record->event.pressed) {
