@@ -51,9 +51,10 @@ enum custom_keycodes {
   M_ALT_DOLLAR
 };
 
-#define DUAL_FUNC_0 LT(3, KC_S)
-#define DUAL_FUNC_1 LT(10, KC_F2)
-#define DUAL_FUNC_2 LT(12, KC_F23)
+#define DUAL_FUNC_0 LT(7, KC_1)
+#define DUAL_FUNC_1 LT(8, KC_K)
+#define DUAL_FUNC_2 LT(9, KC_7)
+#define DUAL_FUNC_3 LT(6, KC_F3)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -66,9 +67,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [1] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    KC_PIPE,        KC_RPRN,        KC_9,           KC_8,           KC_7,           KC_LPRN,                                        KC_UNDS,        KC_LABK,        KC_COLN,        KC_RABK,        KC_TILD,        KC_NO,          
-    KC_BSLS,        KC_RCBR,        MT(MOD_LALT, KC_3),MT(MOD_LGUI, KC_2),KC_1,           KC_LCBR,                                        KC_LBRC,        KC_0,           MT(MOD_LGUI, KC_MINUS),MT(MOD_LALT, KC_GRAVE),KC_RBRC,        KC_COMMA,       
-    KC_NO,          KC_EQUAL,       KC_6,           KC_5,           MT(MOD_LCTL, KC_4),KC_DQUO,                                        KC_PLUS,        DUAL_FUNC_2,    KC_DOT,         KC_ASTR,        KC_SLASH,       KC_NO,          
+    KC_NO,          KC_RABK,        KC_9,           KC_8,           KC_7,           KC_LABK,                                        KC_UNDS,        KC_GRAVE,       KC_COLN,        KC_DQUO,        KC_TILD,        KC_NO,          
+    KC_BSLS,        KC_RCBR,        MT(MOD_LALT, KC_3),MT(MOD_LGUI, KC_2),KC_1,           KC_LCBR,                                        KC_LBRC,        KC_0,           DUAL_FUNC_2,    MT(MOD_LALT, KC_RBRC),KC_EQUAL,       KC_COMMA,       
+    KC_NO,          KC_RPRN,        KC_6,           KC_5,           MT(MOD_LCTL, KC_4),KC_LPRN,                                        KC_PIPE,        DUAL_FUNC_3,    KC_DOT,         KC_MINUS,       KC_SLASH,       KC_NO,          
                                                     KC_TRANSPARENT, KC_BSPC,                                        KC_NO,          KC_TRANSPARENT
   ),
   [2] = LAYOUT_voyager(
@@ -571,7 +572,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case DUAL_FUNC_2:
     if (record->tap.count > 0) {
       if (record->event.pressed) {
+        register_code16(KC_PLUS);
+        set_last_keycode(KC_EQL);
+        set_last_mods(MOD_BIT(KC_LSFT));
+      } else {
+        unregister_code16(KC_PLUS);
+      }
+    } else {
+      if (record->event.pressed) {
+        register_code16(KC_LEFT_GUI);
+      } else {
+        unregister_code16(KC_LEFT_GUI);
+      }
+    }
+    return false;
+  case DUAL_FUNC_3:
+    if (record->tap.count > 0) {
+      if (record->event.pressed) {
         register_code16(KC_QUES);
+        set_last_keycode(KC_SLASH);
+        set_last_mods(MOD_BIT(KC_LSFT));
       } else {
         unregister_code16(KC_QUES);
       }
