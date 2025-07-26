@@ -134,10 +134,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 
 bool is_flow_tap_key(uint16_t keycode) {
   switch (get_tap_keycode(keycode)) {
-  case KC_I:
-  case KC_N:
-    return false;
-  case KC_A ... KC_Z:
+  case KC_A ... KC_H:
+  case KC_J ... KC_M:
+  case KC_O ... KC_Z:
     return true;
   }
   return false;
