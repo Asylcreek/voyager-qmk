@@ -116,15 +116,16 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
            'R', 'R', 'R', 'R', 'R', 'R', '*', '*', '*', '*');
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-case LT(1, KC_F23):
-  return TAPPING_TERM - 55;
-case LT(1, KC_SPACE):
-  return TAPPING_TERM - 55;
-case LT(6, KC_F23):
-  return TAPPING_TERM - 55;
-default:
-  return TAPPING_TERM;
-}
+  switch (keycode) {
+  case LT(1, KC_F23):
+    return TAPPING_TERM - 55;
+  case LT(1, KC_SPACE):
+    return TAPPING_TERM - 55;
+  case LT(6, KC_F23):
+    return TAPPING_TERM - 55;
+  default:
+    return TAPPING_TERM;
+  }
 }
 
 bool is_flow_tap_key(uint16_t keycode) {
