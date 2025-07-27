@@ -52,8 +52,8 @@ enum custom_keycodes {
   M_ALT_DOLLAR
 };
 
-#define DUAL_FUNC_0 LT(10, KC_F13)
-#define DUAL_FUNC_1 LT(6, KC_F1)
+#define DUAL_FUNC_0 LT(2, KC_6)
+#define DUAL_FUNC_1 LT(9, KC_F3)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -117,7 +117,11 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
+  case MT(MOD_LSFT, KC_N):
+    return TAPPING_TERM - 55;
   case LT(1, KC_F23):
+    return TAPPING_TERM - 55;
+  case MT(MOD_LSFT, KC_I):
     return TAPPING_TERM - 55;
   case LT(1, KC_SPACE):
     return TAPPING_TERM - 55;
