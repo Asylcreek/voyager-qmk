@@ -370,56 +370,54 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   // --- Handle PRE_REPEAT (LT(1, KC_F23)) for its TAP function FIRST ---
-  // This must be handled before the sticky layer logic to ensure repeat works.
   if (keycode == PRE_REPEAT) {
     if (record->tap.count > 0) { // It's a tap
       if (record->event.pressed) {
         repeat_key_invoke(&record->event); // Invoke repeat key
       }
+#ifdef CONSOLE_ENABLE
+      xprintf("PRE_REPEAT TAPPED (returning false).\n");
+#endif
       return false; // Consume the keypress, no further processing needed for
                     // this tap.
     }
-    // If it's a hold, we let it fall through to QMK's default LT() behavior
-    // which will activate layer 1, and then our sticky logic will handle that.
+    // If it's a hold, we let it fall through.
   }
 
-  // --- Sticky Layer 1 (NAV) Logic ---
-  // Now, check if the *resolved* keycode (e.g., KC_F23 from LT(1,KC_F23) being
-  // held) is one of our sticky anchors.
-  uint16_t resolved_keycode =
-      get_tap_keycode(keycode); // get_tap_keycode is appropriate for LT/MT keys
+  // --- Sticky Layer 1 Logic ---
+  uint16_t resolved_keycode = get_tap_keycode(keycode);
 
   if (is_sticky_layer_1_anchor_base(resolved_keycode)) {
     if (record->event.pressed) {
       sticky_layer_1_held_count++;
       sticky_layer_1_release_timer = 0; // Clear timer on any anchor press
 #ifdef CONSOLE_ENABLE
-      xprintf("Sticky Layer 1: Anchor pressed, count: %u, key: %04X\n",
-              sticky_layer_1_held_count, resolved_keycode);
+      xprintf("Sticky Layer 1: Anchor pressed. Key: %04X, Count: %u, Timer "
+              "reset.\n",
+              resolved_keycode, sticky_layer_1_held_count);
 #endif
     } else { // Key released
       sticky_layer_1_held_count--;
-      // Only start the timer if ALL anchor keys are released AND Layer 1 is
-      // currently active.
+#ifdef CONSOLE_ENABLE
+      xprintf("Sticky Layer 1: Anchor released. Key: %04X, Count: %u.\n",
+              resolved_keycode, sticky_layer_1_held_count);
+#endif
       if (sticky_layer_1_held_count == 0 && layer_state_is(1)) {
         sticky_layer_1_release_timer = timer_read();
 #ifdef CONSOLE_ENABLE
-        xprintf(
-            "Sticky Layer 1: All anchors released, timer started for %u ms.\n",
-            STICKY_LAYER_1_HOLD_TERM);
+        xprintf("Sticky Layer 1: ALL anchors released. Layer 1 active. Timer "
+                "STARTED: %lu.\n",
+                sticky_layer_1_release_timer);
 #endif
       } else {
 #ifdef CONSOLE_ENABLE
-        xprintf("Sticky Layer 1: Anchor released, but others held or layer "
-                "off. Count: %u\n",
-                sticky_layer_1_held_count);
+        xprintf("Sticky Layer 1: Anchor released, NOT starting timer (others "
+                "held or Layer 1 not active). Current layer: %u\n",
+                get_highest_layer(layer_state));
 #endif
       }
     }
-    // Return true to allow QMK's default handling of LT() for layer
-    // activation/deactivation for these keys. Our sticky logic just supplements
-    // the deactivation.
-    return true;
+    return true; // Allow QMK's default LT() handling for layer activation.
   }
 
   if (!process_custom_shift_keys(keycode, record)) {
@@ -700,30 +698,40 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-// --- START: matrix_scan_user for Sticky Layer 1 Logic ---
-// QMK's matrix_scan_user function. This runs continuously.
 void matrix_scan_user(void) {
   // If Layer 1 is currently active AND no sticky anchor keys are held
-  if (layer_state_is(1) &&
-      sticky_layer_1_held_count == 0) { // Check for layer 1
-    // If a release timer was started and the STICKY_LAYER_1_HOLD_TERM has
-    // passed, then deactivate Layer 1.
+  if (layer_state_is(1) && sticky_layer_1_held_count == 0) {
+    // Check if a release timer was started and the STICKY_LAYER_1_HOLD_TERM has
+    // passed.
     if (sticky_layer_1_release_timer > 0 &&
         timer_elapsed(sticky_layer_1_release_timer) >
             STICKY_LAYER_1_HOLD_TERM) {
       layer_off(1);                     // Deactivate layer 1
       sticky_layer_1_release_timer = 0; // Reset timer
 #ifdef CONSOLE_ENABLE
-      xprintf("Sticky Layer 1: Deactivated (timer expired).\n");
+      xprintf(
+          "Sticky Layer 1: Deactivated (timer expired). Current layer: %u\n",
+          get_highest_layer(layer_state));
 #endif
     }
-  } else if (!layer_state_is(1)) { // If Layer 1 is NOT active
+  } else { // Either Layer 1 is NOT active, or anchor keys are still held.
     // If Layer 1 is NOT active, ensure our timer is reset.
-    // This handles cases where the layer might be turned off by other means
-    // (e.g., TO(0) on another key).
-    sticky_layer_1_release_timer = 0;
-    // sticky_layer_1_held_count = 0; // No need to explicitly reset, it should
-    // already be 0 if layer isn't active.
+    if (!layer_state_is(1)) {
+      if (sticky_layer_1_release_timer != 0) {
+#ifdef CONSOLE_ENABLE
+        xprintf("Sticky Layer 1: Layer 1 deactivated by other means. Resetting "
+                "timer.\n");
+#endif
+        sticky_layer_1_release_timer = 0;
+      }
+    }
+    // If anchor keys are held, make sure timer is off, it should be.
+    if (sticky_layer_1_held_count > 0 && sticky_layer_1_release_timer != 0) {
+      sticky_layer_1_release_timer = 0;
+#ifdef CONSOLE_ENABLE
+      xprintf("Sticky Layer 1: Anchors are held, but timer was somehow active. "
+              "Resetting timer.\n");
+#endif
+    }
   }
 }
-// --- END: matrix_scan_user for Sticky Layer 1 Logic ---
