@@ -8,7 +8,7 @@
 
 #define MAGIC QK_AREP
 #define REPEAT QK_REP
-#define PRE_REPEAT KC_F23
+#define PRE_REPEAT LT(1, KC_F23)
 #define PRE_MAGIC KC_F24
 
 enum custom_keycodes {
@@ -331,7 +331,7 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-  case LT(1, KC_F23):
+  case PRE_REPEAT:
     if (record->tap.count && record->event.pressed) {
       repeat_key_invoke(&record->event);
       return false;
