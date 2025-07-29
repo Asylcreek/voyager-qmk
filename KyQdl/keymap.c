@@ -6,12 +6,9 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
-// FIX 1: Revert PRE_REPEAT to its standard internal QMK keycode.
-// This is crucial for QK_REP and QK_AREP to function correctly without
-// auto-repeating.
 #define MAGIC QK_AREP
 #define REPEAT QK_REP
-#define PRE_REPEAT LT(1, KC_F23)
+#define PRE_REPEAT KC_F23
 #define PRE_MAGIC KC_F24
 
 enum custom_keycodes {
@@ -48,7 +45,6 @@ enum custom_keycodes {
   ST_MACRO_26,
   MAC_DND,
   MAC_LOCK,
-  // Macros invoked through the Magic key.
   M_EQEQ,
   M_ARROW_FUNC,
   M_CLOSE_BRACE,
@@ -58,15 +54,10 @@ enum custom_keycodes {
 #define DUAL_FUNC_0 LT(2, KC_6)
 #define DUAL_FUNC_1 LT(9, KC_F3)
 
-// --- START: Sticky Layer 1 (SymNum) Logic Variables ---
-// Define the timeout period for the sticky layer
-#define STICKY_SYMNUM_TIMEOUT 2000 // Milliseconds (2 seconds of inactivity)
+#define STICKY_SYMNUM_TIMEOUT 2000
 
-// State variables for our sticky SymNum layer (Layer 1) logic
 static uint8_t sticky_symnum_held_count = 0;
-static uint32_t sticky_symnum_activity_timer = 0; // Tracks last activity
-
-// --- END: Sticky Layer 1 (SymNum) Logic Variables ---
+static uint32_t sticky_symnum_activity_timer = 0;
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -132,9 +123,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case MT(MOD_LSFT, KC_N):
     return TAPPING_TERM - 55;
-  case LT(1, KC_F23): // Applied tapping term to LT(1, KC_F23)
+  case LT(1, KC_F23):
     return TAPPING_TERM - 55;
-  case LT(1, KC_SPACE): // Applied tapping term to LT(1, KC_SPACE)
+  case LT(1, KC_SPACE):
     return TAPPING_TERM - 55;
   case MT(MOD_LSFT, KC_I):
     return TAPPING_TERM - 55;
@@ -157,13 +148,11 @@ bool is_flow_tap_key(uint16_t keycode) {
 
 bool caps_word_press_user(uint16_t keycode) {
   switch (keycode) {
-  // Keycodes that continue Caps Word, with shift applied.
   case KC_A ... KC_Z:
   case KC_QUOTE:
-    add_weak_mods(MOD_BIT(KC_LSFT)); // Apply shift to next key.
+    add_weak_mods(MOD_BIT(KC_LSFT));
     return true;
 
-  // Keycodes that continue Caps Word, without shifting.
   case KC_1 ... KC_0:
   case KC_BSPC:
   case KC_DEL:
@@ -171,33 +160,26 @@ bool caps_word_press_user(uint16_t keycode) {
     return true;
 
   default:
-    return false; // Deactivate Caps Word.
+    return false;
   }
 }
 
 bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
                             uint8_t *remembered_mods) {
   switch (keycode) {
-  // Explicitly prevent PRE_REPEAT (KC_F23), MAGIC, and the LT(6, KC_F23) from
-  // being remembered.
-  // FIX 2: PRE_REPEAT is now correctly KC_F23 here.
   case PRE_REPEAT:
   case PRE_MAGIC:
   case MAGIC:
-  case LT(6,
-          KC_F23): // This is the LT key on layer 5, not the main layer 0 one.
+  case LT(6, KC_F23):
     return false;
   };
-
-  return true; // For all other actual key presses, allow remembering.
+  return true;
 }
 
 uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   mods = mods | get_mods() | get_weak_mods() | get_oneshot_mods();
   keycode = get_tap_keycode(keycode);
 
-  // add modifiers for shortcut like keys like
-  // C(KC_S), G(KC_C), S(KC_N), O(KC_N)
   if (IS_QK_MODS(keycode)) {
     mods |= QK_MODS_GET_MODS(keycode);
     keycode = QK_MODS_GET_BASIC_KEYCODE(keycode);
@@ -228,13 +210,13 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     case KC_O:
       return KC_ENTER;
     case KC_1:
-      return M_EQEQ; // ! -> ==
+      return M_EQEQ;
     case KC_4:
-      return M_ALT_DOLLAR; // $ -> {};
+      return M_ALT_DOLLAR;
     case KC_8:
-      return KC_EQL; // * -> *=
+      return KC_EQL;
     case KC_QUOTE:
-      return KC_PLUS; // " -> "+
+      return KC_PLUS;
     case KC_0:
       return M_ARROW_FUNC;
     case KC_LEFT_BRACKET:
@@ -242,14 +224,12 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     case KC_SEMICOLON:
     case KC_GRAVE:
     case KC_EQUAL:
-      return KC_EQL; //
+      return KC_EQL;
     };
   };
 
   if ((mods & ~MOD_MASK_SHIFT) == 0) {
     switch (keycode) {
-      // For navigating next/previous search results in Vim:
-      // N -> Shift + N, Shift + N -> N.
     case KC_N:
       if ((mods & MOD_MASK_SHIFT) == 0) {
         return S(KC_N);
@@ -286,7 +266,6 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     };
   }
 
-  // if MEH
   if (mods == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT) | MOD_BIT(KC_LALT))) {
     switch (keycode) {
     case KC_Z:
@@ -298,7 +277,6 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     }
   };
 
-  // if C+S+G
   if (mods == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI))) {
     switch (keycode) {
     case KC_4:
@@ -306,7 +284,6 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     }
   }
 
-  // if S+G
   if (mods == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI))) {
     switch (keycode) {
     case KC_5:
@@ -314,7 +291,6 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     }
   }
 
-  // if S+O
   if (mods == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_LALT))) {
     switch (keycode) {
     case KC_EQL:
@@ -332,8 +308,6 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     };
   };
 
-  // add this last so that any combinations that have modifiers
-  // would trigger first
   switch (keycode) {
   case KC_ENTER:
     return KC_ESCAPE;
@@ -341,100 +315,51 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   case KC_ESCAPE:
   case KC_SEMICOLON:
   case KC_COMMA:
-  case KC_O: // so that alt-repeat gives enter with o or O in vim
+  case KC_O:
   case KC_V:
     return KC_ENTER;
 
   case KC_EQL:
-    return M_EQEQ; // = -> ==
+    return M_EQEQ;
 
   case KC_MINUS:
-    return KC_EQL; //
+    return KC_EQL;
   }
 
   return KC_TRNS;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // --- Handle Custom Sticky SymNum Layer (Layer 1) Keys ---
-  // We explicitly check for the LT() keycodes here to apply custom hold logic.
-  // For taps, we now *pass* the event to QMK's default LT handler.
-
-  bool is_sticky_lt_key = (keycode == PRE_REPEAT || keycode == LT(1, KC_SPACE));
-
-  if (is_sticky_lt_key) {
-    if (record->event.pressed) {
-      // For holds, we activate the sticky layer and consume the event.
-      if (record->tap.count == 0) { // It's a hold
-        sticky_symnum_held_count++;
-        layer_lock_on(1); // Activate layer 1 and set the lock
-        sticky_symnum_activity_timer =
-            timer_read(); // Reset timer on activation
-#ifdef CONSOLE_ENABLE
-        xprintf("%04X HELD. Held count: %u. Layer 1 ON and LOCKED. Timer "
-                "RESET: %lu.\n",
-                keycode, sticky_symnum_held_count,
-                sticky_symnum_activity_timer);
-#endif
-        return false; // Consume the hold event completely.
-      }
-// If it's a tap (record->tap.count > 0), we *don't* return false here on press.
-// We pass the tap press event to QMK's default LT handler.
-// QMK will then handle sending KC_F23 (for LT(1, KC_F23)) or KC_SPACE (for
-// LT(1, KC_SPACE)). The repeat logic should then correctly pick up KC_F23.
-#ifdef CONSOLE_ENABLE
-      xprintf("%04X TAPPED (pressed). Allowing QMK's default LT handler to "
-              "proceed.\n",
-              keycode);
-#endif
-      return true; // Pass tap press to QMK's default LT handler.
-    } else {       // Key released
-      // For holds, we handle the sticky layer release and consume the event.
-      if (record->tap.count == 0) { // It was a hold, now released
+  switch (keycode) {
+  case LT(1, KC_F23):
+  case LT(1, KC_SPACE):
+    if (record->tap.count && record->event.pressed) {
+      repeat_key_invoke(&record->event);
+    } else if (record->event.pressed) {
+      sticky_symnum_held_count++;
+      layer_lock_on(1);
+      sticky_symnum_activity_timer = timer_read();
+    } else {                        // Key released
+      if (record->tap.count == 0) { // Was a hold
         sticky_symnum_held_count--;
-#ifdef CONSOLE_ENABLE
-        xprintf("%04X RELEASED. Held count: %u.\n", keycode,
-                sticky_symnum_held_count);
-#endif
         if (sticky_symnum_held_count == 0 && is_layer_locked(1)) {
-          layer_lock_off(1); // Unlock and deactivate layer 1 immediately
-          sticky_symnum_activity_timer = 0; // Reset timer as layer is now off
-#ifdef CONSOLE_ENABLE
-          xprintf("Sticky SymNum: LAST sticky key released. Layer 1 UNLOCKED "
-                  "and DEACTIVATED. Current layer: %u\n",
-                  get_highest_layer(layer_state));
-#endif
+          layer_lock_off(1);
+          sticky_symnum_activity_timer = 0;
         }
-        return false; // Consume the release event for the hold.
       }
-// If it's a tap release, we also pass it to QMK's default LT handler.
-// This is crucial for QMK to properly unregister the key.
-#ifdef CONSOLE_ENABLE
-      xprintf("%04X TAPPED (released). Allowing QMK's default LT handler to "
-              "proceed.\n",
-              keycode);
-#endif
-      return true; // Pass tap release to QMK's default LT handler.
     }
+    return false;
+  case PRE_REPEAT:
+  case LT(6, KC_F23):
+    if (record->tap.count && record->event.pressed) {
+      repeat_key_invoke(&record->event);
+    }
+    return false;
   }
 
-  // --- Activity Tracker for Sticky Layer Timeout ---
-  // This logic remains the same. It triggers if layer 1 is active AND locked
-  // (meaning activated by our sticky hold logic) AND *other* keys are pressed.
   if (layer_state_is(1) && is_layer_locked(1) && record->event.pressed) {
-    // Exclude the actual keycodes that activate/deactivate the sticky layer
-    // (KC_F23 and KC_SPACE, as these are the tap-keycodes of the LT wrappers).
-    // This prevents their own presses/releases from resetting the timer,
-    // which might interfere with the intended timeout for *inactivity* from
-    // other keys.
     if (keycode != KC_F23 && keycode != KC_SPACE) {
-      sticky_symnum_activity_timer =
-          timer_read(); // Reset timer due to activity
-#ifdef CONSOLE_ENABLE
-      xprintf("Sticky SymNum: Activity detected on Layer 1 (%04X). Timer "
-              "RESET: %lu.\n",
-              keycode, sticky_symnum_activity_timer);
-#endif
+      sticky_symnum_activity_timer = timer_read();
     }
   }
 
@@ -447,31 +372,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case PRE_MAGIC:
     if (record->event.pressed) {
-      alt_repeat_key_invoke(&record->event); // Invoke alt key
-      return false;
+      alt_repeat_key_invoke(&record->event);
     }
+    return false;
   case M_EQEQ:
     if (record->event.pressed) {
-      SEND_STRING_DELAY(/*=*/"==", TAP_CODE_DELAY);
+      SEND_STRING_DELAY("==", TAP_CODE_DELAY);
     }
     break;
   case M_ARROW_FUNC:
     if (record->event.pressed) {
-      SEND_STRING_DELAY(/*)*/ " => {};" SS_TAP(X_ESC) SS_TAP(X_H) SS_TAP(X_I)
+      SEND_STRING_DELAY(" => {};" SS_TAP(X_ESC) SS_TAP(X_H) SS_TAP(X_I)
                             SS_TAP(X_ENTER) SS_TAP(X_ESC) SS_LSFT(SS_TAP(X_O)),
                         TAP_CODE_DELAY);
     }
     break;
   case M_CLOSE_BRACE:
     if (record->event.pressed) {
-      SEND_STRING_DELAY(/*{*/ "};" SS_TAP(X_ESC) SS_TAP(X_H) SS_TAP(X_I)
+      SEND_STRING_DELAY("};" SS_TAP(X_ESC) SS_TAP(X_H) SS_TAP(X_I)
                             SS_TAP(X_ENTER) SS_TAP(X_ESC) SS_LSFT(SS_TAP(X_O)),
                         TAP_CODE_DELAY);
     }
     break;
   case M_ALT_DOLLAR:
     if (record->event.pressed) {
-      SEND_STRING_DELAY(/*$*/ "{}" SS_TAP(X_ESC) SS_TAP(X_I), TAP_CODE_DELAY);
+      SEND_STRING_DELAY("{}" SS_TAP(X_ESC) SS_TAP(X_I), TAP_CODE_DELAY);
     }
     break;
   case KC_QUOTE: {
@@ -483,7 +408,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       clear_weak_mods();
       clear_mods();
 
-      if (registered_keycode) { // Invoked through Repeat key.
+      if (registered_keycode) {
         unregister_code16(registered_keycode);
       } else {
         registered_keycode = shifted ? KC_UNDS : KC_QUOTE;
@@ -657,7 +582,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         set_last_keycode(KC_5);
         set_last_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI));
       } else {
-        unregister_code16(LGUI(LSFT(KC_5)));
+                    unregister_code16(LGUI(LSFT(KC_5))));
       }
     }
     return false;
@@ -705,51 +630,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-// QMK's matrix_scan_user function. This runs continuously.
 void matrix_scan_user(void) {
-  // If Layer 1 is currently active AND it is locked (which means it was
-  // activated by a sticky hold) AND NO sticky activation keys are currently
-  // held down.
   if (layer_state_is(1) && is_layer_locked(1) &&
       sticky_symnum_held_count == 0) {
-    // If the activity timer has been started (is not 0) and the timeout period
-    // has passed
     if (sticky_symnum_activity_timer > 0 &&
         timer_elapsed(sticky_symnum_activity_timer) > STICKY_SYMNUM_TIMEOUT) {
-      layer_lock_off(1);                // Unlock and deactivate layer 1
-      sticky_symnum_activity_timer = 0; // Reset timer
-#ifdef CONSOLE_ENABLE
-      xprintf("Sticky SymNum: Timeout! Layer 1 UNLOCKED and DEACTIVATED. "
-              "Current layer: %u\n",
-              get_highest_layer(layer_state));
-#endif
+      layer_lock_off(1);
+      sticky_symnum_activity_timer = 0;
     }
   } else if (!layer_state_is(1) && sticky_symnum_held_count != 0) {
-// This is a safety check: if layer 1 is off but sticky_symnum_held_count isn't
-// 0, something unexpected happened, reset the count. This typically shouldn't
-// happen if the release logic is correct, but good for robustness.
-#ifdef CONSOLE_ENABLE
-    xprintf("Sticky SymNum: WARNING! Layer 1 OFF but held_count not 0. "
-            "Resetting.\n");
-#endif
     sticky_symnum_held_count = 0;
-    sticky_symnum_activity_timer = 0; // Also reset timer
+    sticky_symnum_activity_timer = 0;
   }
 
-  // Always reset timer if layer 1 is not active or not locked by us.
-  // This prevents the timer from running when it's irrelevant.
-  // This also handles cases where a MO(1) or TO(1) might activate layer 1
-  // without our sticky logic.
   if (!layer_state_is(1) || !is_layer_locked(1)) {
     sticky_symnum_activity_timer = 0;
   }
 }
 
-// Function for debugging layer changes
-layer_state_t layer_state_set_user(layer_state_t state) {
-  uint8_t new_layer = get_highest_layer(state);
-#ifdef CONSOLE_ENABLE
-  xprintf("Layer changed to: %u\n", new_layer);
-#endif
-  return state;
-}
+layer_state_t layer_state_set_user(layer_state_t state) { return state; }
