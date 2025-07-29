@@ -582,7 +582,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         set_last_keycode(KC_5);
         set_last_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI));
       } else {
-                    unregister_code16(LGUI(LSFT(KC_5))));
+        unregister_code16(LGUI(LSFT(KC_5)));
       }
     }
     return false;
