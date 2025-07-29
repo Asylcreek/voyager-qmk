@@ -10,7 +10,7 @@
 #define REPEAT QK_REP
 // PRE_REPEAT is just KC_F23, its layer functionality for SymNum is handled by
 // LT(1, KC_F23)
-#define PRE_REPEAT LT(1, KC_F23)
+#define PRE_REPEAT KC_F23
 #define PRE_MAGIC KC_F24
 
 enum custom_keycodes {
@@ -359,7 +359,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (keycode == PRE_REPEAT) {
     if (record->event.pressed) {
       repeat_key_invoke(&record->event);
-      return false;
     }
 #ifdef CONSOLE_ENABLE
     xprintf("PRE_REPEAT (%04X) processed. Returning false.\n", keycode);
