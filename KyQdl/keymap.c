@@ -54,7 +54,6 @@ enum custom_keycodes {
   M_ALT_DOLLAR,
   // Custom sticky layer keycodes for SymNum layer (Layer 1)
   STICKY_SYMNUM, // This key will activate Layer 1 and set the layer lock
-                 // (replaces STICKY_NAV)
   STICKY_SPACE   // This key will activate Layer 1 and set the layer lock
 };
 
@@ -376,8 +375,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
       sticky_symnum_held_count++;
       // On press, activate layer 1 and set the lock
-      layer_on(1);
-      layer_lock_set(1);                           // LOCK Layer 1
+      layer_lock_on(1); // CORRECTED: Using layer_lock_on()
       sticky_symnum_activity_timer = timer_read(); // Reset timer on activation
 #ifdef CONSOLE_ENABLE
       xprintf("Sticky SymNum key PRESSED (%04X). Held count: %u. Layer 1 ON "
@@ -643,7 +641,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         set_last_keycode(KC_5);
         set_last_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI));
       } else {
-        unregister_code16(LGUI(LSFT(KC_5))));
+        unregister_code16(LGUI(LSFT(KC_5)));
       }
     }
     return false;
@@ -694,13 +692,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // QMK's matrix_scan_user function. This runs continuously.
 void matrix_scan_user(void) {
   // If Layer 1 is currently active AND no sticky activation keys are held
-  if (layer_state_is(1) && sticky_symnum_held_count == 0) {
+  // We also check if it's currently locked to ensure we only unlock our
+  // specific sticky layer
+  if (layer_state_is(1) && sticky_symnum_held_count == 0 &&
+      is_layer_locked(1)) {
     // If the activity timer has been started (is not 0) and the timeout period
     // has passed
     if (sticky_symnum_activity_timer > 0 &&
         timer_elapsed(sticky_symnum_activity_timer) > STICKY_SYMNUM_TIMEOUT) {
-      layer_lock_clear();               // Clear the layer lock
-      layer_off(1);                     // Deactivate layer 1
+      layer_lock_off(1); // CORRECTED: Use layer_lock_off()
+      // layer_off(1); // No need for layer_off(1) as layer_lock_off(1) also
+      // turns it off.
       sticky_symnum_activity_timer = 0; // Reset timer
 #ifdef CONSOLE_ENABLE
       xprintf("Sticky SymNum: Timeout! Layer 1 UNLOCKED and DEACTIVATED. "
@@ -731,8 +733,8 @@ void matrix_scan_user(void) {
   // timeout.
 }
 
-// Add this function if you don't have it, useful for debugging layer changes
-uint32_t layer_state_set_user(uint32_t state) {
+// CORRECTED: Changed return type and parameter type to layer_state_t (uint8_t)
+layer_state_t layer_state_set_user(layer_state_t state) {
   uint8_t new_layer = get_highest_layer(state);
 #ifdef CONSOLE_ENABLE
   xprintf("Layer changed to: %u\n", new_layer);
