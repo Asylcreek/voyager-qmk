@@ -8,7 +8,7 @@
 
 #define MAGIC QK_AREP
 #define REPEAT QK_REP
-#define PRE_REPEAT LT(1, KC_F23)
+#define PRE_REPEAT LT(1, KC_F23) // Your original PRE_REPEAT definition
 #define PRE_MAGIC KC_F24
 
 enum custom_keycodes {
@@ -58,24 +58,24 @@ enum custom_keycodes {
 // --- START: Sticky Layer 1 (NAV) Logic Variables ---
 // Define a tapping term for the sticky hold (adjust as needed)
 // This controls the grace period when switching holding fingers.
-#define STICKY_NAV_HOLD_TERM 150 // Milliseconds. Adjust this value!
+#define STICKY_LAYER_1_HOLD_TERM 150 // Milliseconds. Adjust this value!
 
-// Define the keycodes that will act as "anchors" for holding Layer 1 (1).
+// Define the keycodes that will act as "anchors" for holding Layer 1.
 // These are the keycodes returned by the LT(1,...) functions when held.
-static uint16_t sticky_nav_anchor_keycodes[] = {KC_F23, KC_SPACE};
+// IMPORTANT: These are the *base* keycodes, not the LT() wrapper.
+static uint16_t sticky_layer_1_anchor_keycodes[] = {KC_F23, KC_SPACE};
 
-// State variables for our sticky 1 layer logic
-static bool sticky_nav_active = false;
-static uint8_t sticky_nav_held_count = 0;
-static uint32_t sticky_nav_release_timer = 0;
+// State variables for our sticky Layer 1 logic
+static uint8_t sticky_layer_1_held_count = 0;
+static uint32_t sticky_layer_1_release_timer = 0;
 
-// Helper function to check if a keycode is one of our designated 1 anchors.
-// This function is purely internal to the sticky logic.
-bool is_sticky_nav_anchor(uint16_t keycode) {
-  for (int i = 0; i < sizeof(sticky_nav_anchor_keycodes) /
-                          sizeof(sticky_nav_anchor_keycodes[0]);
+// Helper function to check if a keycode is one of our designated Layer 1
+// anchors. This function is purely internal to the sticky logic.
+bool is_sticky_layer_1_anchor(uint16_t keycode) {
+  for (int i = 0; i < sizeof(sticky_layer_1_anchor_keycodes) /
+                          sizeof(sticky_layer_1_anchor_keycodes[0]);
        i++) {
-    if (keycode == sticky_nav_anchor_keycodes[i]) {
+    if (keycode == sticky_layer_1_anchor_keycodes[i]) {
       return true;
     }
   }
@@ -196,7 +196,8 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
   case PRE_REPEAT:
   case PRE_MAGIC:
   case MAGIC:
-  case KC_F23:
+  case KC_F23: // This KC_F23 here is important: it's the *held* keycode for
+               // PRE_REPEAT (LT(1, KC_F23))
   case LT(6, KC_F23):
     return false;
   };
@@ -368,54 +369,45 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // --- START: Sticky Layer 1 (NAV) Logic for Keycode Monitoring ---
-  // The keycodes from LT(1, KC_F23) and LT(1, KC_SPACE) are KC_F23 and KC_SPACE
-  // respectively when held. We monitor these keys for their hold state to
-  // manage the sticky layer.
-  if (is_sticky_nav_anchor(keycode)) {
+  // Check if the actual keycode (if it's an LT key, it's the held keycode) is
+  // one of our anchors. Use get_base_keycode to get the base keycode for
+  // LT-type keycodes.
+  uint16_t base_keycode = get_base_keycode(keycode);
+
+  if (is_sticky_layer_1_anchor(base_keycode)) {
     if (record->event.pressed) {
-      sticky_nav_held_count++;
-      if (!sticky_nav_active) {
-        // If 1 layer is not currently sticky active, activate it.
-        layer_on(1); // Activates layer 1
-        sticky_nav_active = true;
+      sticky_layer_1_held_count++;
+      // When an anchor key is pressed, clear the timer
+      sticky_layer_1_release_timer = 0;
 #ifdef CONSOLE_ENABLE
-        xprintf("Sticky NAV: Activated by %04X, count: %u\n", keycode,
-                sticky_nav_held_count);
+      xprintf("Sticky Layer 1: Anchor pressed, count: %u, key: %04X\n",
+              sticky_layer_1_held_count, base_keycode);
 #endif
-      } else {
-        // If 1 is already sticky active, just increment count and reset any
-        // pending deactivation timer.
-        sticky_nav_release_timer = 0; // Clear the timer
-#ifdef CONSOLE_ENABLE
-        xprintf("Sticky NAV: Hold maintained by %04X, count: %u\n", keycode,
-                sticky_nav_held_count);
-#endif
-      }
     } else { // Key released
-      sticky_nav_held_count--;
-      if (sticky_nav_held_count == 0) {
-        // If all designated anchor keys are now released, start the timer
-        // for potential deactivation.
-        sticky_nav_release_timer = timer_read();
+      sticky_layer_1_held_count--;
+      // Only start the timer if ALL anchor keys are released AND Layer 1 is
+      // currently active.
+      if (sticky_layer_1_held_count == 0 &&
+          layer_state_is(1)) { // Check for layer 1
+        sticky_layer_1_release_timer = timer_read();
 #ifdef CONSOLE_ENABLE
-        xprintf("Sticky NAV: All anchors released, timer started for %u ms.\n",
-                STICKY_NAV_HOLD_TERM);
+        xprintf(
+            "Sticky Layer 1: All anchors released, timer started for %u ms.\n",
+            STICKY_LAYER_1_HOLD_TERM);
 #endif
       } else {
 #ifdef CONSOLE_ENABLE
-        xprintf("Sticky NAV: One anchor released, but others still held. "
-                "Count: %u\n",
-                sticky_nav_held_count);
+        xprintf("Sticky Layer 1: Anchor released, but others held or layer "
+                "off. Count: %u\n",
+                sticky_layer_1_held_count);
 #endif
       }
     }
-    // Continue processing for the LT() key's tap function if it's PRE_REPEAT,
-    // otherwise, let QMK handle the keycode normally.
-    // We explicitly DO NOT return false here to allow the PRE_REPEAT logic to
-    // run for KC_F23.
+    // Return true to allow QMK's default handling of LT() for layer
+    // activation/deactivation for these keys. Our sticky logic just supplements
+    // the deactivation.
+    return true;
   }
-  // --- END: Sticky Layer 1 (NAV) Logic for Keycode Monitoring ---
 
   if (!process_custom_shift_keys(keycode, record)) {
     return false;
@@ -425,24 +417,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   switch (keycode) {
   case PRE_REPEAT:
-  case LT(6, KC_F23): // Your original definition: LT(6, KC_F23)
-    // --- START: Sticky Layer 1 (NAV) Logic for Hold within PRE_REPEAT case ---
-    // If the key is *held* (not a tap), we allow the sticky layer logic to
-    // manage the layer state. If it's a tap, we proceed with your existing
-    // repeat_key_invoke.
-    if (!record->tap.count) { // This means the key is being held
-      // We've already handled layer activation/deactivation above in the
-      // `is_sticky_nav_anchor` block. Returning true here allows QMK's core
-      // LT() behavior to continue activating layer 1 as well as our sticky
-      // logic managing the state.
-      return true;
-    }
-    // --- END: Sticky Layer 1 (NAV) Logic for Hold within PRE_REPEAT case ---
+    // We explicitly check the tap.count here for PRE_REPEAT to ensure its tap
+    // behavior. If it's a hold, the `is_sticky_layer_1_anchor` block above will
+    // handle it.
     if (record->tap.count) { // This is your existing tap logic for PRE_REPEAT
-      repeat_key_invoke(&record->event); // Repeat last key
+      if (record->event.pressed) {
+        repeat_key_invoke(&record->event); // Repeat last key
+      }
       return false; // Return false to ignore further processing of key
     }
-    break;
+    // If it's a hold, we let it fall through or be handled by the
+    // sticky_layer_1_anchor check which has already decided to return true and
+    // let QMK handle the LT() behavior.
+    break; // Break here if it was a hold, to let QMK handle the LT(1,KC_F23)
+           // itself.
+
+  case LT(6, KC_F23): // Your other LT key for Layer 6, if it's not a sticky
+                      // anchor for Layer 1
+    // This keycode is not a sticky anchor for Layer 1, so it behaves normally.
+    // If you want this to also be sticky for layer 6, it would need its own
+    // sticky logic.
+    break; // Allow normal processing for LT(6, KC_F23)
+
   case PRE_MAGIC:
     if (record->event.pressed) {
       alt_repeat_key_invoke(&record->event); // Invoke alt key
@@ -656,7 +652,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         set_last_keycode(KC_5);
         set_last_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI));
       } else {
-        unregister_code16(LGUI(LSFT(KC_5)));
+        unregister_code16(LGUI(LSFT(KC_5))));
       }
     }
     return false;
@@ -707,33 +703,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // --- START: matrix_scan_user for Sticky Layer 1 (NAV) Logic ---
 // QMK's matrix_scan_user function. This runs continuously.
 void matrix_scan_user(void) {
-  // Check if the 1 layer is currently sticky active AND no anchor keys are
-  // held.
-  if (sticky_nav_active && sticky_nav_held_count == 0) {
-    // If a release timer was started and the STICKY1_HOLD_TERM has passed,
-    // then deactivate the 1 layer.
-    if (sticky_nav_release_timer > 0 &&
-        timer_elapsed(sticky_nav_release_timer) > STICKY_NAV_HOLD_TERM) {
-      layer_off(1); // Deactivate layer 1
-      sticky_nav_active = false;
-      sticky_nav_release_timer = 0; // Reset timer
+  // If Layer 1 is currently active AND no sticky anchor keys are held
+  if (layer_state_is(1) &&
+      sticky_layer_1_held_count == 0) { // Check for layer 1
+    // If a release timer was started and the STICKY_LAYER_1_HOLD_TERM has
+    // passed, then deactivate Layer 1.
+    if (sticky_layer_1_release_timer > 0 &&
+        timer_elapsed(sticky_layer_1_release_timer) >
+            STICKY_LAYER_1_HOLD_TERM) {
+      layer_off(1);                     // Deactivate layer 1
+      sticky_layer_1_release_timer = 0; // Reset timer
 #ifdef CONSOLE_ENABLE
-      xprintf("Sticky NAV: Deactivated (timer expired).\n");
+      xprintf("Sticky Layer 1: Deactivated (timer expired).\n");
 #endif
     }
-  }
-
-  // Additionally, if the 1 layer becomes inactive by other means (e.g.,
-  // TO(0)), we should reset our sticky state. This checks if 1 is active *in
-  // QMK's stack* but not in our sticky state. If you explicitly switch layers
-  // away from 1, then our sticky state for 1 should also reset.
-  if (sticky_nav_active && !layer_state_is(1)) {
-    sticky_nav_active = false;
-    sticky_nav_held_count = 0;
-    sticky_nav_release_timer = 0;
-#ifdef CONSOLE_ENABLE
-    xprintf("Sticky NAV: Reset by external layer change.\n");
-#endif
+  } else if (!layer_state_is(1)) { // If Layer 1 is NOT active
+    // If Layer 1 is NOT active, ensure our timer is reset.
+    // This handles cases where the layer might be turned off by other means
+    // (e.g., TO(0) on another key).
+    sticky_layer_1_release_timer = 0;
+    // Optionally reset held count if we want to be super cautious, though it
+    // should already be 0 if layer is off naturally. sticky_layer_1_held_count
+    // = 0;
   }
 }
 // --- END: matrix_scan_user for Sticky Layer 1 (NAV) Logic ---
