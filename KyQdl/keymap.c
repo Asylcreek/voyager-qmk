@@ -372,7 +372,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // Check if the actual keycode (if it's an LT key, it's the held keycode) is
   // one of our anchors. Use get_base_keycode to get the base keycode for
   // LT-type keycodes.
-  uint16_t base_keycode = get_base_keycode(keycode);
+  uint16_t base_keycode = get_tap_keycode(keycode);
 
   if (is_sticky_layer_1_anchor(base_keycode)) {
     if (record->event.pressed) {
