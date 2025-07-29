@@ -332,23 +332,42 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case LT(1, KC_F23):
-  case LT(1, KC_SPACE):
     if (record->tap.count && record->event.pressed) {
       repeat_key_invoke(&record->event);
-    } else if (record->event.pressed) {
+      return false;
+    } else if (!record->tap.count && record->event.pressed) {
       sticky_symnum_held_count++;
       layer_lock_on(1);
       sticky_symnum_activity_timer = timer_read();
-    } else {                        // Key released
-      if (record->tap.count == 0) { // Was a hold
+      return false;
+    } else {
+      if (record->tap.count == 0) {
         sticky_symnum_held_count--;
         if (sticky_symnum_held_count == 0 && is_layer_locked(1)) {
           layer_lock_off(1);
           sticky_symnum_activity_timer = 0;
         }
+        return false;
       }
     }
     return false;
+
+  case LT(1, KC_SPACE):
+    if (!record->tap.count && record->event.pressed) {
+      sticky_symnum_held_count++;
+      layer_lock_on(1);
+      sticky_symnum_activity_timer = timer_read();
+      return false;
+    } else if (record->tap.count == 0) {
+      sticky_symnum_held_count--;
+      if (sticky_symnum_held_count == 0 && is_layer_locked(1)) {
+        layer_lock_off(1);
+        sticky_symnum_activity_timer = 0;
+      }
+      return false;
+    }
+    return true;
+
   case PRE_REPEAT:
   case LT(6, KC_F23):
     if (record->tap.count && record->event.pressed) {
@@ -582,7 +601,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         set_last_keycode(KC_5);
         set_last_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI));
       } else {
-        unregister_code16(LGUI(LSFT(KC_5)));
+                    unregister_code16(LGUI(LSFT(KC_5))));
       }
     }
     return false;
