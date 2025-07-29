@@ -55,7 +55,7 @@ enum custom_keycodes {
 #define DUAL_FUNC_0 LT(2, KC_6)
 #define DUAL_FUNC_1 LT(9, KC_F3)
 
-// --- START: Sticky Layer 1 (NAV) Logic Variables ---
+// --- START: Sticky Layer 1 Logic Variables ---
 // Define a tapping term for the sticky hold (adjust as needed)
 // This controls the grace period when switching holding fingers.
 #define STICKY_LAYER_1_HOLD_TERM 150 // Milliseconds. Adjust this value!
@@ -81,7 +81,7 @@ bool is_sticky_layer_1_anchor(uint16_t keycode) {
   }
   return false;
 }
-// --- END: Sticky Layer 1 (NAV) Logic Variables ---
+// --- END: Sticky Layer 1 Logic Variables ---
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -370,18 +370,18 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // Check if the actual keycode (if it's an LT key, it's the held keycode) is
-  // one of our anchors. Use get_base_keycode to get the base keycode for
-  // LT-type keycodes.
-  uint16_t base_keycode = get_tap_keycode(keycode);
+  // one of our anchors. Using get_tap_keycode for LT-type keycodes.
+  uint16_t base_keycode_for_lt = get_tap_keycode(keycode);
 
-  if (is_sticky_layer_1_anchor(base_keycode)) {
+  if (is_sticky_layer_1_anchor(
+          base_keycode_for_lt)) { // Using base_keycode_for_lt here
     if (record->event.pressed) {
       sticky_layer_1_held_count++;
       // When an anchor key is pressed, clear the timer
       sticky_layer_1_release_timer = 0;
 #ifdef CONSOLE_ENABLE
       xprintf("Sticky Layer 1: Anchor pressed, count: %u, key: %04X\n",
-              sticky_layer_1_held_count, base_keycode);
+              sticky_layer_1_held_count, base_keycode_for_lt);
 #endif
     } else { // Key released
       sticky_layer_1_held_count--;
@@ -652,7 +652,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         set_last_keycode(KC_5);
         set_last_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI));
       } else {
-        unregister_code16(LGUI(LSFT(KC_5))));
+        unregister_code16(
+            LGUI(LSFT(KC_5))); // Corrected: Removed extra ')' here
       }
     }
     return false;
@@ -700,7 +701,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-// --- START: matrix_scan_user for Sticky Layer 1 (NAV) Logic ---
+// --- START: matrix_scan_user for Sticky Layer 1 Logic ---
 // QMK's matrix_scan_user function. This runs continuously.
 void matrix_scan_user(void) {
   // If Layer 1 is currently active AND no sticky anchor keys are held
@@ -727,4 +728,4 @@ void matrix_scan_user(void) {
     // = 0;
   }
 }
-// --- END: matrix_scan_user for Sticky Layer 1 (NAV) Logic ---
+// --- END: matrix_scan_user for Sticky Layer 1 Logic ---
