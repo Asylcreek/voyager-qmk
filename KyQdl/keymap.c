@@ -60,10 +60,9 @@ enum custom_keycodes {
 // This controls the grace period when switching holding fingers.
 #define STICKY_LAYER_1_HOLD_TERM 150 // Milliseconds. Adjust this value!
 
-// Define the keycodes that will act as "anchors" for holding Layer 1.
-// These are the keycodes returned by the LT(1,...) functions when held.
-// IMPORTANT: These are the *base* keycodes, not the LT() wrapper.
-static uint16_t sticky_layer_1_anchor_keycodes[] = {KC_F23, KC_SPACE};
+// Define the *base* keycodes that will act as "anchors" for holding Layer 1.
+// These are the keycodes *after* the LT() function resolves to its held state.
+static uint16_t sticky_layer_1_anchor_base_keycodes[] = {KC_F23, KC_SPACE};
 
 // State variables for our sticky Layer 1 logic
 static uint8_t sticky_layer_1_held_count = 0;
@@ -71,11 +70,11 @@ static uint32_t sticky_layer_1_release_timer = 0;
 
 // Helper function to check if a keycode is one of our designated Layer 1
 // anchors. This function is purely internal to the sticky logic.
-bool is_sticky_layer_1_anchor(uint16_t keycode) {
-  for (int i = 0; i < sizeof(sticky_layer_1_anchor_keycodes) /
-                          sizeof(sticky_layer_1_anchor_keycodes[0]);
+bool is_sticky_layer_1_anchor_base(uint16_t keycode) {
+  for (int i = 0; i < sizeof(sticky_layer_1_anchor_base_keycodes) /
+                          sizeof(sticky_layer_1_anchor_base_keycodes[0]);
        i++) {
-    if (keycode == sticky_layer_1_anchor_keycodes[i]) {
+    if (keycode == sticky_layer_1_anchor_base_keycodes[i]) {
       return true;
     }
   }
@@ -130,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [6] = LAYOUT_voyager(
     KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,                                   KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           
     KC_NO,           KC_NO,           KC_9,            KC_8,            KC_7,            KC_PERC,                                 KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           
-    KC_NO,           KC_NO,           KC_3,            KC_2,            KC_1,            KC_NO,                                   KC_EQUAL,        KC_0,            KC_NO,           KC_PLUS,         KC_ASTR,         KC_COMMA,        
+    KC_NO,           KC_NO,           KC_3,            KC_2,            KC_1,            KC_COLN,                                 KC_EQUAL,        KC_0,            KC_NO,           KC_PLUS,         KC_ASTR,         KC_COMMA,        
     KC_NO,           KC_NO,           KC_6,            KC_5,            KC_4,            KC_NO,                                   KC_NO,           KC_NO,           KC_DOT,          KC_MINUS,        KC_SLASH,        KC_NO,           
                                                                          KC_TRANSPARENT,  KC_TRANSPARENT,                                  KC_NO,           KC_TRANSPARENT
   ),
@@ -369,26 +368,40 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // Check if the actual keycode (if it's an LT key, it's the held keycode) is
-  // one of our anchors. Using get_tap_keycode for LT-type keycodes.
-  uint16_t base_keycode_for_lt = get_tap_keycode(keycode);
 
-  if (is_sticky_layer_1_anchor(
-          base_keycode_for_lt)) { // Using base_keycode_for_lt here
+  // --- Handle PRE_REPEAT (LT(1, KC_F23)) for its TAP function FIRST ---
+  // This must be handled before the sticky layer logic to ensure repeat works.
+  if (keycode == PRE_REPEAT) {
+    if (record->tap.count > 0) { // It's a tap
+      if (record->event.pressed) {
+        repeat_key_invoke(&record->event); // Invoke repeat key
+      }
+      return false; // Consume the keypress, no further processing needed for
+                    // this tap.
+    }
+    // If it's a hold, we let it fall through to QMK's default LT() behavior
+    // which will activate layer 1, and then our sticky logic will handle that.
+  }
+
+  // --- Sticky Layer 1 (NAV) Logic ---
+  // Now, check if the *resolved* keycode (e.g., KC_F23 from LT(1,KC_F23) being
+  // held) is one of our sticky anchors.
+  uint16_t resolved_keycode =
+      get_tap_keycode(keycode); // get_tap_keycode is appropriate for LT/MT keys
+
+  if (is_sticky_layer_1_anchor_base(resolved_keycode)) {
     if (record->event.pressed) {
       sticky_layer_1_held_count++;
-      // When an anchor key is pressed, clear the timer
-      sticky_layer_1_release_timer = 0;
+      sticky_layer_1_release_timer = 0; // Clear timer on any anchor press
 #ifdef CONSOLE_ENABLE
       xprintf("Sticky Layer 1: Anchor pressed, count: %u, key: %04X\n",
-              sticky_layer_1_held_count, base_keycode_for_lt);
+              sticky_layer_1_held_count, resolved_keycode);
 #endif
     } else { // Key released
       sticky_layer_1_held_count--;
       // Only start the timer if ALL anchor keys are released AND Layer 1 is
       // currently active.
-      if (sticky_layer_1_held_count == 0 &&
-          layer_state_is(1)) { // Check for layer 1
+      if (sticky_layer_1_held_count == 0 && layer_state_is(1)) {
         sticky_layer_1_release_timer = timer_read();
 #ifdef CONSOLE_ENABLE
         xprintf(
@@ -416,21 +429,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   const uint8_t mods = get_mods();
 
   switch (keycode) {
-  case PRE_REPEAT:
-    // We explicitly check the tap.count here for PRE_REPEAT to ensure its tap
-    // behavior. If it's a hold, the `is_sticky_layer_1_anchor` block above will
-    // handle it.
-    if (record->tap.count) { // This is your existing tap logic for PRE_REPEAT
-      if (record->event.pressed) {
-        repeat_key_invoke(&record->event); // Repeat last key
-      }
-      return false; // Return false to ignore further processing of key
-    }
-    // If it's a hold, we let it fall through or be handled by the
-    // sticky_layer_1_anchor check which has already decided to return true and
-    // let QMK handle the LT() behavior.
-    break; // Break here if it was a hold, to let QMK handle the LT(1,KC_F23)
-           // itself.
+    // PRE_REPEAT is now handled at the very top, so we can remove this case.
+    // case PRE_REPEAT: ... break; // REMOVED as it's handled above.
 
   case LT(6, KC_F23): // Your other LT key for Layer 6, if it's not a sticky
                       // anchor for Layer 1
@@ -652,8 +652,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         set_last_keycode(KC_5);
         set_last_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI));
       } else {
-        unregister_code16(
-            LGUI(LSFT(KC_5))); // Corrected: Removed extra ')' here
+        unregister_code16(LGUI(LSFT(KC_5)));
       }
     }
     return false;
@@ -723,9 +722,8 @@ void matrix_scan_user(void) {
     // This handles cases where the layer might be turned off by other means
     // (e.g., TO(0) on another key).
     sticky_layer_1_release_timer = 0;
-    // Optionally reset held count if we want to be super cautious, though it
-    // should already be 0 if layer is off naturally. sticky_layer_1_held_count
-    // = 0;
+    // sticky_layer_1_held_count = 0; // No need to explicitly reset, it should
+    // already be 0 if layer isn't active.
   }
 }
 // --- END: matrix_scan_user for Sticky Layer 1 Logic ---
