@@ -332,7 +332,7 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case PRE_REPEAT:
-    if (record->tap.count && record->event.pressed) {
+    if (record->tap.count) {
       repeat_key_invoke(&record->event);
       return false;
     } else if (!record->tap.count && record->event.pressed) {
@@ -367,13 +367,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     }
     return true;
-
-  case PRE_REPEAT:
-  case LT(6, KC_F23):
-    if (record->tap.count && record->event.pressed) {
-      repeat_key_invoke(&record->event);
-    }
-    return false;
   }
 
   if (layer_state_is(1) && is_layer_locked(1) && record->event.pressed) {
