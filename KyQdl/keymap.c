@@ -60,16 +60,16 @@ enum custom_keycodes {
 // This controls the grace period when switching holding fingers.
 #define STICKY_NAV_HOLD_TERM 150 // Milliseconds. Adjust this value!
 
-// Define the keycodes that will act as "anchors" for holding Layer 1 (_NAV).
+// Define the keycodes that will act as "anchors" for holding Layer 1 (1).
 // These are the keycodes returned by the LT(1,...) functions when held.
 static uint16_t sticky_nav_anchor_keycodes[] = {KC_F23, KC_SPACE};
 
-// State variables for our sticky _NAV layer logic
+// State variables for our sticky 1 layer logic
 static bool sticky_nav_active = false;
 static uint8_t sticky_nav_held_count = 0;
 static uint32_t sticky_nav_release_timer = 0;
 
-// Helper function to check if a keycode is one of our designated _NAV anchors.
+// Helper function to check if a keycode is one of our designated 1 anchors.
 // This function is purely internal to the sticky logic.
 bool is_sticky_nav_anchor(uint16_t keycode) {
   for (int i = 0; i < sizeof(sticky_nav_anchor_keycodes) /
@@ -376,15 +376,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
       sticky_nav_held_count++;
       if (!sticky_nav_active) {
-        // If _NAV layer is not currently sticky active, activate it.
-        layer_on(_NAV); // Activates layer 1
+        // If 1 layer is not currently sticky active, activate it.
+        layer_on(1); // Activates layer 1
         sticky_nav_active = true;
 #ifdef CONSOLE_ENABLE
         xprintf("Sticky NAV: Activated by %04X, count: %u\n", keycode,
                 sticky_nav_held_count);
 #endif
       } else {
-        // If _NAV is already sticky active, just increment count and reset any
+        // If 1 is already sticky active, just increment count and reset any
         // pending deactivation timer.
         sticky_nav_release_timer = 0; // Clear the timer
 #ifdef CONSOLE_ENABLE
@@ -707,14 +707,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // --- START: matrix_scan_user for Sticky Layer 1 (NAV) Logic ---
 // QMK's matrix_scan_user function. This runs continuously.
 void matrix_scan_user(void) {
-  // Check if the _NAV layer is currently sticky active AND no anchor keys are
+  // Check if the 1 layer is currently sticky active AND no anchor keys are
   // held.
   if (sticky_nav_active && sticky_nav_held_count == 0) {
-    // If a release timer was started and the STICKY_NAV_HOLD_TERM has passed,
-    // then deactivate the _NAV layer.
+    // If a release timer was started and the STICKY1_HOLD_TERM has passed,
+    // then deactivate the 1 layer.
     if (sticky_nav_release_timer > 0 &&
         timer_elapsed(sticky_nav_release_timer) > STICKY_NAV_HOLD_TERM) {
-      layer_off(_NAV); // Deactivate layer 1
+      layer_off(1); // Deactivate layer 1
       sticky_nav_active = false;
       sticky_nav_release_timer = 0; // Reset timer
 #ifdef CONSOLE_ENABLE
@@ -723,11 +723,11 @@ void matrix_scan_user(void) {
     }
   }
 
-  // Additionally, if the _NAV layer becomes inactive by other means (e.g.,
-  // TO(0)), we should reset our sticky state. This checks if _NAV is active *in
+  // Additionally, if the 1 layer becomes inactive by other means (e.g.,
+  // TO(0)), we should reset our sticky state. This checks if 1 is active *in
   // QMK's stack* but not in our sticky state. If you explicitly switch layers
-  // away from _NAV, then our sticky state for _NAV should also reset.
-  if (sticky_nav_active && !layer_state_is(_NAV)) {
+  // away from 1, then our sticky state for 1 should also reset.
+  if (sticky_nav_active && !layer_state_is(1)) {
     sticky_nav_active = false;
     sticky_nav_held_count = 0;
     sticky_nav_release_timer = 0;
