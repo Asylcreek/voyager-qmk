@@ -52,3 +52,6 @@
 
 #define CAPS_WORD_IDLE_TIMEOUT 3500
 #define CAPS_WORD_INVERT_ON_SHIFT
+
+// Defines the timeout for the sticky layer in milliseconds.
+#define STICKY_SYMNUM_TIMEOUT 2000

@@ -45,6 +45,7 @@ enum custom_keycodes {
   ST_MACRO_26,
   MAC_DND,
   MAC_LOCK,
+  // Macros invoked through the Magic key.
   M_EQEQ,
   M_ARROW_FUNC,
   M_CLOSE_BRACE,
@@ -54,61 +55,62 @@ enum custom_keycodes {
 #define DUAL_FUNC_0 LT(2, KC_6)
 #define DUAL_FUNC_1 LT(9, KC_F3)
 
-#define STICKY_SYMNUM_TIMEOUT 2000
-
+// Tracks how many sticky layer keys are currently held down.
 static uint8_t sticky_symnum_held_count = 0;
+// Timer to automatically deactivate the sticky layer after a period of
+// inactivity.
 static uint32_t sticky_symnum_activity_timer = 0;
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
-    MAC_LOCK,        ST_MACRO_0,      LGUI(KC_V),      LGUI(KC_A),      LGUI(KC_C),      DUAL_FUNC_0,                             KC_AUDIO_MUTE,  DUAL_FUNC_1,   KC_TAB,          KC_MEDIA_PLAY_PAUSE,KC_DELETE,       MAC_DND,         
-    KC_ESCAPE,       KC_B,            KC_L,            KC_D,            KC_W,            KC_Z,                                    KC_QUOTE,        KC_F,            KC_O,            KC_U,            KC_J,            KC_SCLN,         
-    CW_TOGG,         MT(MOD_LSFT, KC_N),MT(MOD_LALT, KC_R),MT(MOD_LGUI, KC_T),MEH_T(KC_S),   ALL_T(KC_G),                                     ALL_T(KC_Y),    MEH_T(KC_H),    MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_E),MT(MOD_LSFT, KC_I),KC_COMMA,        
-    KC_NO,           KC_Q,            KC_X,            LT(2, KC_M),     MT(MOD_LCTL, KC_C),KC_V,                                    KC_K,            MT(MOD_LCTL, KC_P),LT(4, KC_DOT),  MAGIC,           KC_SLASH,        MO(3),           
-                                                                         LT(1, KC_F23),      KC_BSPC,                                 KC_ENTER,        LT(1, KC_SPACE)
+    MAC_LOCK,        ST_MACRO_0,      LGUI(KC_V),      LGUI(KC_A),      LGUI(KC_C),      DUAL_FUNC_0,                       KC_AUDIO_MUTE,  DUAL_FUNC_1,  KC_TAB,          KC_MEDIA_PLAY_PAUSE,KC_DELETE,        MAC_DND,          
+    KC_ESCAPE,       KC_B,            KC_L,            KC_D,            KC_W,            KC_Z,                              KC_QUOTE,         KC_F,            KC_O,            KC_U,            KC_J,            KC_SCLN,          
+    CW_TOGG,         MT(MOD_LSFT, KC_N),MT(MOD_LALT, KC_R),MT(MOD_LGUI, KC_T),MEH_T(KC_S),   ALL_T(KC_G),                                       ALL_T(KC_Y),    MEH_T(KC_H),     MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_E),MT(MOD_LSFT, KC_I),KC_COMMA,         
+    KC_NO,           KC_Q,            KC_X,            LT(2, KC_M),     MT(MOD_LCTL, KC_C),KC_V,                              KC_K,             MT(MOD_LCTL, KC_P),LT(4, KC_DOT),   MAGIC,           KC_SLASH,        MO(3),            
+                                                                         LT(1, KC_F23),     KC_BSPC,                                         KC_ENTER,        LT(1, KC_SPACE)
   ),
   [1] = LAYOUT_voyager( // SymNum layer
-    KC_NO,           KC_NO,           KC_NO,           KC_SPACE,        KC_NO,           KC_NO,                                   KC_TILD,         KC_EXLM,         KC_AMPR,         KC_AT,           KC_PERC,         KC_HASH,         
-    KC_PIPE,         KC_ASTR,         KC_9,            KC_8,            KC_7,            KC_PLUS,                                 KC_UNDS,         KC_LBRC,         KC_LPRN,         KC_LCBR,         KC_GRAVE,        KC_CIRC,         
-    KC_BSLS,         KC_LABK,         KC_3,            KC_2,            KC_1,            KC_COLN,                                 KC_DQUO,         KC_RCBR,         KC_RBRC,         KC_RPRN,         KC_DLR,          KC_COMMA,        
-    KC_NO,           KC_RABK,         KC_6,            KC_5,            KC_4,            KC_EQUAL,                                KC_QUES,         KC_0,            KC_DOT,          KC_MINUS,        KC_SLASH,        KC_NO,           
-                                                                         KC_TRANSPARENT,  KC_BSPC,                                 KC_BSPC,         REPEAT
+    KC_NO,           KC_NO,           KC_NO,           KC_SPACE,        KC_NO,           KC_NO,                             KC_TILD,          KC_EXLM,         KC_AMPR,         KC_AT,           KC_PERC,         KC_HASH,          
+    KC_PIPE,         KC_ASTR,         KC_9,            KC_8,            KC_7,            KC_PLUS,                           KC_UNDS,          KC_LBRC,         KC_LPRN,         KC_LCBR,         KC_GRAVE,        KC_CIRC,          
+    KC_BSLS,         KC_LABK,         KC_3,            KC_2,            KC_1,            KC_COLN,                           KC_DQUO,          KC_RCBR,         KC_RBRC,         KC_RPRN,         KC_DLR,          KC_COMMA,         
+    KC_NO,           KC_RABK,         KC_6,            KC_5,            KC_4,            KC_EQUAL,                          KC_QUES,          KC_0,            KC_DOT,          KC_MINUS,        KC_SLASH,        KC_NO,            
+                                                                         KC_TRANSPARENT,  KC_BSPC,                                           KC_BSPC,         REPEAT
   ),
   [2] = LAYOUT_voyager(
-    KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,                                   KC_NO,           KC_NO,           LGUI(KC_UP),     KC_NO,           KC_NO,           KC_NO,           
-    KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,                                   KC_PAGE_UP,      LGUI(KC_LEFT),   KC_UP,           LGUI(KC_RIGHT),  KC_PGDN,         KC_NO,           
-    KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,                                   LALT(KC_LEFT),   KC_LEFT,         KC_DOWN,         KC_RIGHT,        LALT(KC_RIGHT),  KC_NO,           
-    KC_NO,           KC_LEFT_SHIFT,   KC_NO,           KC_NO,           KC_NO,           KC_NO,                                   KC_NO,           KC_NO,           LGUI(KC_DOWN),   KC_NO,           KC_NO,           KC_NO,           
-                                                                         KC_NO,           KC_NO,                                   KC_NO,           KC_NO
+    KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,                             KC_NO,            KC_NO,           LGUI(KC_UP),     KC_NO,           KC_NO,           KC_NO,            
+    KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,                             KC_PAGE_UP,       LGUI(KC_LEFT),   KC_UP,           LGUI(KC_RIGHT),  KC_PGDN,         KC_NO,            
+    KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,                             LALT(KC_LEFT),    KC_LEFT,         KC_DOWN,         KC_RIGHT,        LALT(KC_RIGHT),  KC_NO,            
+    KC_NO,           KC_LEFT_SHIFT,   KC_NO,           KC_NO,           KC_NO,           KC_NO,                             KC_NO,            KC_NO,           LGUI(KC_DOWN),   KC_NO,           KC_NO,           KC_NO,            
+                                                                         KC_NO,           KC_NO,                                             KC_NO,           KC_NO
   ),
   [3] = LAYOUT_voyager(
-    KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,                                   KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           
-    KC_NO,           QK_BOOT,         KC_NO,           KC_NO,           KC_NO,           KC_NO,                                   KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           
-    KC_NO,           KC_MEDIA_NEXT_TRACK,KC_MEDIA_PREV_TRACK,KC_BRIGHTNESS_UP,KC_BRIGHTNESS_DOWN,LALT(LGUI(LCTL(LSFT(KC_M)))),                                     KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           
-    KC_NO,           HSV_0_255_255,   HSV_169_255_255,RGB_VAI,           RGB_VAD,         RGB_TOG,                                 KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_TRANSPARENT,  
-                                                                         HSV_74_255_255,  RGB_MODE_FORWARD,                                        KC_NO,           KC_NO
+    KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,                             KC_NO,            KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,            
+    KC_NO,           QK_BOOT,         KC_NO,           KC_NO,           KC_NO,           KC_NO,                             KC_NO,            KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,            
+    KC_NO,           KC_MEDIA_NEXT_TRACK,KC_MEDIA_PREV_TRACK,KC_BRIGHTNESS_UP,KC_BRIGHTNESS_DOWN,LALT(LGUI(LCTL(LSFT(KC_M)))),                                     KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,            
+    KC_NO,           HSV_0_255_255,   HSV_169_255_255,RGB_VAI,           RGB_VAD,         RGB_TOG,                           KC_NO,            KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_TRANSPARENT,   
+                                                                         HSV_74_255_255,  RGB_MODE_FORWARD,                                  KC_NO,           KC_NO
   ),
   [4] = LAYOUT_voyager(
-    ST_MACRO_1,      ST_MACRO_2,      ST_MACRO_3,      ST_MACRO_4,      ST_MACRO_5,      ST_MACRO_6,                                KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           
-    ST_MACRO_7,      ST_MACRO_8,      ST_MACRO_9,      ST_MACRO_10,    ST_MACRO_11,     ST_MACRO_12,                                 KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           
-    ST_MACRO_13,     ST_MACRO_14,     ST_MACRO_15,     ST_MACRO_16,    ST_MACRO_17,     ST_MACRO_18,                                 KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           
-    ST_MACRO_19,     ST_MACRO_20,     ST_MACRO_21,     ST_MACRO_22,    ST_MACRO_23,     ST_MACRO_24,                                 KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           
-                                                                         ST_MACRO_25,     ST_MACRO_26,                                     KC_NO,           KC_NO
+    ST_MACRO_1,      ST_MACRO_2,      ST_MACRO_3,      ST_MACRO_4,      ST_MACRO_5,      ST_MACRO_6,                        KC_NO,            KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,            
+    ST_MACRO_7,      ST_MACRO_8,      ST_MACRO_9,      ST_MACRO_10,     ST_MACRO_11,     ST_MACRO_12,                       KC_NO,            KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,            
+    ST_MACRO_13,     ST_MACRO_14,     ST_MACRO_15,     ST_MACRO_16,     ST_MACRO_17,     ST_MACRO_18,                       KC_NO,            KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,            
+    ST_MACRO_19,     ST_MACRO_20,     ST_MACRO_21,     ST_MACRO_22,     ST_MACRO_23,     ST_MACRO_24,                       KC_NO,            KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,            
+                                                                         ST_MACRO_25,     ST_MACRO_26,                                       KC_NO,           KC_NO
   ),
   [5] = LAYOUT_voyager(
-    KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,                                   KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           
-    KC_NO,           KC_NO,           KC_DLR,          KC_AMPR,         KC_AT,           KC_PERC,                                 KC_UNDS,         KC_BSLS,         KC_GRAVE,        KC_EXLM,         KC_TILD,         KC_NO,           
-    KC_NO,           KC_CIRC,         KC_LBRC,         KC_LPRN,         KC_LCBR,         KC_LABK,                                 KC_EQUAL,        KC_COLN,         KC_DQUO,         KC_PLUS,         KC_ASTR,         KC_COMMA,        
-    KC_NO,           KC_HASH,         KC_RBRC,         KC_RPRN,         KC_RCBR,         KC_RABK,                                 KC_PIPE,         KC_QUES,         KC_DOT,          KC_MINUS,        KC_SLASH,        KC_NO,           
-                                                                         KC_TRANSPARENT,  KC_NO,                                   KC_BSPC,         LT(6, KC_F23)
+    KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,                             KC_NO,            KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,            
+    KC_NO,           KC_NO,           KC_DLR,          KC_AMPR,         KC_AT,           KC_PERC,                           KC_UNDS,          KC_BSLS,         KC_GRAVE,        KC_EXLM,         KC_TILD,         KC_NO,            
+    KC_NO,           KC_CIRC,         KC_LBRC,         KC_LPRN,         KC_LCBR,         KC_LABK,                           KC_EQUAL,         KC_COLN,         KC_DQUO,         KC_PLUS,         KC_ASTR,         KC_COMMA,         
+    KC_NO,           KC_HASH,         KC_RBRC,         KC_RPRN,         KC_RCBR,         KC_RABK,                           KC_PIPE,          KC_QUES,         KC_DOT,          KC_MINUS,        KC_SLASH,        KC_NO,            
+                                                                         KC_TRANSPARENT,  KC_NO,                                             KC_BSPC,         LT(6, KC_F23)
   ),
   [6] = LAYOUT_voyager(
-    KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,                                   KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           
-    KC_NO,           KC_NO,           KC_9,            KC_8,            KC_7,            KC_PERC,                                 KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           
-    KC_NO,           KC_NO,           KC_3,            KC_2,            KC_1,            KC_COLN,                                 KC_EQUAL,        KC_0,            KC_NO,           KC_PLUS,         KC_ASTR,         KC_COMMA,        
-    KC_NO,           KC_NO,           KC_6,            KC_5,            KC_4,            KC_NO,                                   KC_NO,           KC_NO,           KC_DOT,          KC_MINUS,        KC_SLASH,        KC_NO,           
-                                                                         KC_TRANSPARENT,  KC_TRANSPARENT,                                  KC_NO,           KC_TRANSPARENT
+    KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,                             KC_NO,            KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,            
+    KC_NO,           KC_NO,           KC_9,            KC_8,            KC_7,            KC_PERC,                           KC_NO,            KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,            
+    KC_NO,           KC_NO,           KC_3,            KC_2,            KC_1,            KC_COLN,                           KC_EQUAL,         KC_0,            KC_NO,           KC_PLUS,         KC_ASTR,         KC_COMMA,         
+    KC_NO,           KC_NO,           KC_6,            KC_5,            KC_4,            KC_NO,                             KC_NO,            KC_NO,           KC_DOT,          KC_MINUS,        KC_SLASH,        KC_NO,            
+                                                                         KC_TRANSPARENT,  KC_TRANSPARENT,                                    KC_NO,           KC_TRANSPARENT
   ),
 };
 // clang-format on
@@ -180,6 +182,8 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   mods = mods | get_mods() | get_weak_mods() | get_oneshot_mods();
   keycode = get_tap_keycode(keycode);
 
+  // add modifiers for shortcut like keys like
+  // C(KC_S), G(KC_C), S(KC_N), O(KC_N)
   if (IS_QK_MODS(keycode)) {
     mods |= QK_MODS_GET_MODS(keycode);
     keycode = QK_MODS_GET_BASIC_KEYCODE(keycode);
@@ -210,9 +214,9 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     case KC_O:
       return KC_ENTER;
     case KC_1:
-      return M_EQEQ;
+      return M_EQEQ; // ! -> ==
     case KC_4:
-      return M_ALT_DOLLAR;
+      return M_ALT_DOLLAR; // $ -> {};
     case KC_8:
       return KC_EQL;
     case KC_QUOTE:
@@ -230,6 +234,8 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
 
   if ((mods & ~MOD_MASK_SHIFT) == 0) {
     switch (keycode) {
+      // For navigating next/previous search results in Vim:
+      // N -> Shift + N, Shift + N -> N.
     case KC_N:
       if ((mods & MOD_MASK_SHIFT) == 0) {
         return S(KC_N);
@@ -266,6 +272,7 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     };
   }
 
+  // if MEH
   if (mods == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT) | MOD_BIT(KC_LALT))) {
     switch (keycode) {
     case KC_Z:
@@ -277,6 +284,7 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     }
   };
 
+  // if C+S+G
   if (mods == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI))) {
     switch (keycode) {
     case KC_4:
@@ -284,6 +292,7 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     }
   }
 
+  // if S+G
   if (mods == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI))) {
     switch (keycode) {
     case KC_5:
@@ -291,6 +300,7 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     }
   }
 
+  // if S+O
   if (mods == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_LALT))) {
     switch (keycode) {
     case KC_EQL:
@@ -308,6 +318,8 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     };
   };
 
+  // add this last so that any combinations that have modifiers
+  // would trigger first
   switch (keycode) {
   case KC_ENTER:
     return KC_ESCAPE;
@@ -320,7 +332,7 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     return KC_ENTER;
 
   case KC_EQL:
-    return M_EQEQ;
+    return M_EQEQ; // = -> ==
 
   case KC_MINUS:
     return KC_EQL;
@@ -330,36 +342,50 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (!process_custom_shift_keys(keycode, record)) {
+    return false;
+  }
+
   switch (keycode) {
   case PRE_REPEAT:
     if (record->tap.count) {
       repeat_key_invoke(&record->event);
       return false;
     } else if (!record->tap.count && record->event.pressed) {
+      // Increment the counter for sticky layer keys held.
       sticky_symnum_held_count++;
+      // Activate layer 1 (SymNum layer) as a sticky layer.
       layer_lock_on(1);
+      // Reset the activity timer for the sticky layer.
       sticky_symnum_activity_timer = timer_read();
       return false;
-    } else {
-      if (record->tap.count == 0) {
-        sticky_symnum_held_count--;
-        if (sticky_symnum_held_count == 0 && is_layer_locked(1)) {
-          layer_lock_off(1);
-          sticky_symnum_activity_timer = 0;
-        }
-        return false;
+    } else if (record->tap.count == 0) {
+      // Decrement the counter when a sticky layer key is released.
+      sticky_symnum_held_count--;
+      // If no sticky layer keys are held and layer 1 is locked, unlock it and
+      // reset the timer.
+      if (sticky_symnum_held_count == 0 && is_layer_locked(1)) {
+        layer_lock_off(1);
+        sticky_symnum_activity_timer = 0;
       }
+      return false;
     }
     return false;
 
   case LT(1, KC_SPACE):
     if (!record->tap.count && record->event.pressed) {
+      // Increment the counter for sticky layer keys held.
       sticky_symnum_held_count++;
+      // Activate layer 1 (SymNum layer) as a sticky layer.
       layer_lock_on(1);
+      // Reset the activity timer for the sticky layer.
       sticky_symnum_activity_timer = timer_read();
       return false;
     } else if (record->tap.count == 0) {
+      // Decrement the counter when a sticky layer key is released.
       sticky_symnum_held_count--;
+      // If no sticky layer keys are held and layer 1 is locked, unlock it and
+      // reset the timer.
       if (sticky_symnum_held_count == 0 && is_layer_locked(1)) {
         layer_lock_off(1);
         sticky_symnum_activity_timer = 0;
@@ -369,14 +395,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
   }
 
+  // If layer 1 is active and locked (sticky), and a key other than F23 or SPACE
+  // is pressed, reset the sticky layer activity timer. This keeps the sticky
+  // layer active.
   if (layer_state_is(1) && is_layer_locked(1) && record->event.pressed) {
-    if (keycode != KC_F23 && keycode != KC_SPACE) {
+    if (keycode != PRE_REPEAT && keycode != LT(1, KC_SPACE)) {
       sticky_symnum_activity_timer = timer_read();
     }
-  }
-
-  if (!process_custom_shift_keys(keycode, record)) {
-    return false;
   }
 
   const uint8_t mods = get_mods();
@@ -385,30 +410,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case PRE_MAGIC:
     if (record->event.pressed) {
       alt_repeat_key_invoke(&record->event);
+      return false;
     }
     return false;
+    // Macros invoked through the MAGIC key
   case M_EQEQ:
     if (record->event.pressed) {
-      SEND_STRING_DELAY("==", TAP_CODE_DELAY);
+      SEND_STRING_DELAY(/*=*/"==", TAP_CODE_DELAY);
     }
     break;
   case M_ARROW_FUNC:
     if (record->event.pressed) {
-      SEND_STRING_DELAY(" => {};" SS_TAP(X_ESC) SS_TAP(X_H) SS_TAP(X_I)
+      SEND_STRING_DELAY(/*)*/ " => {};" SS_TAP(X_ESC) SS_TAP(X_H) SS_TAP(X_I)
                             SS_TAP(X_ENTER) SS_TAP(X_ESC) SS_LSFT(SS_TAP(X_O)),
                         TAP_CODE_DELAY);
     }
     break;
   case M_CLOSE_BRACE:
     if (record->event.pressed) {
-      SEND_STRING_DELAY("};" SS_TAP(X_ESC) SS_TAP(X_H) SS_TAP(X_I)
+      SEND_STRING_DELAY(/*{*/ "};" SS_TAP(X_ESC) SS_TAP(X_H) SS_TAP(X_I)
                             SS_TAP(X_ENTER) SS_TAP(X_ESC) SS_LSFT(SS_TAP(X_O)),
                         TAP_CODE_DELAY);
     }
     break;
   case M_ALT_DOLLAR:
     if (record->event.pressed) {
-      SEND_STRING_DELAY("{}" SS_TAP(X_ESC) SS_TAP(X_I), TAP_CODE_DELAY);
+      SEND_STRING_DELAY(/*$*/ "{}" SS_TAP(X_ESC) SS_TAP(X_I), TAP_CODE_DELAY);
     }
     break;
   case KC_QUOTE: {
@@ -420,7 +447,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       clear_weak_mods();
       clear_mods();
 
-      if (registered_keycode) {
+      if (registered_keycode) { // Invoked through Repeat key.
         unregister_code16(registered_keycode);
       } else {
         registered_keycode = shifted ? KC_UNDS : KC_QUOTE;
@@ -643,18 +670,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_scan_user(void) {
+  // If layer 1 (SymNum) is active and locked (sticky) AND no sticky layer keys
+  // are held down...
   if (layer_state_is(1) && is_layer_locked(1) &&
       sticky_symnum_held_count == 0) {
+    // ...and if the activity timer has been started and the elapsed time
+    // exceeds the defined timeout, then unlock layer 1 and reset the timer.
+    // This auto-deactivates the sticky layer after inactivity.
     if (sticky_symnum_activity_timer > 0 &&
         timer_elapsed(sticky_symnum_activity_timer) > STICKY_SYMNUM_TIMEOUT) {
       layer_lock_off(1);
       sticky_symnum_activity_timer = 0;
     }
+    // If layer 1 is NOT active AND sticky layer keys are somehow still counted
+    // as held, reset the held count and the timer. This ensures consistency.
   } else if (!layer_state_is(1) && sticky_symnum_held_count != 0) {
     sticky_symnum_held_count = 0;
     sticky_symnum_activity_timer = 0;
   }
 
+  // If layer 1 is not active OR it's not locked (not sticky), ensure the
+  // activity timer is reset. This prevents the timer from running when the
+  // sticky layer logic isn't relevant.
   if (!layer_state_is(1) || !is_layer_locked(1)) {
     sticky_symnum_activity_timer = 0;
   }
