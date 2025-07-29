@@ -11,7 +11,7 @@
 // auto-repeating.
 #define MAGIC QK_AREP
 #define REPEAT QK_REP
-#define PRE_REPEAT KC_F23 // This must be KC_F23!
+#define PRE_REPEAT LT(1, KC_F23)
 #define PRE_MAGIC KC_F24
 
 enum custom_keycodes {
@@ -360,8 +360,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // We explicitly check for the LT() keycodes here to apply custom hold logic.
   // For taps, we now *pass* the event to QMK's default LT handler.
 
-  bool is_sticky_lt_key =
-      (keycode == LT(1, KC_F23) || keycode == LT(1, KC_SPACE));
+  bool is_sticky_lt_key = (keycode == PRE_REPEAT || keycode == LT(1, KC_SPACE));
 
   if (is_sticky_lt_key) {
     if (record->event.pressed) {
@@ -449,9 +448,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case PRE_MAGIC:
     if (record->event.pressed) {
       alt_repeat_key_invoke(&record->event); // Invoke alt key
+      return false;
     }
-    return false; // Return false to ignore further processing of key
-    // Macros invoked through the MAGIC key
   case M_EQEQ:
     if (record->event.pressed) {
       SEND_STRING_DELAY(/*=*/"==", TAP_CODE_DELAY);
