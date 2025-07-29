@@ -8,8 +8,9 @@
 
 #define MAGIC QK_AREP
 #define REPEAT QK_REP
-// PRE_REPEAT is just KC_F23, its layer functionality for SymNum is handled by
-// LT(1, KC_F23)
+// PRE_REPEAT is just KC_F23. We keep the definition for consistency,
+// but its behavior is fully managed within process_record_user for LT(1,
+// KC_F23).
 #define PRE_REPEAT KC_F23
 #define PRE_MAGIC KC_F24
 
@@ -177,16 +178,17 @@ bool caps_word_press_user(uint16_t keycode) {
 bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
                             uint8_t *remembered_mods) {
   switch (keycode) {
-  case PRE_REPEAT:
+  // Explicitly prevent PRE_REPEAT (KC_F23), MAGIC, and the LT(6, KC_F23) from
+  // being remembered.
+  case PRE_REPEAT: // Added back as requested
   case PRE_MAGIC:
   case MAGIC:
-  case LT(6, KC_F23):
-    // LT(1, KC_F23) and LT(1, KC_SPACE) are handled by QMK's internal LT logic
-    // for last key.
+  case LT(6,
+          KC_F23): // This is the LT key on layer 5, not the main layer 0 one.
     return false;
   };
 
-  return true;
+  return true; // For all other actual key presses, allow remembering.
 }
 
 uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
@@ -353,29 +355,34 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // --- Handle PRE_REPEAT (KC_F23) for its tap functionality first ---
-  // This block should handle the actual KC_F23 keycode when it's sent,
-  // either from LT(1, KC_F23) on tap, or directly if used elsewhere.
-  if (keycode == PRE_REPEAT) { // KC_F23 is aliased as PRE_REPEAT
-    if (record->event.pressed) {
-      repeat_key_invoke(&record->event);
-    }
-#ifdef CONSOLE_ENABLE
-    xprintf("PRE_REPEAT (%04X) processed. Returning false.\n", keycode);
-#endif
-    return false; // Consume the keypress, don't let it fall through.
-  }
-
   // --- Handle Custom Sticky SymNum Layer (Layer 1) Keys ---
-  // We explicitly check for the LT() keycodes here for hold actions.
+  // We explicitly check for the LT() keycodes here for both tap and hold
+  // actions. This completely overrides QMK's default LT() behavior for these
+  // specific keys.
   if (keycode == LT(1, KC_F23) || keycode == LT(1, KC_SPACE)) {
     if (record->event.pressed) {
-      // This is a hold action if tap.count is 0 AND the time has passed the
-      // tapping term. QMK's `LT` itself sets the layer temporarily on press. We
-      // only want to lock it on *hold*.
-      if (record->tap.count == 0 &&
-          !record->tap.interrupted) { // It's a hold action if not a tap and not
-                                      // interrupted
+      // If it's a tap (QMK determines this internally by tapping_term and other
+      // factors)
+      if (record->tap.count > 0) {           // tap.count > 0 indicates a tap
+        if (keycode == LT(1, KC_F23)) {      // If it's the PRE_REPEAT key
+          repeat_key_invoke(&record->event); // Invoke repeat on tap
+#ifdef CONSOLE_ENABLE
+          xprintf(
+              "LT(1, KC_F23) TAPPED. repeat_key_invoke called. Consumed.\n");
+#endif
+        } else { // It's LT(1, KC_SPACE)
+          // For LT(1, KC_SPACE), send a single space on tap.
+          // We directly send it here instead of relying on QMK's default LT
+          // behavior, to keep all sticky layer related logic within this block.
+          register_code16(KC_SPACE);
+#ifdef CONSOLE_ENABLE
+          xprintf("LT(1, KC_SPACE) TAPPED. KC_SPACE sent. Consumed.\n");
+#endif
+        }
+        return false; // Consume the tap event for both LT(1, KC_F23) and LT(1,
+                      // KC_SPACE). This ensures KC_F23 and KC_SPACE are not
+                      // auto-propagated by LT.
+      } else { // It's a hold action
         sticky_symnum_held_count++;
         layer_lock_on(1); // On hold, activate layer 1 and set the lock
         sticky_symnum_activity_timer =
@@ -386,21 +393,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 keycode, sticky_symnum_held_count,
                 sticky_symnum_activity_timer);
 #endif
-        return false; // Consume the hold event so QMK doesn't send
-                      // KC_F23/KC_SPACE.
-      } else {
-// This is a tap event. We want QMK to handle the tap keycode (KC_F23/KC_SPACE).
-// Do NOT lock the layer for a tap.
-#ifdef CONSOLE_ENABLE
-        xprintf(
-            "LT(1,...) key TAPPED (%04X). Allowing default QMK tap behavior.\n",
-            keycode);
-#endif
-        return true; // Let QMK continue processing for the tap keycode.
+        return false; // Consume the hold event.
       }
     } else { // Key released
-      // This logic applies if the key was held (record->tap.count == 0)
-      if (record->tap.count == 0 && !record->tap.interrupted) {
+      // This logic applies if the key was held (record->tap.count == 0 at the
+      // time of press)
+      if (record->tap.count == 0) { // Check if it was a hold release
         sticky_symnum_held_count--;
 #ifdef CONSOLE_ENABLE
         xprintf("LT(1,...) key RELEASED (%04X). Held count: %u.\n", keycode,
@@ -419,28 +417,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false; // Consume the release event for the hold.
       } else {
-// This is a tap release. Let QMK handle it.
+        // This is a tap release.
+        // For LT(1, KC_F23) and LT(1, KC_SPACE) taps, we consumed the press, so
+        // consume the release.
+        if (keycode == LT(1, KC_SPACE)) {
+          unregister_code16(KC_SPACE); // Unregister the space sent on press
+        }
 #ifdef CONSOLE_ENABLE
-        xprintf("LT(1,...) key TAP RELEASED (%04X). Allowing default QMK tap "
-                "behavior.\n",
-                keycode);
+        xprintf("LT(1,...) key TAP RELEASED (%04X). Consumed.\n", keycode);
 #endif
-        return true;
+        return false;
       }
     }
   }
 
   // --- Activity Tracker for Sticky Layer Timeout ---
   // If Layer 1 is currently active AND it is locked (which means it was
-  // activated by a sticky hold) AND a key (any key *other than* our LT keys, or
-  // KC_F23/KC_SPACE on tap) is pressed on it, reset the inactivity timer. This
-  // handles cases where the layer is held but then other keys are pressed.
+  // activated by a sticky hold) AND a key (any key *other than* our LT keys) is
+  // pressed on it, reset the inactivity timer.
   if (layer_state_is(1) && is_layer_locked(1) && record->event.pressed) {
     // Ensure we don't reset the timer when our sticky keys are just being held
-    // down, as their own logic is responsible for managing
-    // `sticky_symnum_held_count`. This is for *other* keys pressed while Layer
-    // 1 is active AND locked.
-    if (keycode != LT(1, KC_F23) && keycode != LT(1, KC_SPACE)) {
+    // down. This is for *other* keys pressed while Layer 1 is active AND
+    // locked. Note: keycode here will be the actual key on layer 1, not the
+    // LT() wrapper.
+    if (keycode != KC_F23 &&
+        keycode != KC_SPACE) { // Check the actual keycode, not the LT wrapper
       sticky_symnum_activity_timer =
           timer_read(); // Reset timer due to activity
 #ifdef CONSOLE_ENABLE
@@ -450,6 +451,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
     }
   }
+
+  // The PRE_REPEAT case is now removed from here, as its functionality is fully
+  // handled by LT(1, KC_F23) and will never reach this point.
 
   if (!process_custom_shift_keys(keycode, record)) {
     return false;
@@ -740,16 +744,20 @@ void matrix_scan_user(void) {
     }
   } else if (!layer_state_is(1) && sticky_symnum_held_count != 0) {
 // This is a safety check: if layer 1 is off but sticky_symnum_held_count isn't
-// 0, something unexpected happened, reset the count.
+// 0, something unexpected happened, reset the count. This typically shouldn't
+// happen if the release logic is correct, but good for robustness.
 #ifdef CONSOLE_ENABLE
     xprintf("Sticky SymNum: WARNING! Layer 1 OFF but held_count not 0. "
             "Resetting.\n");
 #endif
     sticky_symnum_held_count = 0;
+    sticky_symnum_activity_timer = 0; // Also reset timer
   }
 
   // Always reset timer if layer 1 is not active or not locked by us.
   // This prevents the timer from running when it's irrelevant.
+  // This also handles cases where a MO(1) or TO(1) might activate layer 1
+  // without our sticky logic.
   if (!layer_state_is(1) || !is_layer_locked(1)) {
     sticky_symnum_activity_timer = 0;
   }
