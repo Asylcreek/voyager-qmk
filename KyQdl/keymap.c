@@ -8,10 +8,7 @@
 
 #define MAGIC QK_AREP
 #define REPEAT QK_REP
-// PRE_REPEAT is just KC_F23. We keep the definition for consistency,
-// but its behavior is fully managed within process_record_user for LT(1,
-// KC_F23).
-#define PRE_REPEAT KC_F23
+#define PRE_REPEAT LT(1, KC_F23)
 #define PRE_MAGIC KC_F24
 
 enum custom_keycodes {
@@ -359,12 +356,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // We explicitly check for the LT() keycodes here for both tap and hold
   // actions. This completely overrides QMK's default LT() behavior for these
   // specific keys.
-  if (keycode == LT(1, KC_F23) || keycode == LT(1, KC_SPACE)) {
+  if (keycode == PRE_REPEAT || keycode == LT(1, KC_SPACE)) {
     if (record->event.pressed) {
       // If it's a tap (QMK determines this internally by tapping_term and other
       // factors)
-      if (record->tap.count > 0) {           // tap.count > 0 indicates a tap
-        if (keycode == LT(1, KC_F23)) {      // If it's the PRE_REPEAT key
+      if (record->tap.count) {               // tap.count > 0 indicates a tap
+        if (keycode == PRE_REPEAT) {         // If it's the PRE_REPEAT key
           repeat_key_invoke(&record->event); // Invoke repeat on tap
 #ifdef CONSOLE_ENABLE
           xprintf(
@@ -382,7 +379,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false; // Consume the tap event for both LT(1, KC_F23) and LT(1,
                       // KC_SPACE). This ensures KC_F23 and KC_SPACE are not
                       // auto-propagated by LT.
-      } else { // It's a hold action
+      } else {        // It's a hold action
         sticky_symnum_held_count++;
         layer_lock_on(1); // On hold, activate layer 1 and set the lock
         sticky_symnum_activity_timer =
