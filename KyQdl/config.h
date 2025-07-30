@@ -55,3 +55,5 @@
 
 // Defines the timeout for the sticky layer in milliseconds.
 #define STICKY_SYMNUM_TIMEOUT 2000
+// SELECT WORD
+#define SELECT_WORD_OS_MAC

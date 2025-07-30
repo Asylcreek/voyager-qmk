@@ -80,8 +80,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,                             KC_NO,            KC_NO,           LGUI(KC_UP),     KC_NO,           KC_NO,           KC_NO,            
     KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,                             KC_PAGE_UP,       LGUI(KC_LEFT),   KC_UP,           LGUI(KC_RIGHT),  KC_PGDN,         KC_NO,            
     KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,                             LALT(KC_LEFT),    KC_LEFT,         KC_DOWN,         KC_RIGHT,        LALT(KC_RIGHT),  KC_NO,            
-    KC_NO,           KC_LEFT_SHIFT,   KC_NO,           KC_NO,           KC_NO,           KC_NO,                             KC_NO,            KC_NO,           LGUI(KC_DOWN),   KC_NO,           KC_NO,           KC_NO,            
-                                                                         KC_TRANSPARENT,           KC_NO,                                             KC_NO,           KC_NO
+    KC_NO,           KC_LEFT_SHIFT,   KC_NO,           KC_NO,           KC_NO,           KC_NO,                             KC_NO,            SELLINE,           LGUI(KC_DOWN),   KC_NO,           KC_NO,           KC_NO,            
+                                                                         KC_TRANSPARENT,           KC_NO,                                             SELWBAK,           SELWORD
   ),
   [3] = LAYOUT_voyager(
     KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,                             KC_NO,            KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,            
@@ -323,6 +323,11 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
 
   case KC_MINUS:
     return KC_EQL;
+
+  case SELWBAK:
+    return SELWORD;
+  case SELWORD:
+    return SELWBAK;
   }
 
   return KC_TRNS;
