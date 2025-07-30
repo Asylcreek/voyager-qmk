@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "custom.c"
 #include "version.h"
 #define MOON_LED_LEVEL LED_LEVEL
 #ifndef ZSA_SAFE_RANGE
@@ -100,6 +99,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 // clang-format on
+
+// custom shift keys
+const custom_shift_key_t custom_shift_keys[] = {
+    {KC_QUOT, KC_UNDS}, // Shift ' is _
+};
 
 const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
     LAYOUT('*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', 'L', 'L',

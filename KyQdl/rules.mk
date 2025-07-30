@@ -1,5 +1,3 @@
-SRC += features/custom_shift_keys.c
-
 REPEAT_KEY_ENABLE = yes
 LAYER_LOCK_ENABLE = yes
 
