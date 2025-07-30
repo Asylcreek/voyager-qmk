@@ -364,362 +364,309 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     }
     return false;
-    /* case PRE_REPEAT: */
-    /*   if (record->tap.count) { */
-    /*     repeat_key_invoke(&record->event); */
-    /*     return false; */
-    /*   } else if (!record->tap.count && record->event.pressed) { */
-    /*     // Increment the counter for sticky layer keys held. */
-    /*     sticky_symnum_held_count++; */
-    /*     // Activate layer 1 (SymNum layer) as a sticky layer. */
-    /*     layer_lock_on(1); */
-    /*     // Reset the activity timer for the sticky layer. */
-    /*     sticky_symnum_activity_timer = timer_read(); */
-    /*     return false; */
-    /*   } else if (record->tap.count == 0) { */
-    /*     // Decrement the counter when a sticky layer key is released. */
-    /*     sticky_symnum_held_count--; */
-    /*     // If no sticky layer keys are held and layer 1 is locked, unlock
-     * it and */
-    /*     // reset the timer. */
-    /*     if (sticky_symnum_held_count == 0 && is_layer_locked(1)) { */
-    /*       layer_lock_off(1); */
-    /*       sticky_symnum_activity_timer = 0; */
-    /*     } */
-    /*     return false; */
-    /*   } */
-    /*   return false; */
-    /**/
-    /* case LT(1, KC_SPACE): */
-    /*   if (!record->tap.count && record->event.pressed) { */
-    /*     // Increment the counter for sticky layer keys held. */
-    /*     sticky_symnum_held_count++; */
-    /*     // Activate layer 1 (SymNum layer) as a sticky layer. */
-    /*     layer_lock_on(1); */
-    /*     // Reset the activity timer for the sticky layer. */
-    /*     sticky_symnum_activity_timer = timer_read(); */
-    /*     return false; */
-    /*   } else if (record->tap.count == 0) { */
-    /*     // Decrement the counter when a sticky layer key is released. */
-    /*     sticky_symnum_held_count--; */
-    /*     // If no sticky layer keys are held and layer 1 is locked, unlock
-     * it and */
-    /*     // reset the timer. */
-    /*     if (sticky_symnum_held_count == 0 && is_layer_locked(1)) { */
-    /*       layer_lock_off(1); */
-    /*       sticky_symnum_activity_timer = 0; */
-    /*     } */
-    /*     return false; */
-    /*   } */
-    /*   return true; */
-    /* } */
+  }
 
-    // If layer 1 is active and locked (sticky), and a key other than F23 or
-    // SPACE is pressed, reset the sticky layer activity timer. This keeps the
-    // sticky layer active.
-    if (layer_state_is(1) && is_layer_locked(1) && record->event.pressed) {
-      if (keycode != PRE_REPEAT && keycode != LT(1, KC_SPACE)) {
-        sticky_symnum_activity_timer = timer_read();
-      }
+  // If layer 1 is active and locked (sticky), and a key other than F23 or
+  // SPACE is pressed, reset the sticky layer activity timer. This keeps the
+  // sticky layer active.
+  if (layer_state_is(1) && is_layer_locked(1) && record->event.pressed) {
+    if (keycode != PRE_REPEAT && keycode != LT(1, KC_SPACE)) {
+      sticky_symnum_activity_timer = timer_read();
     }
+  }
 
-    const uint8_t mods = get_mods();
+  const uint8_t mods = get_mods();
 
-    switch (keycode) {
-    case PRE_MAGIC:
-      if (record->event.pressed) {
-        alt_repeat_key_invoke(&record->event);
-        return false;
-      }
+  switch (keycode) {
+  case PRE_MAGIC:
+    if (record->event.pressed) {
+      alt_repeat_key_invoke(&record->event);
       return false;
-      // Macros invoked through the MAGIC key
-    case M_EQEQ:
-      if (record->event.pressed) {
-        SEND_STRING_DELAY(/*=*/"==", TAP_CODE_DELAY);
-      }
-      break;
-    case M_ARROW_FUNC:
-      if (record->event.pressed) {
-        SEND_STRING_DELAY(/*)*/ " => {};" SS_TAP(X_ESC) SS_TAP(X_H) SS_TAP(X_I)
-                              SS_TAP(X_ENTER) SS_TAP(X_ESC)
-                                  SS_LSFT(SS_TAP(X_O)),
-                          TAP_CODE_DELAY);
-      }
-      break;
-    case M_CLOSE_BRACE:
-      if (record->event.pressed) {
-        SEND_STRING_DELAY(/*{*/ "};" SS_TAP(X_ESC) SS_TAP(X_H) SS_TAP(X_I)
-                              SS_TAP(X_ENTER) SS_TAP(X_ESC)
-                                  SS_LSFT(SS_TAP(X_O)),
-                          TAP_CODE_DELAY);
-      }
-      break;
-    case M_ALT_DOLLAR:
-      if (record->event.pressed) {
-        SEND_STRING_DELAY(/*$*/ "{}" SS_TAP(X_ESC) SS_TAP(X_I), TAP_CODE_DELAY);
-      }
-      break;
-    case KC_QUOTE: {
-      static uint16_t registered_keycode = KC_NO;
+    }
+    return false;
+    // Macros invoked through the MAGIC key
+  case M_EQEQ:
+    if (record->event.pressed) {
+      SEND_STRING_DELAY(/*=*/"==", TAP_CODE_DELAY);
+    }
+    break;
+  case M_ARROW_FUNC:
+    if (record->event.pressed) {
+      SEND_STRING_DELAY(/*)*/ " => {};" SS_TAP(X_ESC) SS_TAP(X_H) SS_TAP(X_I)
+                            SS_TAP(X_ENTER) SS_TAP(X_ESC) SS_LSFT(SS_TAP(X_O)),
+                        TAP_CODE_DELAY);
+    }
+    break;
+  case M_CLOSE_BRACE:
+    if (record->event.pressed) {
+      SEND_STRING_DELAY(/*{*/ "};" SS_TAP(X_ESC) SS_TAP(X_H) SS_TAP(X_I)
+                            SS_TAP(X_ENTER) SS_TAP(X_ESC) SS_LSFT(SS_TAP(X_O)),
+                        TAP_CODE_DELAY);
+    }
+    break;
+  case M_ALT_DOLLAR:
+    if (record->event.pressed) {
+      SEND_STRING_DELAY(/*$*/ "{}" SS_TAP(X_ESC) SS_TAP(X_I), TAP_CODE_DELAY);
+    }
+    break;
+  case KC_QUOTE: {
+    static uint16_t registered_keycode = KC_NO;
 
-      if (record->event.pressed) {
-        process_caps_word(keycode, record);
-        const bool shifted = (mods | get_weak_mods()) & MOD_MASK_SHIFT;
-        clear_weak_mods();
-        clear_mods();
+    if (record->event.pressed) {
+      process_caps_word(keycode, record);
+      const bool shifted = (mods | get_weak_mods()) & MOD_MASK_SHIFT;
+      clear_weak_mods();
+      clear_mods();
 
-        if (registered_keycode) { // Invoked through Repeat key.
-          unregister_code16(registered_keycode);
-        } else {
-          registered_keycode = shifted ? KC_UNDS : KC_QUOTE;
-        }
-
-        register_code16(registered_keycode);
-        set_mods(mods);
-      } else if (registered_keycode) {
+      if (registered_keycode) { // Invoked through Repeat key.
         unregister_code16(registered_keycode);
-        registered_keycode = KC_NO;
-      }
-    }
-      return false;
-    case ST_MACRO_0:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LALT(SS_LSFT(SS_TAP(X_SCLN))) SS_DELAY(100) SS_TAP(X_F));
-      }
-      break;
-    case ST_MACRO_1:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100)
-                        SS_LSFT(SS_TAP(X_SLASH)));
-      }
-      break;
-    case ST_MACRO_2:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_5));
-      }
-      break;
-    case ST_MACRO_3:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_6));
-      }
-      break;
-    case ST_MACRO_4:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_7));
-      }
-      break;
-    case ST_MACRO_5:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_8));
-      }
-      break;
-    case ST_MACRO_6:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_9));
-      }
-      break;
-    case ST_MACRO_7:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100)
-                        SS_LALT(SS_TAP(X_RIGHT)));
-      }
-      break;
-    case ST_MACRO_8:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_0));
-      }
-      break;
-    case ST_MACRO_9:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_1));
-      }
-      break;
-    case ST_MACRO_10:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_2));
-      }
-      break;
-    case ST_MACRO_11:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_3));
-      }
-      break;
-    case ST_MACRO_12:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_4));
-      }
-      break;
-    case ST_MACRO_13:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100)
-                        SS_LALT(SS_TAP(X_LEFT)));
-      }
-      break;
-    case ST_MACRO_14:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_D));
-      }
-      break;
-    case ST_MACRO_15:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100)
-                        SS_LSFT(SS_TAP(X_L)));
-      }
-      break;
-    case ST_MACRO_16:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100)
-                        SS_LSFT(SS_TAP(X_5)));
-      }
-      break;
-    case ST_MACRO_17:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100)
-                        SS_LSFT(SS_TAP(X_QUOTE)));
-      }
-      break;
-    case ST_MACRO_18:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_S));
-      }
-      break;
-    case ST_MACRO_19:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_C));
-      }
-      break;
-    case ST_MACRO_20:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_O));
-      }
-      break;
-    case ST_MACRO_21:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_L));
-      }
-      break;
-    case ST_MACRO_22:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_COMMA));
-      }
-      break;
-    case ST_MACRO_23:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_QUOTE));
-      }
-      break;
-    case ST_MACRO_24:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_LBRC));
-      }
-      break;
-    case ST_MACRO_25:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100)
-                        SS_LALT(SS_TAP(X_DOWN)));
-      }
-      break;
-    case ST_MACRO_26:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100)
-                        SS_LALT(SS_TAP(X_UP)));
-      }
-      break;
-    case MAC_DND:
-      HSS(0x9B);
-    case MAC_LOCK:
-      HCS(0x19E);
-
-    case DUAL_FUNC_0:
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          register_code16(LGUI(LCTL(LSFT(KC_4))));
-          set_last_keycode(KC_4);
-          set_last_mods(MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI));
-        } else {
-          unregister_code16(LGUI(LCTL(LSFT(KC_4))));
-        }
       } else {
-        if (record->event.pressed) {
-          register_code16(LGUI(LSFT(KC_5)));
-          set_last_keycode(KC_5);
-          set_last_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI));
-        } else {
-          unregister_code16(LGUI(LSFT(KC_5)));
-        }
+        registered_keycode = shifted ? KC_UNDS : KC_QUOTE;
       }
-      return false;
-    case DUAL_FUNC_1:
-      if (record->tap.count > 0) {
-        if (record->event.pressed) {
-          register_code16(KC_AUDIO_VOL_DOWN);
-          set_last_keycode(KC_AUDIO_VOL_DOWN);
-        } else {
-          unregister_code16(KC_AUDIO_VOL_DOWN);
-        }
-      } else {
-        if (record->event.pressed) {
-          register_code16(KC_AUDIO_VOL_UP);
-          set_last_keycode(KC_AUDIO_VOL_UP);
-        } else {
-          unregister_code16(KC_AUDIO_VOL_UP);
-        }
-      }
-      return false;
-    case RGB_SLD:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-      }
-      return false;
-    case HSV_0_255_255:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(0, 255, 255);
-      }
-      return false;
-    case HSV_169_255_255:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(169, 255, 255);
-      }
-      return false;
-    case HSV_74_255_255:
-      if (record->event.pressed) {
-        rgblight_mode(1);
-        rgblight_sethsv(74, 255, 255);
-      }
-      return false;
-    }
-    return true;
-  }
 
-  void matrix_scan_user(void) {
-    // If layer 1 (SymNum) is active and locked (sticky) AND no sticky layer
-    // keys are held down...
-    if (layer_state_is(1) && is_layer_locked(1) &&
-        sticky_symnum_held_count == 0) {
-      // ...and if the activity timer has been started and the elapsed time
-      // exceeds the defined timeout, then unlock layer 1 and reset the timer.
-      // This auto-deactivates the sticky layer after inactivity.
-      if (sticky_symnum_activity_timer > 0 &&
-          timer_elapsed(sticky_symnum_activity_timer) > STICKY_SYMNUM_TIMEOUT) {
-        layer_lock_off(1);
-        sticky_symnum_activity_timer = 0;
-      }
-      // If layer 1 is NOT active AND sticky layer keys are somehow still
-      // counted as held, reset the held count and the timer. This ensures
-      // consistency.
-    } else if (!layer_state_is(1) && sticky_symnum_held_count != 0) {
-      sticky_symnum_held_count = 0;
-      sticky_symnum_activity_timer = 0;
-    }
-
-    // If layer 1 is not active OR it's not locked (not sticky), ensure the
-    // activity timer is reset. This prevents the timer from running when the
-    // sticky layer logic isn't relevant.
-    if (!layer_state_is(1) || !is_layer_locked(1)) {
-      sticky_symnum_activity_timer = 0;
+      register_code16(registered_keycode);
+      set_mods(mods);
+    } else if (registered_keycode) {
+      unregister_code16(registered_keycode);
+      registered_keycode = KC_NO;
     }
   }
+    return false;
+  case ST_MACRO_0:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LALT(SS_LSFT(SS_TAP(X_SCLN))) SS_DELAY(100) SS_TAP(X_F));
+    }
+    break;
+  case ST_MACRO_1:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100)
+                      SS_LSFT(SS_TAP(X_SLASH)));
+    }
+    break;
+  case ST_MACRO_2:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_5));
+    }
+    break;
+  case ST_MACRO_3:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_6));
+    }
+    break;
+  case ST_MACRO_4:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_7));
+    }
+    break;
+  case ST_MACRO_5:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_8));
+    }
+    break;
+  case ST_MACRO_6:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_9));
+    }
+    break;
+  case ST_MACRO_7:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100)
+                      SS_LALT(SS_TAP(X_RIGHT)));
+    }
+    break;
+  case ST_MACRO_8:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_0));
+    }
+    break;
+  case ST_MACRO_9:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_1));
+    }
+    break;
+  case ST_MACRO_10:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_2));
+    }
+    break;
+  case ST_MACRO_11:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_3));
+    }
+    break;
+  case ST_MACRO_12:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_4));
+    }
+    break;
+  case ST_MACRO_13:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100)
+                      SS_LALT(SS_TAP(X_LEFT)));
+    }
+    break;
+  case ST_MACRO_14:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_D));
+    }
+    break;
+  case ST_MACRO_15:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_LSFT(SS_TAP(X_L)));
+    }
+    break;
+  case ST_MACRO_16:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_LSFT(SS_TAP(X_5)));
+    }
+    break;
+  case ST_MACRO_17:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100)
+                      SS_LSFT(SS_TAP(X_QUOTE)));
+    }
+    break;
+  case ST_MACRO_18:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_S));
+    }
+    break;
+  case ST_MACRO_19:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_C));
+    }
+    break;
+  case ST_MACRO_20:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_O));
+    }
+    break;
+  case ST_MACRO_21:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_L));
+    }
+    break;
+  case ST_MACRO_22:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_COMMA));
+    }
+    break;
+  case ST_MACRO_23:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_QUOTE));
+    }
+    break;
+  case ST_MACRO_24:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_LBRC));
+    }
+    break;
+  case ST_MACRO_25:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100)
+                      SS_LALT(SS_TAP(X_DOWN)));
+    }
+    break;
+  case ST_MACRO_26:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_LALT(SS_TAP(X_UP)));
+    }
+    break;
+  case MAC_DND:
+    HSS(0x9B);
+  case MAC_LOCK:
+    HCS(0x19E);
 
-  layer_state_t layer_state_set_user(layer_state_t state) { return state; }
+  case DUAL_FUNC_0:
+    if (record->tap.count > 0) {
+      if (record->event.pressed) {
+        register_code16(LGUI(LCTL(LSFT(KC_4))));
+        set_last_keycode(KC_4);
+        set_last_mods(MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI));
+      } else {
+        unregister_code16(LGUI(LCTL(LSFT(KC_4))));
+      }
+    } else {
+      if (record->event.pressed) {
+        register_code16(LGUI(LSFT(KC_5)));
+        set_last_keycode(KC_5);
+        set_last_mods(MOD_BIT(KC_LSFT) | MOD_BIT(KC_LGUI));
+      } else {
+        unregister_code16(LGUI(LSFT(KC_5)));
+      }
+    }
+    return false;
+  case DUAL_FUNC_1:
+    if (record->tap.count > 0) {
+      if (record->event.pressed) {
+        register_code16(KC_AUDIO_VOL_DOWN);
+        set_last_keycode(KC_AUDIO_VOL_DOWN);
+      } else {
+        unregister_code16(KC_AUDIO_VOL_DOWN);
+      }
+    } else {
+      if (record->event.pressed) {
+        register_code16(KC_AUDIO_VOL_UP);
+        set_last_keycode(KC_AUDIO_VOL_UP);
+      } else {
+        unregister_code16(KC_AUDIO_VOL_UP);
+      }
+    }
+    return false;
+  case RGB_SLD:
+    if (record->event.pressed) {
+      rgblight_mode(1);
+    }
+    return false;
+  case HSV_0_255_255:
+    if (record->event.pressed) {
+      rgblight_mode(1);
+      rgblight_sethsv(0, 255, 255);
+    }
+    return false;
+  case HSV_169_255_255:
+    if (record->event.pressed) {
+      rgblight_mode(1);
+      rgblight_sethsv(169, 255, 255);
+    }
+    return false;
+  case HSV_74_255_255:
+    if (record->event.pressed) {
+      rgblight_mode(1);
+      rgblight_sethsv(74, 255, 255);
+    }
+    return false;
+  }
+  return true;
+}
+
+void matrix_scan_user(void) {
+  // If layer 1 (SymNum) is active and locked (sticky) AND no sticky layer
+  // keys are held down...
+  if (layer_state_is(1) && is_layer_locked(1) &&
+      sticky_symnum_held_count == 0) {
+    // ...and if the activity timer has been started and the elapsed time
+    // exceeds the defined timeout, then unlock layer 1 and reset the timer.
+    // This auto-deactivates the sticky layer after inactivity.
+    if (sticky_symnum_activity_timer > 0 &&
+        timer_elapsed(sticky_symnum_activity_timer) > STICKY_SYMNUM_TIMEOUT) {
+      layer_lock_off(1);
+      sticky_symnum_activity_timer = 0;
+    }
+    // If layer 1 is NOT active AND sticky layer keys are somehow still
+    // counted as held, reset the held count and the timer. This ensures
+    // consistency.
+  } else if (!layer_state_is(1) && sticky_symnum_held_count != 0) {
+    sticky_symnum_held_count = 0;
+    sticky_symnum_activity_timer = 0;
+  }
+
+  // If layer 1 is not active OR it's not locked (not sticky), ensure the
+  // activity timer is reset. This prevents the timer from running when the
+  // sticky layer logic isn't relevant.
+  if (!layer_state_is(1) || !is_layer_locked(1)) {
+    sticky_symnum_activity_timer = 0;
+  }
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) { return state; }
