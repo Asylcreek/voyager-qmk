@@ -51,8 +51,8 @@ enum custom_keycodes {
   M_ALT_DOLLAR,
 };
 
-#define DUAL_FUNC_0 LT(5, KC_6)
-#define DUAL_FUNC_1 LT(4, KC_F1)
+#define DUAL_FUNC_0 LT(3, KC_C)
+#define DUAL_FUNC_1 LT(2, KC_F1)
 
 // Tracks how many sticky layer keys are currently held down.
 static uint8_t sticky_symnum_held_count = 0;
@@ -77,11 +77,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     KC_TRANSPARENT, KC_BSPC,                                        KC_BSPC,        LT(1, KC_F23)
   ),
   [2] = LAYOUT_voyager(
-    KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,                             KC_NO,            KC_NO,           LGUI(KC_UP),     KC_NO,           KC_NO,           KC_NO,            
-    KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,                             KC_PAGE_UP,       LGUI(KC_LEFT),   KC_UP,           LGUI(KC_RIGHT),  KC_PGDN,         KC_NO,            
-    KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,                             LALT(KC_LEFT),    KC_LEFT,         KC_DOWN,         KC_RIGHT,        LALT(KC_RIGHT),  KC_NO,            
-    KC_NO,           KC_NO,   KC_NO,           KC_NO,           KC_NO,           KC_NO,                             KC_NO,            SELLINE,           LGUI(KC_DOWN),   KC_NO,           KC_NO,           KC_NO,            
-                                                                         KC_TRANSPARENT,           KC_LEFT_SHIFT,                                             SELWORD,           SELWBAK
+    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          LGUI(KC_UP),    KC_NO,          KC_NO,          KC_NO,          
+    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_PAGE_UP,     LGUI(KC_LEFT),  KC_UP,          LGUI(KC_RIGHT), KC_PGDN,        KC_NO,          
+    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          LALT(KC_LEFT),  KC_LEFT,        KC_DOWN,        KC_RIGHT,       LALT(KC_RIGHT), KC_NO,          
+    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          LGUI(KC_DOWN),  KC_NO,          KC_NO,          KC_NO,          
+                                                    KC_TRANSPARENT, KC_LEFT_SHIFT,                                  KC_NO,          KC_NO
   ),
   [3] = LAYOUT_voyager(
     KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,                             KC_NO,            KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,            
@@ -114,6 +114,10 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case LT(1, KC_F23):
+    return TAPPING_TERM - 55;
+  case MT(MOD_LSFT, KC_BSPC):
+    return TAPPING_TERM - 55;
+  case MT(MOD_LSFT, KC_ENTER):
     return TAPPING_TERM - 55;
   case LT(1, KC_SPACE):
     return TAPPING_TERM - 55;
