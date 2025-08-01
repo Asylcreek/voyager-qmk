@@ -385,7 +385,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
     // Macros invoked through the MAGIC key
   case PRE_CAPS_WORD:
-    if (record->tap.count) {
+    if (record->tap.count && record->event.pressed) {
       caps_word_toggle();
       return false;
     };
