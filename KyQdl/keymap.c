@@ -385,13 +385,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
     // Macros invoked through the MAGIC key
   case PRE_CAPS_WORD:
-    if (record->event.pressed) {
+    if (record->tap.count) {
       caps_word_toggle();
       return false;
     };
     break;
   case MT(MOD_LSFT, KC_F23):
-    if (record->event.pressed) {
+    if (record->tap.count) {
       repeat_key_invoke(&record->event);
       return false;
     };
