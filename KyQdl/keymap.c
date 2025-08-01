@@ -139,7 +139,7 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record,
   case KC_A:
     return FLOW_TAP_TERM - 80;
   case KC_B ... KC_S:
-  case KC_Q ... KC_Z:
+  case KC_U ... KC_Z:
     return FLOW_TAP_TERM;
   }
 
