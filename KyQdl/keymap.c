@@ -8,8 +8,7 @@
 #define MAGIC QK_AREP
 #define REPEAT QK_REP
 #define PRE_REPEAT LT(1, KC_F23)
-#define PRE_MAGIC KC_F24
-#define PRE_CAPS_WORD MT(MOD_LSFT, KC_F22)
+#define PRE_MAGIC MT(MOD_LALT, KC_F24)
 
 enum custom_keycodes {
   RGB_SLD = ZSA_SAFE_RANGE,
@@ -52,8 +51,8 @@ enum custom_keycodes {
   M_ALT_DOLLAR,
 };
 
-#define DUAL_FUNC_0 LT(7, KC_F13)
-#define DUAL_FUNC_1 LT(8, KC_A)
+#define DUAL_FUNC_0 LT(13, KC_F12)
+#define DUAL_FUNC_1 LT(4, KC_F5)
 
 // Tracks how many sticky layer keys are currently held down.
 static uint8_t sticky_symnum_held_count = 0;
@@ -65,9 +64,9 @@ static uint32_t sticky_symnum_activity_timer = 0;
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
     MAC_LOCK,       ST_MACRO_0,     LGUI(KC_V),     LGUI(KC_A),     LGUI(KC_C),     DUAL_FUNC_0,                                    KC_AUDIO_MUTE,  DUAL_FUNC_1,    KC_TAB,         KC_MEDIA_PLAY_PAUSE,KC_DELETE,      MAC_DND,        
-    KC_ESCAPE,      KC_B,           KC_L,           KC_D,           KC_W,           KC_Z,                                           KC_QUOTE,       KC_F,           KC_O,           KC_U,           KC_J,           KC_SCLN,        
-    MT(MOD_LSFT, KC_F22),LT(2, KC_N),    MT(MOD_LALT, KC_R),MT(MOD_LGUI, KC_T),MEH_T(KC_S),    ALL_T(KC_G),                                    ALL_T(KC_Y),    MEH_T(KC_H),    MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_E),LT(4, KC_I),    MT(MOD_LSFT, KC_COMMA),
-    KC_NO,          KC_Q,           KC_X,           KC_M,           MT(MOD_LCTL, KC_C),KC_V,                                           KC_K,           MT(MOD_LCTL, KC_P),KC_DOT,         MAGIC,         KC_SLASH,       MO(3),          
+    KC_ESCAPE,      KC_B,           KC_L,           ALL_T(KC_D),    KC_W,           KC_Z,                                           KC_QUOTE,       KC_F,           ALL_T(KC_O),    KC_U,           KC_J,           KC_SCLN,        
+    CW_TOGG,        KC_N,           LT(2, KC_R),    MT(MOD_LSFT, KC_T),MEH_T(KC_S),    KC_G,                                           KC_Y,           MEH_T(KC_H),    MT(MOD_LSFT, KC_A),LT(4, KC_E),    KC_I,           KC_COMMA,       
+    KC_NO,          KC_Q,           MT(MOD_LALT, KC_X),MT(MOD_LGUI, KC_M),MT(MOD_LCTL, KC_C),KC_V,                                           KC_K,           MT(MOD_LCTL, KC_P),MT(MOD_LGUI, KC_DOT),MT(MOD_LALT, KC_F24),KC_SLASH,       MO(3),          
                                                     LT(1, KC_F23),  KC_BSPC,                                        KC_ENTER,       LT(1, KC_SPACE)
   ),
   [1] = LAYOUT_voyager(
@@ -80,9 +79,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [2] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          LGUI(KC_UP),    KC_NO,          KC_NO,          KC_NO,          
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_PAGE_UP,     LGUI(KC_LEFT),  KC_UP,          LGUI(KC_RIGHT), KC_PGDN,        KC_NO,          
-    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          LALT(KC_LEFT),  KC_LEFT,        KC_DOWN,        KC_RIGHT,       LALT(KC_RIGHT), KC_NO,          
+    KC_NO,          KC_NO,          KC_NO,          KC_LEFT_SHIFT,  KC_NO,          KC_NO,                                          LALT(KC_LEFT),  KC_LEFT,        KC_DOWN,        KC_RIGHT,       LALT(KC_RIGHT), KC_NO,          
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          SELLINE,          KC_NO,          LGUI(KC_DOWN),  KC_NO,          KC_NO,          KC_NO,          
-                                                    MT(MOD_LSFT, KC_F23),KC_NO,                                          SELWBAK,          SELWORD
+                                                    KC_TRANSPARENT, KC_NO,                                          SELWORD,          SELWBAK
   ),
   [3] = LAYOUT_voyager(
     KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,                             KC_NO,            KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,            
@@ -99,6 +98,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                          ST_MACRO_25,     ST_MACRO_26,                                       KC_NO,           KC_NO
   ),
 };
+
+const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
+    LAYOUT('*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*',
+           'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R',
+           'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R',
+           'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R',
+           '*', '*', '*', '*');
 // clang-format on
 
 // custom shift keys
@@ -106,16 +112,8 @@ const custom_shift_key_t custom_shift_keys[] = {
     {KC_QUOT, KC_UNDS}, // Shift ' is _
 };
 
-const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
-    LAYOUT('*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', 'L', 'L',
-           'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 'L', 'L', 'L', 'L',
-           'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 'L', 'L', 'L', 'L', 'L', 'L',
-           'R', 'R', 'R', 'R', 'R', 'R', '*', '*', '*', '*');
-
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-  case MT(MOD_LSFT, KC_F22):
-    return TAPPING_TERM - 55;
   case LT(1, KC_F23):
     return TAPPING_TERM - 55;
   case LT(1, KC_SPACE):
@@ -125,12 +123,27 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   }
 }
 
-bool is_flow_tap_key(uint16_t keycode) {
-  switch (get_tap_keycode(keycode)) {
-  case KC_A ... KC_Z:
-    return true;
+uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record,
+                           uint16_t prev_keycode) {
+  keycode = get_tap_keycode(keycode);
+  prev_keycode = get_tap_keycode(keycode);
+
+  switch (prev_keycode) {
+  case KC_BSPC:
+  case KC_DOT:
+    return 0;
+  };
+
+  switch (keycode) {
+  case KC_T:
+  case KC_A:
+    return FLOW_TAP_TERM - 80;
+  case KC_B ... KC_S:
+  case KC_Q ... KC_Z:
+    return FLOW_TAP_TERM;
   }
-  return false;
+
+  return 0;
 }
 
 bool caps_word_press_user(uint16_t keycode) {
@@ -384,18 +397,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     break;
     // Macros invoked through the MAGIC key
-  case PRE_CAPS_WORD:
-    if (record->tap.count && record->event.pressed) {
-      caps_word_toggle();
-      return false;
-    };
-    break;
-  case MT(MOD_LSFT, KC_F23):
-    if (record->tap.count) {
-      repeat_key_invoke(&record->event);
-      return false;
-    };
-    break;
   case M_EQEQ:
     if (record->event.pressed) {
       SEND_STRING_DELAY(/*=*/"==", TAP_CODE_DELAY);
