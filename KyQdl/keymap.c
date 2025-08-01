@@ -43,16 +43,16 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(3, KC_C)
-#define DUAL_FUNC_1 LT(2, KC_F1)
+#define DUAL_FUNC_0 LT(9, KC_F18)
+#define DUAL_FUNC_1 LT(13, KC_L)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
     MAC_LOCK,       ST_MACRO_0,     LGUI(KC_V),     LGUI(KC_A),     LGUI(KC_C),     DUAL_FUNC_0,                                    KC_AUDIO_MUTE,  DUAL_FUNC_1,    KC_TAB,         KC_MEDIA_PLAY_PAUSE,KC_DELETE,      MAC_DND,        
     KC_ESCAPE,      KC_B,           KC_L,           KC_D,           KC_W,           KC_Z,                                           KC_QUOTE,       KC_F,           KC_O,           KC_U,           KC_J,           KC_SCLN,        
-    CW_TOGG,        LT(2, KC_N),    MT(MOD_LALT, KC_R),MT(MOD_LGUI, KC_T),MEH_T(KC_S),    ALL_T(KC_G),                                    ALL_T(KC_Y),    MEH_T(KC_H),    MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_E),LT(4, KC_I),    KC_COMMA,       
+    MT(MOD_LSFT, KC_F22),LT(2, KC_N),    MT(MOD_LALT, KC_R),MT(MOD_LGUI, KC_T),MEH_T(KC_S),    ALL_T(KC_G),                                    ALL_T(KC_Y),    MEH_T(KC_H),    MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_E),LT(4, KC_I),    MT(MOD_LSFT, KC_COMMA),
     KC_NO,          KC_Q,           KC_X,           KC_M,           MT(MOD_LCTL, KC_C),KC_V,                                           KC_K,           MT(MOD_LCTL, KC_P),KC_DOT,         KC_F24,         KC_SLASH,       MO(3),          
-                                                    LT(1, KC_F23),  MT(MOD_LSFT, KC_BSPC),                                MT(MOD_LSFT, KC_ENTER),LT(1, KC_SPACE)
+                                                    LT(1, KC_F23),  KC_BSPC,                                        KC_ENTER,       LT(1, KC_SPACE)
   ),
   [1] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_TILD,        KC_EXLM,        KC_AMPR,        KC_AT,          KC_PERC,        KC_HASH,        
@@ -95,11 +95,9 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT(
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        case MT(MOD_LSFT, KC_F22):
+            return TAPPING_TERM -55;
         case LT(1, KC_F23):
-            return TAPPING_TERM -55;
-        case MT(MOD_LSFT, KC_BSPC):
-            return TAPPING_TERM -55;
-        case MT(MOD_LSFT, KC_ENTER):
             return TAPPING_TERM -55;
         case LT(1, KC_SPACE):
             return TAPPING_TERM -55;
