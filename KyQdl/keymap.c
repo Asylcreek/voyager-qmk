@@ -51,8 +51,8 @@ enum custom_keycodes {
   M_ALT_DOLLAR,
 };
 
-#define DUAL_FUNC_0 LT(13, KC_F12)
-#define DUAL_FUNC_1 LT(4, KC_F5)
+#define DUAL_FUNC_0 LT(8, KC_F4)
+#define DUAL_FUNC_1 LT(4, KC_3)
 
 // Tracks how many sticky layer keys are currently held down.
 static uint8_t sticky_symnum_held_count = 0;
@@ -114,7 +114,11 @@ const custom_shift_key_t custom_shift_keys[] = {
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
+  case MT(MOD_LSFT, KC_T):
+    return TAPPING_TERM - 55;
   case LT(1, KC_F23):
+    return TAPPING_TERM - 55;
+  case MT(MOD_LSFT, KC_A):
     return TAPPING_TERM - 55;
   case LT(1, KC_SPACE):
     return TAPPING_TERM - 55;
@@ -135,10 +139,14 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record,
   };
 
   switch (keycode) {
-  case KC_T:
   case KC_A:
+  case KC_E:
+  case KC_R:
+  case KC_T:
     return FLOW_TAP_TERM - 80;
-  case KC_B ... KC_S:
+  case KC_B ... KC_D:
+  case KC_F ... KC_Q:
+  case KC_S:
   case KC_U ... KC_Z:
     return FLOW_TAP_TERM;
   }
@@ -389,7 +397,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   switch (keycode) {
   case PRE_MAGIC:
-    if (record->event.pressed) {
+    if (record->tap.count && record->event.pressed) {
       alt_repeat_key_invoke(&record->event);
       return false;
     }
