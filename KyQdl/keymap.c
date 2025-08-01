@@ -43,8 +43,8 @@ enum custom_keycodes {
 
 
 
-#define DUAL_FUNC_0 LT(13, KC_F12)
-#define DUAL_FUNC_1 LT(4, KC_F5)
+#define DUAL_FUNC_0 LT(8, KC_F4)
+#define DUAL_FUNC_1 LT(4, KC_3)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -95,7 +95,11 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT(
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        case MT(MOD_LSFT, KC_T):
+            return TAPPING_TERM -55;
         case LT(1, KC_F23):
+            return TAPPING_TERM -55;
+        case MT(MOD_LSFT, KC_A):
             return TAPPING_TERM -55;
         case LT(1, KC_SPACE):
             return TAPPING_TERM -55;
