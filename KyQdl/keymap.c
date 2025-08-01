@@ -170,8 +170,6 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
   case PRE_REPEAT:
   case PRE_MAGIC:
   case MAGIC:
-  case MT(MOD_LSFT, KC_F23):
-  case PRE_CAPS_WORD:
     return false;
   };
   return true;
