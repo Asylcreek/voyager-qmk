@@ -52,8 +52,8 @@ enum custom_keycodes {
   M_ALT_DOLLAR,
 };
 
-#define DUAL_FUNC_0 LT(9, KC_F18)
-#define DUAL_FUNC_1 LT(13, KC_L)
+#define DUAL_FUNC_0 LT(7, KC_F13)
+#define DUAL_FUNC_1 LT(8, KC_A)
 
 // Tracks how many sticky layer keys are currently held down.
 static uint8_t sticky_symnum_held_count = 0;
@@ -81,8 +81,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          LGUI(KC_UP),    KC_NO,          KC_NO,          KC_NO,          
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_PAGE_UP,     LGUI(KC_LEFT),  KC_UP,          LGUI(KC_RIGHT), KC_PGDN,        KC_NO,          
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          LALT(KC_LEFT),  KC_LEFT,        KC_DOWN,        KC_RIGHT,       LALT(KC_RIGHT), KC_NO,          
-    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          LGUI(KC_DOWN),  KC_NO,          KC_NO,          KC_NO,          
-                                                    KC_TRANSPARENT, KC_LEFT_SHIFT,                                  KC_NO,          KC_NO
+    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          SELLINE,          KC_NO,          LGUI(KC_DOWN),  KC_NO,          KC_NO,          KC_NO,          
+                                                    MT(MOD_LSFT, KC_F23),KC_NO,                                          SELWBAK,          SELWORD
   ),
   [3] = LAYOUT_voyager(
     KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,                             KC_NO,            KC_NO,           KC_NO,           KC_NO,           KC_NO,           KC_NO,            
@@ -385,6 +385,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case PRE_CAPS_WORD:
     if (record->event.pressed) {
       caps_word_toggle();
+      return false;
+    };
+    return true;
+  case MT(MOD_LSFT, KC_F23):
+    if (record->event.pressed) {
+      repeat_key_invoke(&record->event);
       return false;
     };
     return true;
