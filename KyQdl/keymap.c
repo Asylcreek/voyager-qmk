@@ -382,20 +382,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       alt_repeat_key_invoke(&record->event);
       return false;
     }
-    return false;
+    break;
     // Macros invoked through the MAGIC key
   case PRE_CAPS_WORD:
     if (record->event.pressed) {
       caps_word_toggle();
       return false;
     };
-    return true;
+    break;
   case MT(MOD_LSFT, KC_F23):
     if (record->event.pressed) {
       repeat_key_invoke(&record->event);
       return false;
     };
-    return true;
+    break;
   case M_EQEQ:
     if (record->event.pressed) {
       SEND_STRING_DELAY(/*=*/"==", TAP_CODE_DELAY);
