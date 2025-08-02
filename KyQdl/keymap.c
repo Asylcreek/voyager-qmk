@@ -52,10 +52,10 @@ enum custom_keycodes {
 };
 
 // Tracks how many sticky layer keys are currently held down.
-static uint8_t sticky_symnum_held_count = 0;
-// Timer to automatically deactivate the sticky layer after a period of
-// inactivity.
-static uint32_t sticky_symnum_activity_timer = 0;
+/* static uint8_t sticky_symnum_held_count = 0; */
+/* // Timer to automatically deactivate the sticky layer after a period of */
+/* // inactivity. */
+/* static uint32_t sticky_symnum_activity_timer = 0; */
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
