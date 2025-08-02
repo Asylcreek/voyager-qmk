@@ -360,46 +360,48 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-  case PRE_REPEAT:
-  case LT(1, KC_SPACE):
-    if (record->tap.count) {
-      if (keycode == PRE_REPEAT) {
-        repeat_key_invoke(&record->event);
-        return false;
-      } else {
-        return true;
-      };
-    } else if (!record->tap.count && record->event.pressed) {
-      // Increment the counter for sticky layer keys held.
-      sticky_symnum_held_count++;
-      // Activate layer 1 (SymNum layer) as a sticky layer.
-      layer_lock_on(1);
-      // Reset the activity timer for the sticky layer.
-      sticky_symnum_activity_timer = timer_read();
-      return false;
-    } else if (record->tap.count == 0) {
-      // Decrement the counter when a sticky layer key is released.
-      sticky_symnum_held_count--;
-      // If no sticky layer keys are held and layer 1 is locked, unlock it and
-      // reset the timer.
-      if (sticky_symnum_held_count == 0 && is_layer_locked(1)) {
-        layer_lock_off(1);
-        sticky_symnum_activity_timer = 0;
-      }
-      return false;
-    }
-    return false;
-  }
-
-  // If layer 1 is active and locked (sticky), and a key other than F23 or
-  // SPACE is pressed, reset the sticky layer activity timer. This keeps the
-  // sticky layer active.
-  if (layer_state_is(1) && is_layer_locked(1) && record->event.pressed) {
-    if (keycode != PRE_REPEAT && keycode != LT(1, KC_SPACE)) {
-      sticky_symnum_activity_timer = timer_read();
-    }
-  }
+  /* switch (keycode) { */
+  /* case PRE_REPEAT: */
+  /* case LT(1, KC_SPACE): */
+  /*   if (record->tap.count) { */
+  /*     if (keycode == PRE_REPEAT) { */
+  /*       repeat_key_invoke(&record->event); */
+  /*       return false; */
+  /*     } else { */
+  /*       return true; */
+  /*     }; */
+  /*   } else if (!record->tap.count && record->event.pressed) { */
+  /*     // Increment the counter for sticky layer keys held. */
+  /*     sticky_symnum_held_count++; */
+  /*     // Activate layer 1 (SymNum layer) as a sticky layer. */
+  /*     layer_lock_on(1); */
+  /*     // Reset the activity timer for the sticky layer. */
+  /*     sticky_symnum_activity_timer = timer_read(); */
+  /*     return false; */
+  /*   } else if (record->tap.count == 0) { */
+  /*     // Decrement the counter when a sticky layer key is released. */
+  /*     sticky_symnum_held_count--; */
+  /*     // If no sticky layer keys are held and layer 1 is locked, unlock it
+   * and */
+  /*     // reset the timer. */
+  /*     if (sticky_symnum_held_count == 0 && is_layer_locked(1)) { */
+  /*       layer_lock_off(1); */
+  /*       sticky_symnum_activity_timer = 0; */
+  /*     } */
+  /*     return false; */
+  /*   } */
+  /*   return false; */
+  /* } */
+  /**/
+  /* // If layer 1 is active and locked (sticky), and a key other than F23 or */
+  /* // SPACE is pressed, reset the sticky layer activity timer. This keeps the
+   */
+  /* // sticky layer active. */
+  /* if (layer_state_is(1) && is_layer_locked(1) && record->event.pressed) { */
+  /*   if (keycode != PRE_REPEAT && keycode != LT(1, KC_SPACE)) { */
+  /*     sticky_symnum_activity_timer = timer_read(); */
+  /*   } */
+  /* } */
 
   const uint8_t mods = get_mods();
 
@@ -630,33 +632,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void matrix_scan_user(void) {
-  // If layer 1 (SymNum) is active and locked (sticky) AND no sticky layer
-  // keys are held down...
-  if (layer_state_is(1) && is_layer_locked(1) &&
-      sticky_symnum_held_count == 0) {
-    // ...and if the activity timer has been started and the elapsed time
-    // exceeds the defined timeout, then unlock layer 1 and reset the timer.
-    // This auto-deactivates the sticky layer after inactivity.
-    if (sticky_symnum_activity_timer > 0 &&
-        timer_elapsed(sticky_symnum_activity_timer) > STICKY_SYMNUM_TIMEOUT) {
-      layer_lock_off(1);
-      sticky_symnum_activity_timer = 0;
-    }
-    // If layer 1 is NOT active AND sticky layer keys are somehow still
-    // counted as held, reset the held count and the timer. This ensures
-    // consistency.
-  } else if (!layer_state_is(1) && sticky_symnum_held_count != 0) {
-    sticky_symnum_held_count = 0;
-    sticky_symnum_activity_timer = 0;
-  }
-
-  // If layer 1 is not active OR it's not locked (not sticky), ensure the
-  // activity timer is reset. This prevents the timer from running when the
-  // sticky layer logic isn't relevant.
-  if (!layer_state_is(1) || !is_layer_locked(1)) {
-    sticky_symnum_activity_timer = 0;
-  }
-}
-
-layer_state_t layer_state_set_user(layer_state_t state) { return state; }
+/* void matrix_scan_user(void) { */
+/*   // If layer 1 (SymNum) is active and locked (sticky) AND no sticky layer */
+/*   // keys are held down... */
+/*   if (layer_state_is(1) && is_layer_locked(1) && */
+/*       sticky_symnum_held_count == 0) { */
+/*     // ...and if the activity timer has been started and the elapsed time */
+/*     // exceeds the defined timeout, then unlock layer 1 and reset the timer.
+ */
+/*     // This auto-deactivates the sticky layer after inactivity. */
+/*     if (sticky_symnum_activity_timer > 0 && */
+/*         timer_elapsed(sticky_symnum_activity_timer) > STICKY_SYMNUM_TIMEOUT)
+ * { */
+/*       layer_lock_off(1); */
+/*       sticky_symnum_activity_timer = 0; */
+/*     } */
+/*     // If layer 1 is NOT active AND sticky layer keys are somehow still */
+/*     // counted as held, reset the held count and the timer. This ensures */
+/*     // consistency. */
+/*   } else if (!layer_state_is(1) && sticky_symnum_held_count != 0) { */
+/*     sticky_symnum_held_count = 0; */
+/*     sticky_symnum_activity_timer = 0; */
+/*   } */
+/**/
+/*   // If layer 1 is not active OR it's not locked (not sticky), ensure the */
+/*   // activity timer is reset. This prevents the timer from running when the
+ */
+/*   // sticky layer logic isn't relevant. */
+/*   if (!layer_state_is(1) || !is_layer_locked(1)) { */
+/*     sticky_symnum_activity_timer = 0; */
+/*   } */
+/* } */
+/**/
+/* layer_state_t layer_state_set_user(layer_state_t state) { return state; } */
