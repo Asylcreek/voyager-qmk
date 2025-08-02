@@ -130,6 +130,15 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   }
 }
 
+/* bool is_flow_tap_key(uint16_t keycode) { */
+/*   switch (get_tap_keycode(keycode)) { */
+/*   case KC_B ... KC_S: */
+/*   case KC_U ... KC_Z: */
+/*     return true; */
+/*   } */
+/*   return false; */
+/* } */
+
 uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record,
                            uint16_t prev_keycode) {
   keycode = get_tap_keycode(keycode);
@@ -144,7 +153,7 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record,
   switch (keycode) {
   case KC_A:
   case KC_T:
-    return FLOW_TAP_TERM - 100;
+    return FLOW_TAP_TERM - 80;
   case KC_B ... KC_S:
   case KC_U ... KC_Z:
     return FLOW_TAP_TERM;
