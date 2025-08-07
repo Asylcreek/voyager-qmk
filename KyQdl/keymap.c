@@ -107,8 +107,8 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
 
 // custom shift keys
 const custom_shift_key_t custom_shift_keys[] = {
-    {KC_QUOT, KC_UNDS},            // Shift ' is _
-    {MT(MOD_LSFT, KC_A), KC_UNDS}, // Shift + bspc is Del
+    {KC_QUOT, KC_UNDS}, // Shift ' is _
+    {KC_BSPC, KC_DEL},  // Shift + bspc is Del
 };
 
 const uint16_t PROGMEM combo0[] = {LT(2, KC_F23), LT(1, KC_SPACE), COMBO_END};
@@ -368,7 +368,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   switch (keycode) {
   case PRE_REPEAT:
-    if (record->event.pressed) {
+    if (record->tap.count) {
       repeat_key_invoke(&record->event);
       return false;
     }
