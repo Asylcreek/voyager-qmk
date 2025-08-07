@@ -48,8 +48,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
     MAC_LOCK,       LGUI(LSFT(KC_5)),LGUI(KC_V),     LGUI(KC_A),     LGUI(KC_C),     LGUI(LCTL(LSFT(KC_4))),                                KC_BRIGHTNESS_UP,KC_AUDIO_VOL_UP,KC_AUDIO_VOL_DOWN,KC_MEDIA_PLAY_PAUSE,KC_BRIGHTNESS_DOWN,KC_AUDIO_MUTE,  
     KC_ESCAPE,      KC_B,           KC_L,           ALL_T(KC_D),    KC_W,           KC_Z,                                           KC_QUOTE,       KC_F,           ALL_T(KC_O),    KC_U,           KC_J,           KC_SCLN,        
-    KC_F24,         KC_N,           MT(MOD_LALT, KC_R),MT(MOD_LSFT, KC_T),MT(MOD_LGUI, KC_S),MEH_T(KC_G),                                    MEH_T(KC_Y),    MT(MOD_LGUI, KC_H),MT(MOD_LSFT, KC_A),MT(MOD_LALT, KC_E),KC_I,           KC_COMMA,       
-    MAC_DND,        KC_Q,           KC_X,           LT(3, KC_M),    MT(MOD_LCTL, KC_C),KC_V,                                           KC_K,           MT(MOD_LCTL, KC_P),LT(5, KC_DOT),  KC_MINUS,       KC_SLASH,       MO(4),          
+    KC_F24,         LT(3, KC_N),    MT(MOD_LALT, KC_R),MT(MOD_LSFT, KC_T),MT(MOD_LGUI, KC_S),MEH_T(KC_G),                                    MEH_T(KC_Y),    MT(MOD_LGUI, KC_H),MT(MOD_LSFT, KC_A),MT(MOD_LALT, KC_E),LT(5, KC_I),    KC_COMMA,       
+    MAC_DND,        KC_Q,           KC_X,           KC_M,           MT(MOD_LCTL, KC_C),KC_V,                                           KC_K,           MT(MOD_LCTL, KC_P),KC_DOT,         KC_MINUS,       KC_SLASH,       MO(4),          
                                                     LT(2, KC_F23),  KC_BSPC,                                        KC_ENTER,       LT(1, KC_SPACE)
   ),
   [1] = LAYOUT_voyager(
@@ -61,16 +61,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [2] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    KC_NO,          KC_NO,          KC_HASH,        KC_ASTR,        KC_CIRC,        KC_NO,                                          KC_UNDS,        KC_LBRC,        KC_LCBR,        KC_RCBR,        KC_RBRC,        KC_GRAVE,       
-    KC_NO,          KC_RABK,        KC_EQUAL,       KC_AT,          KC_AMPR,        KC_BSLS,                                        KC_LPRN,        KC_COLN,        KC_DQUO,        KC_RPRN,        KC_EXLM,        KC_COMMA,       
-    KC_NO,          KC_LABK,        KC_PIPE,        KC_PERC,        KC_DLR,         KC_TILD,                                        KC_QUES,        KC_PLUS,        KC_DOT,         KC_MINUS,       KC_SLASH,       KC_NO,          
+    KC_NO,          KC_NO,          KC_HASH,        KC_ASTR,        KC_CIRC,        KC_NO,                                          KC_UNDS,        KC_LBRC,        KC_LCBR,        KC_RCBR,        KC_RBRC,        KC_TILD,        
+    KC_NO,          KC_RABK,        KC_EQUAL,       KC_AT,          KC_AMPR,        KC_PIPE,                                        KC_LPRN,        KC_COLN,        KC_DQUO,        KC_RPRN,        KC_EXLM,        KC_COMMA,       
+    KC_NO,          KC_LABK,        KC_BSLS,        KC_PERC,        KC_DLR,         KC_PLUS,                                        KC_GRAVE,       KC_QUES,        KC_DOT,         KC_MINUS,       KC_SLASH,       KC_NO,          
                                                     KC_TRANSPARENT, KC_NO,                                          KC_BSPC,        KC_F23
   ),
   [3] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          LGUI(KC_UP),    KC_NO,          KC_NO,          KC_NO,          
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_PAGE_UP,     LGUI(KC_LEFT),  KC_UP,          LGUI(KC_RIGHT), KC_PGDN,        KC_NO,          
-    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          LALT(KC_LEFT),  KC_LEFT,        KC_DOWN,        KC_RIGHT,       LALT(KC_RIGHT), KC_NO,          
-    KC_NO,          KC_NO,          KC_LEFT_SHIFT,  KC_TRANSPARENT, KC_LEFT_GUI,    KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
+    KC_NO,          KC_TRANSPARENT, KC_NO,          KC_LEFT_SHIFT,  KC_LEFT_GUI,    KC_NO,                                          LALT(KC_LEFT),  KC_LEFT,        KC_DOWN,        KC_RIGHT,       LALT(KC_RIGHT), KC_NO,          
+    KC_NO,          KC_NO,          KC_NO,          KC_TRANSPARENT, KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
                                                     KC_TRANSPARENT, KC_NO,                                          KC_NO,          ST_MACRO_0
   ),
   [4] = LAYOUT_voyager(
@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [5] = LAYOUT_voyager(
     ST_MACRO_1,     ST_MACRO_2,     ST_MACRO_3,     ST_MACRO_4,     ST_MACRO_5,     ST_MACRO_6,                                     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     ST_MACRO_7,     ST_MACRO_8,     ST_MACRO_9,     ST_MACRO_10,    ST_MACRO_11,    ST_MACRO_12,                                    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    ST_MACRO_13,    ST_MACRO_14,    ST_MACRO_15,    ST_MACRO_16,    ST_MACRO_17,    ST_MACRO_18,                                    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
+    ST_MACRO_13,    ST_MACRO_14,    ST_MACRO_15,    ST_MACRO_16,    ST_MACRO_17,    ST_MACRO_18,                                    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_TRANSPARENT, KC_NO,          
     ST_MACRO_19,    ST_MACRO_20,    ST_MACRO_21,    ST_MACRO_22,    ST_MACRO_23,    ST_MACRO_24,                                    KC_NO,          KC_NO,          KC_TRANSPARENT, KC_NO,          KC_NO,          KC_NO,          
                                                     ST_MACRO_25,    ST_MACRO_26,                                    KC_NO,          KC_NO
   ),
