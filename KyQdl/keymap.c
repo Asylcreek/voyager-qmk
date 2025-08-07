@@ -99,12 +99,10 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT(
 
 const uint16_t PROGMEM combo0[] = { LT(2, KC_F23), LT(1, KC_SPACE), COMBO_END};
 const uint16_t PROGMEM combo1[] = { LT(1, KC_SPACE), KC_BSPC, COMBO_END};
-const uint16_t PROGMEM combo2[] = { KC_B, KC_N, KC_J, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo0, CW_TOGG),
     COMBO(combo1, KC_TAB),
-    COMBO(combo2, KC_TAB),
 };
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
