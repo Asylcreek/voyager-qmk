@@ -368,7 +368,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   switch (keycode) {
   case PRE_REPEAT:
-    if (record->tap.count && record->event.pressed) {
+    if (record->event.pressed) {
       repeat_key_invoke(&record->event);
       return false;
     }
