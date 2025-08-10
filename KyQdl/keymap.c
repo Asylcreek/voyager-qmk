@@ -78,8 +78,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          LGUI(KC_UP),    KC_NO,          KC_NO,          KC_NO,          
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_PAGE_UP,     LGUI(KC_LEFT),  KC_UP,          LGUI(KC_RIGHT), KC_PGDN,        KC_NO,          
     KC_NO,          KC_TRANSPARENT, KC_NO,          KC_LEFT_SHIFT,  KC_LEFT_GUI,    KC_NO,                                          LALT(KC_LEFT),  KC_LEFT,        KC_DOWN,        KC_RIGHT,       LALT(KC_RIGHT), KC_NO,          
-    KC_NO,          KC_NO,          KC_NO,          KC_NO, KC_NO,          KC_NO,                                          KC_NO,          SELLINE,          SELWBAK,          SELWORD,          KC_NO,          KC_NO,          
-                                                    KC_TRANSPARENT, KC_NO,                                          KC_NO,          ST_MACRO_0
+    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          SELLINE,        SELWBAK,        SELWORD,        KC_NO,          KC_NO,          KC_NO,          
+                                                    KC_TRANSPARENT, KC_NO,                                          LALT(LSFT(KC_7)),     ST_MACRO_0
   ),
   [4] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
@@ -157,7 +157,7 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record,
   switch (keycode) {
   case KC_A:
   case KC_T:
-    return FLOW_TAP_TERM - 90;
+    return FLOW_TAP_TERM - 100;
   case KC_B ... KC_S:
   case KC_U ... KC_Z:
     return FLOW_TAP_TERM;
