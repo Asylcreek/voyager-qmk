@@ -109,8 +109,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM -45;
         case LT(1, KC_SPACE):
             return TAPPING_TERM -45;
-        case KC_F23:
-            return TAPPING_TERM -55;
         default:
             return TAPPING_TERM;
     }
