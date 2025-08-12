@@ -148,11 +148,12 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record,
   };
 
   switch (keycode) {
-  case KC_A:
-  case KC_T:
+  case KC_S:
+  case KC_H:
     return FLOW_TAP_TERM - 100;
-  case KC_B ... KC_S:
-  case KC_U ... KC_Z:
+  case KC_A ... KC_G:
+  case KC_I ... KC_R:
+  case KC_T ... KC_Z:
     return FLOW_TAP_TERM;
   }
 
