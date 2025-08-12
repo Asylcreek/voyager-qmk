@@ -8,7 +8,7 @@
 #define MAGIC QK_AREP
 #define REPEAT QK_REP
 #define PRE_REPEAT LT(2, KC_F23)
-// #define PRE_MAGIC MT(MOD_LALT, KC_F24)
+#define PRE_MAGIC MT(MOD_LALT, KC_F24)
 
 enum custom_keycodes {
   RGB_SLD = ZSA_SAFE_RANGE,
