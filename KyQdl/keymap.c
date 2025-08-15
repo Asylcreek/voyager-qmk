@@ -56,8 +56,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [1] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     KC_NO,          KC_NO,          KC_9,           KC_8,           KC_7,           KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    KC_NO,          CW_TOGG,        KC_3,           KC_2,           KC_1,           KC_TAB,                                         KC_EQUAL,       KC_0,           KC_DOT,         KC_COMMA,       KC_ASTR,        KC_NO,          
-    KC_NO,          KC_NO,          KC_6,           KC_5,           KC_4,           KC_DELETE,                                      KC_SLASH,       KC_PLUS,        KC_MINUS,       KC_NO,          KC_NO,          KC_NO,          
+    KC_NO,          CW_TOGG,        KC_3,           KC_2,           KC_1,           KC_TAB,                                         KC_ASTR,        KC_0,           KC_DOT,         KC_MINUS,       KC_EQUAL,       KC_COMMA,       
+    KC_NO,          KC_NO,          KC_6,           KC_5,           KC_4,           KC_DELETE,                                      KC_SLASH,       KC_PLUS,        KC_NO,          KC_NO,          KC_NO,          KC_NO,          
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_NO,          KC_TRANSPARENT
   ),
   [2] = LAYOUT_voyager(
@@ -101,13 +101,11 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT(
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case MT(MOD_LSFT, KC_S):
-            return TAPPING_TERM -45;
         case LT(2, KC_F23):
             return TAPPING_TERM -45;
-        case MT(MOD_LSFT, KC_H):
-            return TAPPING_TERM -45;
         case LT(1, KC_SPACE):
+            return TAPPING_TERM -45;
+        case KC_F23:
             return TAPPING_TERM -45;
         default:
             return TAPPING_TERM;
