@@ -112,21 +112,21 @@ const custom_shift_key_t custom_shift_keys[] = {
     {LT(3, KC_BSPC), KC_DEL}, // Shift + bspc is Del
 };
 
-uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-  case MT(MOD_LSFT, KC_S):
-    return TAPPING_TERM - 45;
-  case LT(2, KC_F23):
-    return TAPPING_TERM - 45;
-  case MT(MOD_LSFT, KC_H):
-    return TAPPING_TERM - 45;
-  case LT(1, KC_SPACE):
-    return TAPPING_TERM - 45;
-  default:
-    return TAPPING_TERM;
-  }
-}
-
+/* uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) { */
+/*   switch (keycode) { */
+/*   case MT(MOD_LSFT, KC_S): */
+/*     return TAPPING_TERM - 45; */
+/*   case LT(2, KC_F23): */
+/*     return TAPPING_TERM - 45; */
+/*   case MT(MOD_LSFT, KC_H): */
+/*     return TAPPING_TERM - 45; */
+/*   case LT(1, KC_SPACE): */
+/*     return TAPPING_TERM - 45; */
+/*   default: */
+/*     return TAPPING_TERM; */
+/*   } */
+/* } */
+/**/
 /* bool is_flow_tap_key(uint16_t keycode) { */
 /*   switch (get_tap_keycode(keycode)) { */
 /*   case KC_B ... KC_S: */
@@ -136,29 +136,29 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 /*   return false; */
 /* } */
 
-uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record,
-                           uint16_t prev_keycode) {
-  keycode = get_tap_keycode(keycode);
-  prev_keycode = get_tap_keycode(keycode);
-
-  switch (keycode) {
-  case KC_C:
-  case KC_H:
-  case KC_P:
-  case KC_S:
-    return FLOW_TAP_TERM - 100;
-  case KC_A:
-  case KC_B:
-  case KC_D ... KC_G:
-  case KC_I ... KC_O:
-  case KC_Q:
-  case KC_R:
-  case KC_T ... KC_Z:
-    return FLOW_TAP_TERM;
-  }
-
-  return 0;
-}
+/* uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record, */
+/*                            uint16_t prev_keycode) { */
+/*   keycode = get_tap_keycode(keycode); */
+/*   prev_keycode = get_tap_keycode(keycode); */
+/**/
+/*   switch (keycode) { */
+/*   case KC_C: */
+/*   case KC_H: */
+/*   case KC_P: */
+/*   case KC_S: */
+/*     return FLOW_TAP_TERM - 100; */
+/*   case KC_A: */
+/*   case KC_B: */
+/*   case KC_D ... KC_G: */
+/*   case KC_I ... KC_O: */
+/*   case KC_Q: */
+/*   case KC_R: */
+/*   case KC_T ... KC_Z: */
+/*     return FLOW_TAP_TERM; */
+/*   } */
+/**/
+/*   return 0; */
+/* } */
 
 bool caps_word_press_user(uint16_t keycode) {
   switch (keycode) {
