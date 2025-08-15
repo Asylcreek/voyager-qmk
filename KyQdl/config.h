@@ -1,14 +1,12 @@
-// #define FLOW_TAP_TERM 180
 #define CHORDAL_HOLD
 #undef TAPPING_TERM
 #define TAPPING_TERM 225
+#define QUICK_TAP_TERM 100
 
 #define PERMISSIVE_HOLD
 
-#define QUICK_TAP_TERM 0
-
 #define USB_SUSPEND_WAKEUP_DELAY 0
-#define SERIAL_NUMBER "KyQdl/40oyq3"
+#define SERIAL_NUMBER "KyQdl/bvJEXg"
 #define LAYER_STATE_8BIT
 #define HSS(report)                                                            \
   host_system_send(record->event.pressed ? report : 0);                        \
@@ -53,7 +51,5 @@
 #define CAPS_WORD_IDLE_TIMEOUT 3500
 #define CAPS_WORD_INVERT_ON_SHIFT
 
-// Defines the timeout for the sticky layer in milliseconds.
-#define STICKY_SYMNUM_TIMEOUT 2000
 // SELECT WORD
 #define SELECT_WORD_OS_MAC
