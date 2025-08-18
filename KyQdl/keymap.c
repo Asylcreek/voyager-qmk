@@ -323,7 +323,7 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
 
   case KC_A:
   case KC_I:
-    return M_SPREAD_PAIRS
+    return M_SPREAD_PAIRS;
   }
 
   return KC_TRNS;
