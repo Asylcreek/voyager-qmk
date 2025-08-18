@@ -264,7 +264,7 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     case KC_J:
       return A(S(KC_K));
     case KC_7:
-      return MEH(KC_G)
+      return MEH(KC_G);
     };
   };
 
