@@ -50,6 +50,7 @@ enum custom_keycodes {
   M_ARROW_FUNC,
   M_CLOSE_BRACE,
   M_ALT_DOLLAR,
+  M_SPREAD_PAIRS
 };
 
 // clang-format off
@@ -319,6 +320,10 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     return SELWORD;
   case SELWORD:
     return SELWBAK;
+
+  case KC_A:
+  case KC_I:
+    return M_SPREAD_PAIRS
   }
 
   return KC_TRNS;
@@ -363,6 +368,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case M_ALT_DOLLAR:
     if (record->event.pressed) {
       SEND_STRING_DELAY(/*$*/ "{}" SS_TAP(X_ESC) SS_TAP(X_I), TAP_CODE_DELAY);
+    }
+    break;
+  case M_SPREAD_PAIRS:
+    if (record->event.pressed) {
+      SEND_STRING_DELAY(SS_TAP(X_ENTER) SS_TAP(X_ESC) SS_LSFT(SS_TAP(X_O)),
+                        TAP_CODE_DELAY);
     }
     break;
   case KC_QUOTE: {
