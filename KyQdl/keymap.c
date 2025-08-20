@@ -96,6 +96,10 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool caps_word_press_user(uint16_t keycode) {
+  if (keycode == KC_W && (get_mods() & MOD_BIT(KC_LCTL))) {
+    return true;
+  }
+
   switch (keycode) {
   case KC_A ... KC_Z:
   case KC_QUOTE:
@@ -106,7 +110,6 @@ bool caps_word_press_user(uint16_t keycode) {
   case KC_BSPC:
   case KC_DEL:
   case KC_LPRN:
-  case LCTL(KC_W):
     return true;
 
   default:
@@ -377,6 +380,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
   }
     return false;
+  case LSFT_T(KC_H):
+    if (record->tap.count && record->event.pressed) {
+      if (get_repeat_key_count() > 2 && (mods & MOD_MASK_CTRL)) {
+        tap_code16(C(KC_W));
+        return false;
+      };
+    }
+    break;
+
   case TMUX_UP:
     if (record->event.pressed) {
       SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_LALT(SS_TAP(X_UP)));
