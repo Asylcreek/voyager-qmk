@@ -1,3 +1,4 @@
+#include "print.h"
 #include QMK_KEYBOARD_H
 #include "version.h"
 #define MOON_LED_LEVEL LED_LEVEL
@@ -96,14 +97,14 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool caps_word_press_user(uint16_t keycode) {
-  uprintf("caps word");
-  xprintf("caps word");
+  uprintf("caps word\n");
+  xprintf("caps word\n");
   if (keycode == KC_W && (get_mods() & MOD_BIT(KC_LCTL))) {
     uprintf("Ctrl+W pressed inside caps_word_press_user\n");
     xprintf("Ctrl+W pressed inside caps_word_press_user\n");
     return true;
   } else {
-    xprintf("not sure why it didn't work");
+    xprintf("not sure why it didn't work\n");
   };
 
   switch (keycode) {
@@ -137,7 +138,7 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
 uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   mods = mods | get_mods() | get_weak_mods() | get_oneshot_mods();
   keycode = get_tap_keycode(keycode);
-  xprintf("logging workss");
+  xprintf("logging workss\n");
 
   // add modifiers for shortcut like keys like
   // C(KC_S), G(KC_C), S(KC_N), O(KC_N)
@@ -312,6 +313,9 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   case KC_A:
   case KC_I:
     return M_SPREAD_PAIRS;
+
+  case KC_SPACE:
+    return KC_BACKSPACE;
   }
 
   return KC_TRNS;
@@ -388,20 +392,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
     return false;
   case LSFT_T(KC_H):
-    uprintf("sft+h is pressed");
-    xprintf("sft and h is pressed");
+    uprintf("sft+h is pressed\n");
+    xprintf("sft and h is pressed\n");
     if (record->tap.count && record->event.pressed) {
-      uprintf("sft+h is tapped");
-      xprintf("sft+h is tapped");
+      uprintf("sft+h is tapped\n");
+      xprintf("sft+h is tapped\n");
 
       if (get_repeat_key_count() > 2) {
-        uprintf("repeat count limit!!!");
-        xprintf("repeat count limit!!!");
+        uprintf("repeat count limit!!!\n");
+        xprintf("repeat count limit!!!\n");
       };
 
       if (mods & MOD_MASK_CTRL) {
-        uprintf("ctrl is seen");
-        xprintf("ctrl is seen");
+        uprintf("ctrl is seen\n");
+        xprintf("ctrl is seen\n");
       };
 
       if (get_repeat_key_count() > 2 && (mods & MOD_MASK_CTRL)) {
