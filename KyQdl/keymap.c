@@ -12,6 +12,7 @@ enum custom_keycodes {
   HSV_74_255_255,
   ST_MACRO_0,
   ST_MACRO_1,
+  MAC_DND,
   MAC_LOCK,
 };
 
@@ -50,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [4] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          QK_BOOT,        KC_NO,          
-    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          LALT(LGUI(LCTL(LSFT(KC_M)))),KC_BRIGHTNESS_UP,KC_BRIGHTNESS_DOWN,KC_NO,          KC_NO,          
+    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          LALT(LGUI(LCTL(LSFT(KC_M)))),KC_BRIGHTNESS_UP,KC_BRIGHTNESS_DOWN,MAC_DND,        KC_NO,          
     KC_NO,          KC_NO,          KC_TRANSPARENT, KC_NO,          KC_NO,          KC_NO,                                          RGB_TOG,        RGB_VAD,        RGB_VAI,        HSV_169_255_255,HSV_0_255_255,  KC_NO,          
                                                     KC_NO,          KC_NO,                                          RGB_MODE_FORWARD,HSV_74_255_255
   ),
@@ -98,6 +99,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       SEND_STRING(SS_LCTL(SS_TAP(X_COMMA))SS_DELAY(100)  SS_LALT(SS_TAP(X_DOWN)));
     }
     break;
+    case MAC_DND:
+      HSS(0x9B);
     case MAC_LOCK:
       HCS(0x19E);
 
