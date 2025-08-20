@@ -96,6 +96,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool caps_word_press_user(uint16_t keycode) {
+  uprintf("caps word");
   if (keycode == KC_W && (get_mods() & MOD_BIT(KC_LCTL))) {
     uprintf("Ctrl+W pressed inside caps_word_press_user\n");
     return true;
@@ -384,8 +385,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
     return false;
   case LSFT_T(KC_H):
+    uprintf("sft+h is pressed");
     if (record->tap.count && record->event.pressed) {
-      uprintf("sft+h is pressed");
+      uprintf("sft+h is tapped");
 
       if (get_repeat_key_count() > 2) {
         uprintf("repeat count limit!!!");
