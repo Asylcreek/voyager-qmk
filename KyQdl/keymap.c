@@ -137,6 +137,7 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
 uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   mods = mods | get_mods() | get_weak_mods() | get_oneshot_mods();
   keycode = get_tap_keycode(keycode);
+  xprintf("logging workss");
 
   // add modifiers for shortcut like keys like
   // C(KC_S), G(KC_C), S(KC_N), O(KC_N)
