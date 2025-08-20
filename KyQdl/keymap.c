@@ -382,7 +382,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
   case LSFT_T(KC_H):
     if (record->tap.count && record->event.pressed) {
-      if (get_repeat_key_count() > 2 && (get_last_mods() & MOD_MASK_CTRL)) {
+      if (get_repeat_key_count() > 1 && (get_last_mods() & MOD_MASK_CTRL)) {
+        tap_code16(C(KC_W));
+        return false;
+      };
+    }
+    break;
+  case KC_BACKSPACE:
+    if (record->event.pressed) {
+      if (get_repeat_key_count() > 1) {
         tap_code16(C(KC_W));
         return false;
       };
