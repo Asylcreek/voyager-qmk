@@ -97,20 +97,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool caps_word_press_user(uint16_t keycode) {
-  if (keycode == KC_W) {
-    uprintf("w is pressed\n");
-  }
-
-  if (get_mods() & MOD_BIT(KC_LCTL)) {
-    uprintf("ctrl is seen\n");
-  };
-  if (keycode == KC_W && (get_mods() & MOD_BIT(KC_LCTL))) {
-    uprintf("Ctrl+W pressed inside caps_word_press_user\n");
-    return true;
-  } else {
-    uprintf("not sure why it didn't work\n");
-  };
-
   switch (keycode) {
   case KC_A ... KC_Z:
   case KC_QUOTE:
@@ -395,23 +381,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
     return false;
   case LSFT_T(KC_H):
-    uprintf("sft+h is pressed\n");
     if (record->tap.count && record->event.pressed) {
-      uprintf("sft+h is tapped\n");
-
-      if (get_repeat_key_count() > 2) {
-        uprintf("repeat count limit!!!\n");
-      };
-
-      if (mods & MOD_MASK_CTRL) {
-        uprintf("ctrl is seen\n");
-      };
-
-      if (get_last_mods() & MOD_MASK_CTRL) {
-        uprintf("last mod ctrl is seen\n");
-      };
-
-      if (get_repeat_key_count() > 2 && (mods & MOD_MASK_CTRL)) {
+      if (get_repeat_key_count() > 2 && (get_last_mods() & MOD_MASK_CTRL)) {
         tap_code16(C(KC_W));
         return false;
       };
