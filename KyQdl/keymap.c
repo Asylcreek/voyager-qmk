@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [1] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     KC_NO,          KC_NO,          KC_9,           KC_8,           KC_7,           KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    KC_NO,          KC_NO,          KC_3,           KC_2,           KC_1,           KC_TAB,                                         KC_PLUS,        MT(MOD_LSFT | MOD_LALT, KC_0),MT(MOD_LGUI, KC_DOT),KC_MINUS,       KC_SLASH,       KC_NO,          
+    KC_NO,          LCTL(KC_COMMA), KC_3,           KC_2,           KC_1,           KC_TAB,                                         KC_PLUS,        MT(MOD_LSFT | MOD_LALT, KC_0),MT(MOD_LGUI, KC_DOT),KC_MINUS,       KC_SLASH,       KC_NO,          
     KC_NO,          KC_UNDS,        KC_6,           KC_5,           KC_4,           KC_ASTR,                                        KC_NO,          MT(MOD_LCTL, KC_EQUAL),MT(MOD_LALT, KC_COMMA),KC_NO,          KC_NO,          KC_NO,          
                                                     KC_TRANSPARENT, KC_BSPC,                                        KC_NO,          KC_TRANSPARENT
   ),
@@ -54,8 +54,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          LGUI(KC_UP),    LGUI(KC_LEFT),  KC_UP,          LGUI(KC_RIGHT), LGUI(KC_DOWN),  KC_NO,          
     KC_NO,          KC_NO,          KC_TRANSPARENT, KC_NO,          OSM(MOD_LSFT),  KC_NO,                                          LALT(KC_LEFT),  KC_LEFT,        KC_DOWN,        KC_RIGHT,       LALT(KC_RIGHT), KC_NO,          
-    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          SELLINE,        SELWBAK,        SELWORD,          KC_NO,          KC_NO,          KC_NO,          
-                                                    LCTL(KC_COMMA), LALT(LSFT(KC_SCLN)),                                TMUX_UP,    TMUX_DOWN
+    KC_NO,          KC_NO,          KC_NO,          KC_NO,          SELLINE,          KC_NO,                                        KC_NO,          LCTL(KC_COMMA), LALT(LSFT(KC_SCLN)),KC_NO,          KC_NO,          KC_NO,          
+                                                    SELWBAK,        SELWORD,                                          TMUX_UP,      TMUX_DOWN
   ),
   [4] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
