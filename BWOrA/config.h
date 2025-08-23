@@ -1,14 +1,19 @@
 #define CHORDAL_HOLD
 #undef TAPPING_TERM
 #define TAPPING_TERM 225
+#define QUICK_TAP_TERM 100
 
 #define PERMISSIVE_HOLD
 
 #define USB_SUSPEND_WAKEUP_DELAY 0
 #define SERIAL_NUMBER "BWOrA/EeR4X5"
 #define LAYER_STATE_8BIT
-#define HSS(report) host_system_send(record->event.pressed ? report : 0); return false
-#define HCS(report) host_consumer_send(record->event.pressed ? report : 0); return false
+#define HSS(report)                                                            \
+  host_system_send(record->event.pressed ? report : 0);                        \
+  return false
+#define HCS(report)                                                            \
+  host_consumer_send(record->event.pressed ? report : 0);                      \
+  return false
 
 #define TAPPING_TERM_PER_KEY
 #define RGB_MATRIX_STARTUP_SPD 60
@@ -38,3 +43,12 @@
 #undef ENABLE_RGB_MATRIX_STARLIGHT
 #undef ENABLE_RGB_MATRIX_STARLIGHT_DUAL_HUE
 #undef ENABLE_RGB_MATRIX_STARLIGHT_DUAL_SAT
+
+// Don't apply custom shift keys when any non-shift mod is held.
+#define CUSTOM_SHIFT_KEYS_NEGMODS ~MOD_MASK_SHIFT
+
+#define CAPS_WORD_IDLE_TIMEOUT 3500
+#define CAPS_WORD_INVERT_ON_SHIFT
+
+// SELECT WORD
+#define SELECT_WORD_OS_MAC
