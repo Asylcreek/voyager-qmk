@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          LGUI(KC_UP),    LGUI(KC_LEFT),  KC_UP,          LGUI(KC_RIGHT), LGUI(KC_DOWN),  KC_NO,          
     KC_NO,          KC_NO,          KC_TRANSPARENT, KC_NO,          OSM(MOD_LSFT),  KC_NO,                                          LALT(KC_LEFT),  KC_LEFT,        KC_DOWN,        KC_RIGHT,       LALT(KC_RIGHT), KC_NO,          
-    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
+    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          SELLINE,        SELWBAK,        SELWORD,          KC_NO,          KC_NO,          KC_NO,          
                                                     KC_NO,          KC_NO,                                          TMUX_UP,     TMUX_DOWN
   ),
   [4] = LAYOUT_voyager(
@@ -67,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT(
-  'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 
+  '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*',
   'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 
   'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 
   'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 
@@ -77,8 +77,8 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT(
 
 // custom shift keys
 const custom_shift_key_t custom_shift_keys[] = {
-    {KC_QUOT, KC_UNDS},       // Shift ' is _
-    {LT(3, KC_BSPC), KC_DEL}, // Shift + bspc is Del
+    {KC_QUOT, KC_UNDS}, // Shift ' is _
+    {KC_BSPC, KC_DEL},  // Shift + bspc is Del
 };
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
