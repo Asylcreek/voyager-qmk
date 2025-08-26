@@ -329,7 +329,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     break;
   case PRE_MAGIC:
-    if (record->tap.count && record->event.pressed) {
+    if (record->tap.count) {
       alt_repeat_key_invoke(&record->event);
       return false;
     }
