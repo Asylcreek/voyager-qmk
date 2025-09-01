@@ -5,12 +5,17 @@
 #define PERMISSIVE_HOLD
 
 #define USB_SUSPEND_WAKEUP_DELAY 0
-#define SERIAL_NUMBER "KyQdl/bv7J67"
+#define SERIAL_NUMBER "KyQdl/RjWW4P"
 #define LAYER_STATE_8BIT
 #define HSS(report) host_system_send(record->event.pressed ? report : 0); return false
 #define HCS(report) host_consumer_send(record->event.pressed ? report : 0); return false
 
 #define TAPPING_TERM_PER_KEY
+#define MOUSE_EXTENDED_REPORT
+#define POINTING_DEVICE_AUTO_MOUSE_ENABLE
+#define AUTO_MOUSE_DEFAULT_LAYER 5
+#define NAVIGATOR_SCROLL_INVERT
+#define NAVIGATOR_SCROLL_DIVIDER 24
 #define RGB_MATRIX_STARTUP_SPD 60
 
 #undef ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
