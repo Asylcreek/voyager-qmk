@@ -36,9 +36,9 @@ enum custom_keycodes {
   NAVIGATOR_INC_CPI,
   NAVIGATOR_DEC_CPI,
   NAVIGATOR_TURBO,
-  NAVIGATOR_AIM
-      // Macros invoked through the Magic key.
-      M_EQEQ,
+  NAVIGATOR_AIM,
+  // Macros invoked through the Magic key.
+  M_EQEQ,
   M_ARROW_FUNC,
   M_CLOSE_BRACE,
   M_ALT_DOLLAR,
