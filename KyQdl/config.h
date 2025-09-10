@@ -1,4 +1,4 @@
-#define FLOW_TAP_TERM 100
+#define FLOW_TAP_TERM 80
 #define CHORDAL_HOLD
 #undef TAPPING_TERM
 #define TAPPING_TERM 225
@@ -7,8 +7,9 @@
 #define PERMISSIVE_HOLD
 
 #define USB_SUSPEND_WAKEUP_DELAY 0
-#define SERIAL_NUMBER "KyQdl/QzjL6D"
+#define SERIAL_NUMBER "KyQdl/lbjr0b"
 #define LAYER_STATE_8BIT
+#define COMBO_COUNT 2
 #define HSS(report)                                                            \
   host_system_send(record->event.pressed ? report : 0);                        \
   return false
@@ -17,15 +18,19 @@
   return false
 
 #define TAPPING_TERM_PER_KEY
+#define WHEEL_EXTENDED_SUPPORT
+#define POINTING_DEVICE_HIRES_SCROLL_ENABLE
+#define POINTING_DEVICE_HIRES_SCROLL_EXPONENT 1
+#define POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
 #define MOUSE_EXTENDED_REPORT
 #define NAVIGATOR_TRACKBALL_CPI 15
-
-#define NAVIGATOR_SCROLL_DIVIDER 48
+#define NAVIGATOR_SCROLL_DIVIDER 100
 
 #define POINTING_DEVICE_AUTO_MOUSE_ENABLE
 #define AUTO_MOUSE_DEFAULT_LAYER 5
 #define AUTO_MOUSE_THRESHOLD 0
-#define AUTO_MOUSE_SCROLL_THRESHOLD AUTO_MOUSE_THRESHOLD / NAVIGATOR_SCROLL_DIVIDER
+#define AUTO_MOUSE_SCROLL_THRESHOLD                                            \
+  AUTO_MOUSE_THRESHOLD / NAVIGATOR_SCROLL_DIVIDER
 
 #define NAVIGATOR_SCROLL_INVERT
 
@@ -59,7 +64,7 @@
 #undef ENABLE_RGB_MATRIX_RIVERFLOW
 
 // Don't apply custom shift keys when any non-shift mod is held.
-#define CUSTOM_SHIFT_KEYS_NEGMODS ~MOD_MASK_SHIFT
+// #define CUSTOM_SHIFT_KEYS_NEGMODS ~MOD_MASK_SHIFT
 
 #define CAPS_WORD_IDLE_TIMEOUT 3500
 #define CAPS_WORD_INVERT_ON_SHIFT
