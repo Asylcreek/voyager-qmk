@@ -106,11 +106,15 @@ const custom_shift_key_t custom_shift_keys[] = {
 };
 
 const uint16_t PROGMEM combo0[] = {KC_M, KC_X, COMBO_END};
-const uint16_t PROGMEM combo1[] = {KC_DOT, MT(MOD_LCTL, KC_P), COMBO_END};
+const uint16_t PROGMEM combo1[] = {KC_DOT, KC_COMMA, COMBO_END};
+const uint16_t PROGMEM combo2[] = {KC_L, KC_D, COMBO_END};
+const uint16_t PROGMEM combo3[] = {KC_O, KC_U, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo0, KC_ESCAPE),
     COMBO(combo1, MAGIC),
+    COMBO(combo2, KC_TAB),
+    COMBO(combo3, CW_TOGG),
 };
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
@@ -494,10 +498,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         add_mods(QK_MODS_GET_MODS(keycode));
         send_keyboard_report();
-        wait_ms(1);
+        wait_ms(2);
         register_code(QK_MODS_GET_BASIC_KEYCODE(keycode));
         return false;
       } else {
+        wait_ms(2);
         del_mods(QK_MODS_GET_MODS(keycode));
       }
     }

@@ -7,9 +7,9 @@
 #define PERMISSIVE_HOLD
 
 #define USB_SUSPEND_WAKEUP_DELAY 0
-#define SERIAL_NUMBER "KyQdl/lbjr0b"
+#define SERIAL_NUMBER "KyQdl/PB7PKq"
 #define LAYER_STATE_8BIT
-#define COMBO_COUNT 2
+#define COMBO_COUNT 4
 #define HSS(report)                                                            \
   host_system_send(record->event.pressed ? report : 0);                        \
   return false
@@ -31,9 +31,8 @@
 #define AUTO_MOUSE_THRESHOLD 0
 #define AUTO_MOUSE_SCROLL_THRESHOLD                                            \
   AUTO_MOUSE_THRESHOLD / NAVIGATOR_SCROLL_DIVIDER
-
-#define NAVIGATOR_SCROLL_INVERT
-
+#define NAVIGATOR_SCROLL_INVERT_X
+#define NAVIGATOR_SCROLL_INVERT_Y
 #define RGB_MATRIX_STARTUP_SPD 60
 
 #undef ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
