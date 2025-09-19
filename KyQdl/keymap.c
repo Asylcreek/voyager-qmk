@@ -107,10 +107,13 @@ const custom_shift_key_t custom_shift_keys[] = {
 
 const uint16_t PROGMEM combo0[] = {KC_L, KC_D, COMBO_END};
 const uint16_t PROGMEM combo1[] = {KC_X, KC_M, COMBO_END};
+const uint16_t PROGMEM combo2[] = {MT(MOD_LSFT, KC_S), MT(MOD_LSFT, KC_H),
+                                   COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo0, KC_ESCAPE),
     COMBO(combo1, MAGIC),
+    COMBO(combo2, CW_TOGG),
 };
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
@@ -382,6 +385,10 @@ bool is_mouse_record_kb(uint16_t keycode, keyrecord_t *record) {
   case NAVIGATOR_INC_CPI ... NAVIGATOR_AIM:
   case DRAG_SCROLL:
   case TOGGLE_SCROLL:
+  case KC_MS_BTN1:
+  case LSFT(KC_MS_BTN1):
+  case KC_MS_BTN2:
+  case LGUI(KC_MS_BTN1):
     return true;
   }
   return is_mouse_record_user(keycode, record);
@@ -458,6 +465,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
     return false;
   case LSFT_T(KC_H):
+  case LT(3, KC_BSPC):
     if (record->tap.count && record->event.pressed) {
       if (get_repeat_key_count() > 1 && (get_last_mods() & MOD_MASK_CTRL)) {
         tap_code16(C(KC_W));
