@@ -474,7 +474,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case LT(3, KC_BSPC):
     if (record->tap.count) {
-      if (get_repeat_key_count() > 1 && (get_last_mods() & MOD_MASK_CTRL)) {
+      if (get_repeat_key_count() > 1) {
         tap_code16(C(KC_W));
         return false;
       };
