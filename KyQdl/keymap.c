@@ -92,10 +92,12 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT(
 
 const uint16_t PROGMEM combo0[] = { KC_L, KC_D, COMBO_END};
 const uint16_t PROGMEM combo1[] = { KC_X, KC_M, COMBO_END};
+const uint16_t PROGMEM combo2[] = { MT(MOD_LSFT, KC_S), MT(MOD_LSFT, KC_H), COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo0, KC_ESCAPE),
     COMBO(combo1, KC_F24),
+    COMBO(combo2, CW_TOGG),
 };
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
@@ -130,6 +132,10 @@ bool is_mouse_record_kb(uint16_t keycode, keyrecord_t* record) {
     case NAVIGATOR_INC_CPI ... NAVIGATOR_AIM:
     case DRAG_SCROLL:
     case TOGGLE_SCROLL:
+    case KC_MS_BTN1:
+    case LSFT(KC_MS_BTN1):
+    case KC_MS_BTN2:
+    case LGUI(KC_MS_BTN1):
       return true;
   }
   return is_mouse_record_user(keycode, record);
