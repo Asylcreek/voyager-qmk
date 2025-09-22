@@ -57,14 +57,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,          KC_BSLS,        KC_LBRC,        KC_LABK,        KC_CIRC,        KC_TILD,                                        KC_UNDS,        KC_GRAVE,       KC_RABK,        KC_RBRC,        KC_PERC,        KC_NO,          
     KC_NO,          KC_EXLM,        KC_LPRN,        KC_COLN,        KC_LCBR,        KC_PLUS,                                        KC_MINUS,       KC_RCBR,        KC_DQUO,        KC_RPRN,        KC_AT,          KC_NO,          
     KC_NO,          KC_HASH,        KC_PIPE,        KC_AMPR,        KC_EQUAL,       KC_ASTR,                                        KC_SLASH,       KC_QUES,        KC_DOT,         KC_COMMA,       KC_DLR,         KC_NO,          
-                                                    KC_TRANSPARENT, KC_NO,                                          KC_F23,         KC_ESCAPE
+                                                    KC_TRANSPARENT, KC_NO,                                          KC_BSPC,        KC_F23
   ),
   [3] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          LGUI(KC_LEFT),  KC_UP,          LGUI(KC_RIGHT), KC_NO,          KC_NO,          
     KC_NO,          KC_NO,          OSM(MOD_LALT),  OSM(MOD_LGUI),  OSM(MOD_LSFT),  KC_NO,                                          LALT(KC_LEFT),  KC_LEFT,        KC_DOWN,        KC_RIGHT,       LALT(KC_RIGHT), KC_NO,          
-    KC_NO,          KC_NO,          KC_NO,          KC_NO,          OSM(MOD_LCTL),  KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-                                                    KC_NO,          KC_TRANSPARENT,                                 CW_TOGG,        KC_TAB
+    KC_NO,          KC_NO,          KC_NO,          KC_NO,          OSM(MOD_LCTL),  KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_TAB,         KC_NO,          KC_NO,          
+                                                    KC_NO,          KC_TRANSPARENT,                                 KC_F24,         KC_F23
   ),
   [4] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
@@ -94,12 +94,14 @@ const uint16_t PROGMEM combo0[] = { KC_L, KC_D, COMBO_END};
 const uint16_t PROGMEM combo1[] = { KC_X, KC_M, COMBO_END};
 const uint16_t PROGMEM combo2[] = { MT(MOD_LSFT, KC_S), MT(MOD_LSFT, KC_H), COMBO_END};
 const uint16_t PROGMEM combo3[] = { MT(MOD_LGUI, KC_A), MT(MOD_LGUI, KC_T), COMBO_END};
+const uint16_t PROGMEM combo4[] = { MT(MOD_LALT, KC_E), MT(MOD_LALT, KC_R), COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo0, KC_ESCAPE),
     COMBO(combo1, KC_F24),
     COMBO(combo2, KC_ESCAPE),
     COMBO(combo3, CW_TOGG),
+    COMBO(combo4, KC_TAB),
 };
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
