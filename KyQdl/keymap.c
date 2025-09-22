@@ -183,6 +183,7 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
   case PRE_REPEAT:
   case PRE_MAGIC:
   case MAGIC:
+  case MT(MOD_LSFT, KC_F23):
     return false;
   };
   return true;
@@ -406,7 +407,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     break;
   case MT(MOD_LSFT, KC_F23):
-    if (record->tap.count) {
+    if (record->tap.count && record->event.pressed) {
       repeat_key_invoke(&record->event);
       return false;
     }
