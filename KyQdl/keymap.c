@@ -93,15 +93,13 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT(
 const uint16_t PROGMEM combo0[] = { KC_L, KC_D, COMBO_END};
 const uint16_t PROGMEM combo1[] = { KC_X, KC_M, COMBO_END};
 const uint16_t PROGMEM combo2[] = { MT(MOD_LSFT, KC_S), MT(MOD_LSFT, KC_H), COMBO_END};
-const uint16_t PROGMEM combo3[] = { MT(MOD_LALT, KC_E), MT(MOD_LALT, KC_R), COMBO_END};
-const uint16_t PROGMEM combo4[] = { MT(MOD_LGUI, KC_A), MT(MOD_LGUI, KC_T), COMBO_END};
+const uint16_t PROGMEM combo3[] = { MT(MOD_LGUI, KC_A), MT(MOD_LGUI, KC_T), COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo0, KC_ESCAPE),
     COMBO(combo1, KC_F24),
     COMBO(combo2, KC_ESCAPE),
     COMBO(combo3, CW_TOGG),
-    COMBO(combo4, KC_F24),
 };
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
