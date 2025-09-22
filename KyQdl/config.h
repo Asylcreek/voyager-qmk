@@ -7,7 +7,7 @@
 #define PERMISSIVE_HOLD
 
 #define USB_SUSPEND_WAKEUP_DELAY 0
-#define SERIAL_NUMBER "KyQdl/aNP4Ob"
+#define SERIAL_NUMBER "KyQdl/orL6Or"
 #define LAYER_STATE_8BIT
 #define COMBO_COUNT 5
 #define HSS(report)                                                            \
@@ -28,7 +28,7 @@
 
 #define POINTING_DEVICE_AUTO_MOUSE_ENABLE
 #define AUTO_MOUSE_DEFAULT_LAYER 5
-#define AUTO_MOUSE_TIME 1000
+#define AUTO_MOUSE_TIME 800
 #define AUTO_MOUSE_THRESHOLD 15
 #define AUTO_MOUSE_SCROLL_THRESHOLD                                            \
   AUTO_MOUSE_THRESHOLD / NAVIGATOR_SCROLL_DIVIDER
