@@ -389,7 +389,7 @@ bool is_mouse_record_kb(uint16_t keycode, keyrecord_t *record) {
   case DRAG_SCROLL:
   case TOGGLE_SCROLL:
   case KC_MS_BTN2:
-    case KC_MS_BTN1:
+  case KC_MS_BTN1:
     return true;
   }
   return is_mouse_record_user(keycode, record);
@@ -401,6 +401,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case PRE_REPEAT:
     if (record->tap.count) {
+      repeat_key_invoke(&record->event);
+      return false;
+    }
+    break;
+  case MT(MOD_LSFT, KC_F23):
+    if (record->tap.count && record->event.pressed) {
       repeat_key_invoke(&record->event);
       return false;
     }
