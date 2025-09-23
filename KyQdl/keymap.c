@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     TMUX_DOWN,      TMUX_UP,                                        KC_TRANSPARENT, KC_NO
   ),
   [5] = LAYOUT_voyager(
-    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
+    KC_NO,          LGUI(LSFT(KC_5)),KC_NO,          KC_NO,          KC_NO,          LGUI(LCTL(LSFT(KC_4))),                                KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     TO(0),          KC_NO,          LGUI(KC_V),     LGUI(KC_A),     LGUI(KC_C),     LALT(LGUI(LCTL(LSFT(KC_C)))),                                NAVIGATOR_AIM,  KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     TOGGLE_SCROLL,  LCTL(KC_TAB),   KC_MS_BTN2,     DRAG_SCROLL,    KC_MS_BTN1,     LALT(LGUI(LCTL(LSFT(KC_S)))),                                NAVIGATOR_TURBO,KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     KC_NO,          KC_P,           LGUI(KC_W),     LGUI(KC_RIGHT), LGUI(KC_LEFT),  QK_LLCK,                                        NAVIGATOR_INC_CPI,NAVIGATOR_DEC_CPI,KC_NO,          KC_NO,          KC_NO,          KC_NO,          
