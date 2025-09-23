@@ -85,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [5] = LAYOUT_voyager(
     KC_NO,          LGUI(LSFT(KC_5)),KC_NO,          LGUI(KC_MINUS), LGUI(KC_EQUAL), LGUI(LCTL(LSFT(KC_4))),                                KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     KC_NO,          TOGGLE_SCROLL,  LGUI(KC_V),     LGUI(KC_A),     LGUI(KC_C),     LALT(LGUI(LCTL(LSFT(KC_C)))),                                NAVIGATOR_DEC_CPI,NAVIGATOR_INC_CPI,NAVIGATOR_AIM,  NAVIGATOR_TURBO,KC_NO,          KC_NO,          
-    LGUI(KC_0),     LCTL(KC_TAB),   KC_MS_BTN2,     DRAG_SCROLL,    KC_MS_BTN1,     LALT(LGUI(LCTL(LSFT(KC_S)))),                                KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,          
+    LGUI(KC_0),     LCTL(KC_TAB),   MT(MOD_LALT, KC_MS_BTN2),DRAG_SCROLL,    KC_MS_BTN1,     LALT(LGUI(LCTL(LSFT(KC_S)))),                                KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,          
     KC_NO,          KC_P,           LGUI(KC_W),     LGUI(KC_RIGHT), LGUI(KC_LEFT),  QK_LLCK,                                        KC_NO,          KC_TRANSPARENT, TO(0),          KC_NO,          KC_NO,          KC_NO,          
                                                     MT(MOD_LSFT, KC_F23),MT(MOD_LGUI, KC_BSPC),                                KC_TRANSPARENT, KC_TRANSPARENT
   ),
@@ -370,7 +370,7 @@ bool is_mouse_record_kb(uint16_t keycode, keyrecord_t *record) {
   case NAVIGATOR_INC_CPI ... NAVIGATOR_AIM:
   case DRAG_SCROLL:
   case TOGGLE_SCROLL:
-  case KC_MS_BTN2:
+    case MT(MOD_LALT, KC_MS_BTN2):
   case KC_MS_BTN1:
     return true;
   }
