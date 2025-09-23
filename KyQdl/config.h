@@ -6,7 +6,7 @@
 #define PERMISSIVE_HOLD
 
 #define USB_SUSPEND_WAKEUP_DELAY 0
-#define SERIAL_NUMBER "KyQdl/Az0vyE"
+#define SERIAL_NUMBER "KyQdl/eadl7R"
 #define LAYER_STATE_8BIT
 #define COMBO_COUNT 5
 #define HSS(report) host_system_send(record->event.pressed ? report : 0); return false
@@ -23,7 +23,7 @@
 
 #define POINTING_DEVICE_AUTO_MOUSE_ENABLE
 #define AUTO_MOUSE_DEFAULT_LAYER 5
-#define AUTO_MOUSE_TIME 2000
+#define AUTO_MOUSE_TIME 2500
 #define AUTO_MOUSE_THRESHOLD 15
 #define AUTO_MOUSE_SCROLL_THRESHOLD AUTO_MOUSE_THRESHOLD / NAVIGATOR_SCROLL_DIVIDER
 #define NAVIGATOR_SCROLL_INVERT_X
