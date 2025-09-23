@@ -1,13 +1,13 @@
 #define FLOW_TAP_TERM 80
 #define CHORDAL_HOLD
 #undef TAPPING_TERM
-#define TAPPING_TERM 225
+#define TAPPING_TERM 180
 #define QUICK_TAP_TERM 100
 
 #define PERMISSIVE_HOLD
 
 #define USB_SUSPEND_WAKEUP_DELAY 0
-#define SERIAL_NUMBER "KyQdl/eadl7R"
+#define SERIAL_NUMBER "KyQdl/nl67BW"
 #define LAYER_STATE_8BIT
 #define COMBO_COUNT 5
 #define HSS(report)                                                            \
@@ -17,7 +17,6 @@
   host_consumer_send(record->event.pressed ? report : 0);                      \
   return false
 
-#define TAPPING_TERM_PER_KEY
 #define WHEEL_EXTENDED_SUPPORT
 #define POINTING_DEVICE_HIRES_SCROLL_ENABLE
 #define POINTING_DEVICE_HIRES_SCROLL_EXPONENT 1
@@ -28,7 +27,7 @@
 
 #define POINTING_DEVICE_AUTO_MOUSE_ENABLE
 #define AUTO_MOUSE_DEFAULT_LAYER 5
-#define AUTO_MOUSE_TIME 2500
+#define AUTO_MOUSE_TIME 650
 #define AUTO_MOUSE_THRESHOLD 15
 #define AUTO_MOUSE_SCROLL_THRESHOLD                                            \
   AUTO_MOUSE_THRESHOLD / NAVIGATOR_SCROLL_DIVIDER
