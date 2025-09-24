@@ -36,6 +36,7 @@ enum custom_keycodes {
 
 
 
+#define DUAL_FUNC_0 LT(4, KC_L)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -48,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [1] = LAYOUT_voyager(
     KC_NO,          LGUI(LSFT(KC_5)),LGUI(KC_V),     LGUI(KC_A),     LGUI(KC_C),     LGUI(LCTL(LSFT(KC_4))),                                KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     TOGGLE_SCROLL,  LALT(LGUI(LCTL(LSFT(KC_C)))),LGUI(KC_MINUS), LGUI(KC_EQUAL), LGUI(KC_W),     LSFT(KC_MS_BTN1),                                NAVIGATOR_DEC_CPI,NAVIGATOR_INC_CPI,NAVIGATOR_AIM,  NAVIGATOR_TURBO,KC_NO,          KC_NO,          
-    LGUI(KC_0),     LCTL(KC_TAB),   MT(MOD_LALT, KC_MS_BTN2),KC_LEFT_GUI,    KC_MS_BTN1,     LGUI(KC_MS_BTN1),                                KC_NO,          TO(0),          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
+    LGUI(KC_0),     LCTL(KC_TAB),   MT(MOD_LALT, KC_MS_BTN2),KC_LEFT_GUI,    DUAL_FUNC_0,    LGUI(KC_MS_BTN1),                                KC_NO,          TO(0),          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     KC_NO,          KC_P,           LGUI(KC_RIGHT), LALT(LGUI(LCTL(LSFT(KC_S)))),LGUI(KC_LEFT),  QK_LLCK,                                        KC_MS_BTN1,     KC_MS_BTN2,     KC_NO,          KC_NO,          KC_NO,          KC_NO,          
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 DRAG_SCROLL,    KC_TRANSPARENT
   ),
@@ -120,8 +121,9 @@ bool is_mouse_record_kb(uint16_t keycode, keyrecord_t* record) {
     case TOGGLE_SCROLL:
     case LSFT(KC_MS_BTN1):
     case MT(MOD_LALT, KC_MS_BTN2):
-    case KC_MS_BTN1:
+    case DUAL_FUNC_0:
     case LGUI(KC_MS_BTN1):
+    case KC_MS_BTN1:
     case KC_MS_BTN2:
       return true;
   }
@@ -224,6 +226,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case MAC_LOCK:
       HCS(0x19E);
 
+    case DUAL_FUNC_0:
+      if (record->tap.count > 0) {
+        if (record->event.pressed) {
+          register_code16(KC_MS_BTN1);
+        } else {
+          unregister_code16(KC_MS_BTN1);
+        }
+      } else {
+        if (record->event.pressed) {
+          register_code16(DRAG_SCROLL);
+        } else {
+          unregister_code16(DRAG_SCROLL);
+        }  
+      }  
+      return false;
     case DRAG_SCROLL:
       if (record->event.pressed) {
         set_scrolling = true;
