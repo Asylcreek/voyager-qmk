@@ -9,6 +9,7 @@
 #define REPEAT QK_REP
 #define PRE_REPEAT LT(3, KC_F23)
 #define PRE_MAGIC MT(MOD_LALT, KC_F24)
+#define CLICK_DRAG_SCROLL LT(4, KC_L)
 
 enum custom_keycodes {
   RGB_SLD = ZSA_SAFE_RANGE,
@@ -57,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [1] = LAYOUT_voyager(
     KC_NO,          LGUI(LSFT(KC_5)),LGUI(KC_V),     LGUI(KC_A),     LGUI(KC_C),     LGUI(LCTL(LSFT(KC_4))),                                KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     TOGGLE_SCROLL,  LALT(LGUI(LCTL(LSFT(KC_C)))),LGUI(KC_MINUS), LGUI(KC_EQUAL), LGUI(KC_W),     LSFT(KC_MS_BTN1),                                NAVIGATOR_DEC_CPI,NAVIGATOR_INC_CPI,NAVIGATOR_AIM,  NAVIGATOR_TURBO,KC_NO,          KC_NO,          
-    LGUI(KC_0),     LCTL(KC_TAB),   MT(MOD_LALT, KC_MS_BTN2),KC_LEFT_GUI,    KC_MS_BTN1,     LGUI(KC_MS_BTN1),                                KC_NO,          TO(0),          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
+    LGUI(KC_0),     LCTL(KC_TAB),   MT(MOD_LALT, KC_MS_BTN2),KC_LEFT_GUI,    CLICK_DRAG_SCROLL,     LGUI(KC_MS_BTN1),                                KC_NO,          TO(0),          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     KC_NO,          KC_P,           LGUI(KC_RIGHT), LALT(LGUI(LCTL(LSFT(KC_S)))),LGUI(KC_LEFT),  QK_LLCK,                                        KC_MS_BTN1,     KC_MS_BTN2,     KC_NO,          KC_NO,          KC_NO,          KC_NO,          
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 DRAG_SCROLL,    KC_TRANSPARENT
   ),
@@ -468,6 +469,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                       SS_LALT(SS_TAP(X_DOWN)));
     }
     break;
+  case CLICK_DRAG_SCROLL:
+    if (record->tap.count > 0) {
+      if (record->event.pressed) {
+        register_code16(KC_MS_BTN1);
+      } else {
+        unregister_code16(KC_MS_BTN1);
+      }
+    } else {
+      if (record->event.pressed) {
+        register_code16(DRAG_SCROLL);
+      } else {
+        unregister_code16(DRAG_SCROLL);
+      }
+    }
+    return false;
 
   case QK_MODS ... QK_MODS_MAX:
     // Mouse keys with modifiers work inconsistently across operating systems,
