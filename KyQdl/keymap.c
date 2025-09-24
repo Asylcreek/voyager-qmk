@@ -7,7 +7,7 @@
 
 #define MAGIC QK_AREP
 #define REPEAT QK_REP
-#define PRE_REPEAT LT(2, KC_F23)
+#define PRE_REPEAT LT(3, KC_F23)
 #define PRE_MAGIC MT(MOD_LALT, KC_F24)
 
 enum custom_keycodes {
@@ -370,11 +370,11 @@ bool is_mouse_record_kb(uint16_t keycode, keyrecord_t *record) {
   case NAVIGATOR_INC_CPI ... NAVIGATOR_AIM:
   case DRAG_SCROLL:
   case TOGGLE_SCROLL:
-    case LSFT(KC_MS_BTN1):
-    case MT(MOD_LALT, KC_MS_BTN2):
+  case LSFT(KC_MS_BTN1):
+  case MT(MOD_LALT, KC_MS_BTN2):
   case KC_MS_BTN1:
-    case LGUI(KC_MS_BTN1):
-    case KC_MS_BTN2:
+  case LGUI(KC_MS_BTN1):
+  case KC_MS_BTN2:
     return true;
   }
   return is_mouse_record_user(keycode, record);
