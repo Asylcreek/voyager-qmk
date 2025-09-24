@@ -376,6 +376,7 @@ bool is_mouse_record_kb(uint16_t keycode, keyrecord_t *record) {
   case KC_MS_BTN1:
   case LGUI(KC_MS_BTN1):
   case KC_MS_BTN2:
+  case CLICK_DRAG_SCROLL:
     return true;
   }
   return is_mouse_record_user(keycode, record);
