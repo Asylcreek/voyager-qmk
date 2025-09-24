@@ -171,6 +171,9 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
   case PRE_MAGIC:
   case MAGIC:
   case MT(MOD_LSFT, KC_F23):
+  case DRAG_SCROLL:
+  case NAVIGATOR_AIM:
+  case NAVIGATOR_TURBO:
     return false;
   };
   return true;
