@@ -468,21 +468,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                       SS_LALT(SS_TAP(X_DOWN)));
     }
     break;
-  case CLICK_DRAG_SCROLL:
-    if (record->tap.count > 0) {
-      if (record->event.pressed) {
-        register_code16(KC_MS_BTN1);
-      } else {
-        unregister_code16(KC_MS_BTN1);
-      }
-    } else {
-      if (record->event.pressed) {
-        register_code16(DRAG_SCROLL);
-      } else {
-        unregister_code16(DRAG_SCROLL);
-      }
-    }
-    return false;
 
   case QK_MODS ... QK_MODS_MAX:
     // Mouse keys with modifiers work inconsistently across operating systems,
