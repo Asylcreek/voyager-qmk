@@ -392,12 +392,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case PRE_REPEAT:
     if (record->tap.count) {
-      if ((mods | get_weak_mods()) & MOD_MASK_SHIFT) {
-        del_mods(MOD_MASK_SHIFT);
-        alt_repeat_key_invoke(&record->event);
-        set_mods(MOD_MASK_SHIFT);
-        return false;
-      };
       repeat_key_invoke(&record->event);
       return false;
     }
