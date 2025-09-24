@@ -41,16 +41,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
     MAC_LOCK,       LGUI(LSFT(KC_5)),LGUI(KC_V),     LGUI(KC_A),     LGUI(KC_C),     LGUI(LCTL(LSFT(KC_4))),                                KC_MEDIA_PREV_TRACK,KC_AUDIO_VOL_UP,KC_AUDIO_VOL_DOWN,KC_MEDIA_PLAY_PAUSE,KC_MEDIA_NEXT_TRACK,KC_AUDIO_MUTE,  
     LALT(LSFT(KC_SCLN)),KC_B,           KC_L,           KC_D,           KC_W,           KC_Z,                                           KC_QUOTE,       KC_F,           KC_O,           KC_U,           KC_J,           KC_NO,          
-    DRAG_SCROLL,    ALL_T(KC_N),    MT(MOD_LALT, KC_R),MT(MOD_LGUI, KC_T),MT(MOD_LSFT, KC_S),MEH_T(KC_G),                                    MEH_T(KC_Y),    MT(MOD_LSFT, KC_H),MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_E),ALL_T(KC_I),    KC_NO,          
+    TO(1),          ALL_T(KC_N),    MT(MOD_LALT, KC_R),MT(MOD_LGUI, KC_T),MT(MOD_LSFT, KC_S),MEH_T(KC_G),                                    MEH_T(KC_Y),    MT(MOD_LSFT, KC_H),MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_E),ALL_T(KC_I),    KC_NO,          
     KC_NO,          KC_Q,           KC_X,           KC_M,           MT(MOD_LCTL, KC_C),KC_V,                                           KC_K,           MT(MOD_LCTL, KC_P),KC_DOT,         KC_COMMA,       KC_SCLN,        KC_NO,          
                                                     LT(3, KC_F23),  LT(4, KC_BSPC),                                 LT(5, KC_ENTER),LT(2, KC_SPACE)
   ),
   [1] = LAYOUT_voyager(
     KC_NO,          LGUI(LSFT(KC_5)),LGUI(KC_V),     LGUI(KC_A),     LGUI(KC_C),     LGUI(LCTL(LSFT(KC_4))),                                KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     TOGGLE_SCROLL,  LALT(LGUI(LCTL(LSFT(KC_C)))),LGUI(KC_MINUS), LGUI(KC_EQUAL), LGUI(KC_W),     LSFT(KC_MS_BTN1),                                NAVIGATOR_DEC_CPI,NAVIGATOR_INC_CPI,NAVIGATOR_AIM,  NAVIGATOR_TURBO,KC_NO,          KC_NO,          
-    LGUI(KC_0),     LCTL(KC_TAB),   MT(MOD_LALT, KC_MS_BTN2),KC_LEFT_GUI,    KC_MS_BTN1,     LGUI(KC_MS_BTN1),                                KC_NO,          TO(0),          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    KC_NO,          KC_P,           LGUI(KC_RIGHT), LALT(LGUI(LCTL(LSFT(KC_S)))),LGUI(KC_LEFT),  QK_LLCK,                                        KC_MS_BTN1,     KC_MS_BTN2,     KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 DRAG_SCROLL,    KC_TRANSPARENT
+    TO(0),          LCTL(KC_TAB),   MT(MOD_LALT, KC_MS_BTN2),DRAG_SCROLL,    KC_MS_BTN1,     LGUI(KC_MS_BTN1),                                KC_NO,          TO(0),          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
+    KC_NO,          KC_P,           LGUI(KC_RIGHT), LALT(LGUI(LCTL(LSFT(KC_S)))),LGUI(KC_LEFT),  LGUI(KC_0),                                     KC_MS_BTN1,     KC_MS_BTN2,     KC_NO,          KC_NO,          KC_NO,          KC_NO,          
+                                                    KC_TRANSPARENT, MT(MOD_LGUI, KC_BSPC),                                DRAG_SCROLL,    KC_TRANSPARENT
   ),
   [2] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
