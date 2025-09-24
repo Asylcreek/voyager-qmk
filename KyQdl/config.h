@@ -7,7 +7,7 @@
 #define PERMISSIVE_HOLD
 
 #define USB_SUSPEND_WAKEUP_DELAY 0
-#define SERIAL_NUMBER "KyQdl/v6mPmK"
+#define SERIAL_NUMBER "KyQdl/wOxrPn"
 #define LAYER_STATE_8BIT
 #define COMBO_COUNT 7
 #define HSS(report)                                                            \
