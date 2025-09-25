@@ -6,9 +6,9 @@
 #define PERMISSIVE_HOLD
 
 #define USB_SUSPEND_WAKEUP_DELAY 0
-#define SERIAL_NUMBER "KyQdl/wOxrPn"
+#define SERIAL_NUMBER "KyQdl/yo97WB"
 #define LAYER_STATE_8BIT
-#define COMBO_COUNT 7
+#define COMBO_COUNT 9
 #define HSS(report) host_system_send(record->event.pressed ? report : 0); return false
 #define HCS(report) host_consumer_send(record->event.pressed ? report : 0); return false
 
