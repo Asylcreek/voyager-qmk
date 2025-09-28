@@ -140,19 +140,19 @@ bool is_flow_tap_key(uint16_t keycode) {
     case MOD_LSFT:
     case MOD_LCTL:
       return false;
-
-      switch (get_tap_keycode(keycode)) {
-      case KC_A ... KC_L:
-      case KC_N ... KC_Z:
-      case KC_DOT:
-      case KC_COMM:
-      case KC_SCLN:
-      case KC_QUOTE:
-        return true;
-      }
-      return false;
     }
   }
+
+  switch (get_tap_keycode(keycode)) {
+  case KC_A ... KC_L:
+  case KC_N ... KC_Z:
+  case KC_DOT:
+  case KC_COMM:
+  case KC_SCLN:
+  case KC_QUOTE:
+    return true;
+  }
+  return false;
 }
 
 bool caps_word_press_user(uint16_t keycode) {
