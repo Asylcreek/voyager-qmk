@@ -192,6 +192,7 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
                             uint8_t *remembered_mods) {
   switch (keycode) {
   case PRE_REPEAT:
+  case PRE_REPEAT2:
   case PRE_MAGIC:
   case MAGIC:
   case MT(MOD_LSFT, KC_F23):
