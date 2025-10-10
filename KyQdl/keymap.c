@@ -49,14 +49,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,          LGUI(LSFT(KC_5)),LGUI(KC_V),     LGUI(KC_A),     LGUI(KC_C),     LGUI(LCTL(LSFT(KC_4))),                                KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_NO,          LGUI(KC_0),     LGUI(KC_MINUS), LGUI(KC_EQUAL), LGUI(KC_W),     LSFT(KC_MS_BTN1),                                KC_NO,          KC_NO,          NAVIGATOR_AIM,  NAVIGATOR_TURBO,KC_NO,          NAVIGATOR_DEC_CPI,
     KC_NO,          LCTL(KC_TAB),   KC_MS_BTN2,     DRAG_SCROLL,    KC_MS_BTN1,     LGUI(KC_MS_BTN1),                                KC_NO,          TO(0),          LALT(LGUI(LCTL(LSFT(KC_C)))),KC_P,           KC_NO,          NAVIGATOR_INC_CPI,
-    KC_NO,          LGUI(KC_Q),     LGUI(KC_RIGHT), LALT(LGUI(LCTL(LSFT(KC_S)))),LGUI(KC_LEFT),  QK_LLCK,                                        KC_NO,          KC_MS_BTN2,     KC_MS_BTN1,     DRAG_SCROLL,    KC_NO,          KC_NO,          
-                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 TOGGLE_SCROLL,  KC_TRANSPARENT
+    KC_NO,          LGUI(KC_Q),     LGUI(KC_RIGHT), LALT(LGUI(LCTL(LSFT(KC_S)))),LGUI(KC_LEFT),  QK_LLCK,                                        TOGGLE_SCROLL,  KC_MS_BTN2,     KC_MS_BTN1,     DRAG_SCROLL,    KC_NO,          KC_NO,          
+                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
   [2] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     KC_NO,          KC_NO,          KC_9,           KC_8,           KC_7,           KC_NO,                                          KC_NO,          KC_NO,          LCTL(KC_COMMA), KC_NO,          KC_NO,          KC_NO,          
-    KC_NO,          CW_TOGG,        MT(MOD_LALT, KC_3),MT(MOD_LGUI, KC_2),MT(MOD_LSFT, KC_1),KC_NO,                                          KC_NO,          MT(MOD_LSFT | MOD_LALT, KC_0),MT(MOD_LGUI, KC_TAB),OSM(MOD_LALT),  KC_NO,          KC_NO,          
-    KC_NO,          KC_DELETE,      KC_6,           KC_5,           MT(MOD_LCTL, KC_4),KC_NO,                                          KC_NO,          OSM(MOD_LCTL),  KC_NO,          KC_NO,          KC_NO,          KC_NO,          
+    KC_NO,          CW_TOGG,        MT(MOD_LALT, KC_3),MT(MOD_LGUI, KC_2),MT(MOD_LSFT, KC_1),KC_NO,                                          KC_NO,          MT(MOD_LSFT | MOD_LALT, KC_0),OSM(MOD_LGUI),  OSM(MOD_LALT),  KC_NO,          KC_NO,          
+    KC_NO,          KC_DELETE,      KC_6,           KC_5,           MT(MOD_LCTL, KC_4),KC_NO,                                          KC_NO,          MT(MOD_LCTL, KC_TAB),KC_NO,          KC_NO,          KC_NO,          KC_NO,          
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_NO,          KC_TRANSPARENT
   ),
   [3] = LAYOUT_voyager(
@@ -106,6 +106,8 @@ combo_t key_combos[COMBO_COUNT] = {
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case MT(MOD_LSFT, KC_S):
+            return TAPPING_TERM -65;
+        case MT(MOD_LCTL, KC_C):
             return TAPPING_TERM -65;
         case LT(3, KC_F23):
             return TAPPING_TERM -65;
