@@ -111,7 +111,6 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
 const custom_shift_key_t custom_shift_keys[] = {
     {KC_QUOT, KC_UNDS}, // Shift ' is _
                         // {LT(3, KC_BSPC), KC_DEL}, // Shift + bspc is Del
-    {KC_DOT, KC_ESC},   // Shift . is Esc
 };
 
 const uint16_t PROGMEM combo0[] = {MT(MOD_LSFT, KC_S), MT(MOD_LSFT, KC_H),
@@ -125,8 +124,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case MT(MOD_LSFT, KC_S):
     return TAPPING_TERM - 65;
-        case MT(MOD_LCTL, KC_C):
-            return TAPPING_TERM -65;
+  case MT(MOD_LCTL, KC_C):
+    return TAPPING_TERM - 65;
   case LT(3, KC_F23):
     return TAPPING_TERM - 65;
   case LT(5, KC_BSPC):
