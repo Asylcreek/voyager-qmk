@@ -48,8 +48,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [1] = LAYOUT_voyager(
     KC_NO,          LGUI(LSFT(KC_5)),LGUI(KC_V),     LGUI(KC_A),     LGUI(KC_C),     LGUI(LCTL(LSFT(KC_4))),                                KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_NO,          TOGGLE_SCROLL,  LGUI(KC_LEFT),  NAVIGATOR_AIM,  LGUI(KC_W),     LSFT(KC_MS_BTN1),                                KC_NO,          LGUI(KC_0),     LGUI(KC_MINUS), LGUI(KC_EQUAL), KC_NO,          NAVIGATOR_DEC_CPI,
-    KC_NO,          KC_MS_BTN2,     LGUI(KC_R),     DRAG_SCROLL,    KC_MS_BTN1,     LGUI(KC_MS_BTN1),                                KC_NO,          TO(0),          LALT(LGUI(LCTL(LSFT(KC_C)))),KC_P,           KC_NO,          NAVIGATOR_INC_CPI,
-    KC_NO,          LGUI(KC_Q),     LGUI(KC_RIGHT), NAVIGATOR_TURBO,LCTL(KC_TAB),   LALT(LGUI(LCTL(LSFT(KC_S)))),                                QK_LLCK,        KC_MS_BTN1,     KC_MS_BTN2,     DRAG_SCROLL,    KC_NO,          KC_NO,          
+    KC_NO,          LCTL(KC_TAB),   LGUI(KC_R),     DRAG_SCROLL,    KC_MS_BTN1,     LGUI(KC_MS_BTN1),                                KC_NO,          TO(0),          LALT(LGUI(LCTL(LSFT(KC_C)))),KC_P,           KC_NO,          NAVIGATOR_INC_CPI,
+    KC_NO,          LGUI(KC_Q),     LGUI(KC_RIGHT), NAVIGATOR_TURBO,KC_MS_BTN2,     LALT(LGUI(LCTL(LSFT(KC_S)))),                                QK_LLCK,        KC_MS_BTN1,     KC_MS_BTN2,     DRAG_SCROLL,    KC_NO,          KC_NO,          
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
   [2] = LAYOUT_voyager(
