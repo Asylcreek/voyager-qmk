@@ -47,9 +47,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [1] = LAYOUT_voyager(
     KC_NO,          LGUI(LSFT(KC_5)),LGUI(KC_V),     LGUI(KC_A),     LGUI(KC_C),     LGUI(LCTL(LSFT(KC_4))),                                KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
-    KC_NO,          LGUI(KC_0),     LGUI(KC_MINUS), LGUI(KC_EQUAL), LGUI(KC_W),     LSFT(KC_MS_BTN1),                                KC_NO,          KC_NO,          NAVIGATOR_AIM,  NAVIGATOR_TURBO,KC_NO,          NAVIGATOR_DEC_CPI,
-    KC_NO,          LCTL(KC_TAB),   KC_MS_BTN2,     DRAG_SCROLL,    KC_MS_BTN1,     LGUI(KC_MS_BTN1),                                KC_NO,          TO(0),          LALT(LGUI(LCTL(LSFT(KC_C)))),KC_P,           KC_NO,          NAVIGATOR_INC_CPI,
-    KC_NO,          LGUI(KC_Q),     LGUI(KC_RIGHT), LALT(LGUI(LCTL(LSFT(KC_S)))),LGUI(KC_LEFT),  QK_LLCK,                                        TOGGLE_SCROLL,  KC_MS_BTN2,     KC_MS_BTN1,     DRAG_SCROLL,    KC_NO,          KC_NO,          
+    KC_NO,          TOGGLE_SCROLL,  LGUI(KC_LEFT),  NAVIGATOR_AIM,  LGUI(KC_W),     LSFT(KC_MS_BTN1),                                KC_NO,          LGUI(KC_0),     LGUI(KC_MINUS), LGUI(KC_EQUAL), KC_NO,          NAVIGATOR_DEC_CPI,
+    KC_NO,          KC_MS_BTN2,     LGUI(KC_R),     DRAG_SCROLL,    KC_MS_BTN1,     LGUI(KC_MS_BTN1),                                KC_NO,          TO(0),          LALT(LGUI(LCTL(LSFT(KC_C)))),KC_P,           KC_NO,          NAVIGATOR_INC_CPI,
+    KC_NO,          LGUI(KC_Q),     LGUI(KC_RIGHT), NAVIGATOR_TURBO,LCTL(KC_TAB),   LALT(LGUI(LCTL(LSFT(KC_S)))),                                QK_LLCK,        KC_MS_BTN1,     KC_MS_BTN2,     DRAG_SCROLL,    KC_NO,          KC_NO,          
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
   [2] = LAYOUT_voyager(
@@ -61,9 +61,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [3] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    KC_NO,          KC_BSLS,        KC_LBRC,        KC_LABK,        KC_DLR,         KC_TILD,                                        KC_UNDS,        KC_GRAVE,       KC_RABK,        KC_RBRC,        KC_PERC,        KC_NO,          
-    KC_NO,          KC_EXLM,        KC_LPRN,        KC_EQUAL,       KC_LCBR,        KC_PLUS,                                        KC_MINUS,       KC_RPRN,        KC_DQUO,        KC_RCBR,        KC_AT,          KC_NO,          
-    KC_NO,          KC_HASH,        KC_PIPE,        KC_AMPR,        KC_COLN,        KC_ASTR,                                        KC_SLASH,       KC_QUES,        KC_DOT,         KC_COMMA,       KC_CIRC,        KC_NO,          
+    KC_NO,          KC_BSLS,        KC_LCBR,        KC_LPRN,        KC_EXLM,        KC_TILD,                                        KC_UNDS,        KC_GRAVE,       KC_RPRN,        KC_RCBR,        KC_PERC,        KC_NO,          
+    KC_NO,          KC_LBRC,        KC_LABK,        KC_AT,          KC_EQUAL,       KC_PLUS,                                        KC_MINUS,       KC_COLN,        KC_DQUO,        KC_RABK,        KC_RBRC,        KC_NO,          
+    KC_NO,          KC_HASH,        KC_PIPE,        KC_AMPR,        KC_DLR,         KC_ASTR,                                        KC_SLASH,       KC_QUES,        KC_DOT,         KC_COMMA,       KC_CIRC,        KC_NO,          
                                                     KC_TRANSPARENT, KC_NO,                                          KC_F24,         LT(4, KC_F23)
   ),
   [4] = LAYOUT_voyager(
