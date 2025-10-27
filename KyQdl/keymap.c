@@ -398,6 +398,8 @@ bool is_mouse_record_kb(uint16_t keycode, keyrecord_t *record) {
   case NAVIGATOR_INC_CPI ... NAVIGATOR_AIM:
   case DRAG_SCROLL:
   case TOGGLE_SCROLL:
+  case KC_MS_BTN1:
+  case KC_MS_BTN2:
   case LSFT(KC_MS_BTN1):
   case LGUI(KC_MS_BTN1):
   case LALT(KC_MS_BTN1):
