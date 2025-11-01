@@ -51,14 +51,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
     MAC_LOCK,       LGUI(LSFT(KC_5)),LGUI(KC_V),     LGUI(KC_A),     LGUI(KC_C),     LGUI(LCTL(LSFT(KC_4))),                                KC_MEDIA_PREV_TRACK,KC_AUDIO_VOL_UP,KC_AUDIO_VOL_DOWN,KC_MEDIA_PLAY_PAUSE,KC_MEDIA_NEXT_TRACK,KC_AUDIO_MUTE,  
     KC_NO,          KC_B,           KC_L,           MEH_T(KC_D),    KC_W,           KC_Z,                                           KC_QUOTE,       KC_F,           MEH_T(KC_O),    KC_U,           KC_J,           KC_NO,          
-    KC_NO,          ALL_T(KC_N),    MT(MOD_LALT, KC_R),MT(MOD_LGUI, KC_T),MT(MOD_LSFT, KC_S),KC_G,                                           KC_Y,           MT(MOD_LSFT, KC_H),MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_E),ALL_T(KC_I),    KC_NO,          
+    KC_NO,          ALL_T(KC_N),    MT(MOD_LALT, KC_R),MT(MOD_LGUI, KC_T),MT(MOD_LSFT, KC_S),KC_G,                                           LT(1, KC_Y),    MT(MOD_LSFT, KC_H),MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_E),ALL_T(KC_I),    KC_NO,          
     KC_NO,          KC_Q,           KC_X,           KC_M,           MT(MOD_LCTL, KC_C),KC_V,                                           KC_K,           MT(MOD_LCTL, KC_P),KC_DOT,         KC_COMMA,       KC_SCLN,        KC_NO,          
                                                     LT(3, KC_F23),  LT(5, KC_BSPC),                                 LT(6, KC_ENTER),LT(2, KC_SPACE)
   ),
   [1] = LAYOUT_voyager(
     KC_NO,          LGUI(LSFT(KC_5)),LGUI(KC_V),     LGUI(KC_A),     LGUI(KC_C),     LGUI(LCTL(LSFT(KC_4))),                                KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_NO,          LALT(LGUI(LCTL(LSFT(KC_S)))),LGUI(KC_LEFT),  NAVIGATOR_AIM,  LGUI(KC_W),     LSFT(KC_MS_BTN1),                                KC_NO,          LGUI(KC_0),     LGUI(KC_MINUS), LGUI(KC_EQUAL), KC_NO,          NAVIGATOR_DEC_CPI,
-    KC_NO,          LCTL(KC_TAB),   LGUI(KC_R),     DRAG_SCROLL,    KC_MS_BTN1,     LGUI(KC_MS_BTN1),                                TOGGLE_SCROLL,  TO(0),          LALT(LGUI(LCTL(LSFT(KC_C)))),KC_P,           KC_NO,          NAVIGATOR_INC_CPI,
+    KC_NO,          LCTL(KC_TAB),   LGUI(KC_R),     DRAG_SCROLL,    KC_MS_BTN1,     LGUI(KC_MS_BTN1),                                KC_TRANSPARENT, TO(0),          LALT(LGUI(LCTL(LSFT(KC_C)))),KC_P,           KC_NO,          NAVIGATOR_INC_CPI,
     KC_NO,          LGUI(KC_Q),     LGUI(KC_RIGHT), NAVIGATOR_TURBO,KC_MS_BTN2,     LALT(KC_MS_BTN1),                                QK_LLCK,        KC_MS_BTN1,     KC_MS_BTN2,     DRAG_SCROLL,    KC_NO,          KC_NO,          
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
@@ -85,9 +85,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [5] = LAYOUT_voyager(
     KC_NO,          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,          
-    KC_NO,          KC_NO,          KC_NO,          TOGGLE_SCROLL,  KC_NO,          KC_NO,                                          KC_NO,          LGUI(KC_LEFT),  KC_UP,          LGUI(KC_RIGHT), KC_NO,          KC_NO,          
-    KC_NO,          LALT(LGUI(LCTL(LSFT(KC_C)))),LALT(KC_MS_BTN1),LGUI(KC_MS_BTN1),LSFT(KC_MS_BTN1),QK_LLCK,                                        LALT(KC_LEFT),  KC_LEFT,        KC_DOWN,        KC_RIGHT,       RALT(KC_RIGHT), KC_NO,          
-    KC_NO,          LCTL(KC_TAB),   KC_MS_BTN2,     DRAG_SCROLL,    KC_MS_BTN1,     LALT(LGUI(LCTL(LSFT(KC_S)))),                                SELLINE,          SELWBAK,          SELWORD,          KC_NO,          KC_NO,          KC_NO,          
+    KC_NO,          KC_NO,          KC_NO,          QK_LLCK,        KC_NO,          LALT(KC_MS_BTN1),                                KC_NO,          LGUI(KC_LEFT),  KC_UP,          LGUI(KC_RIGHT), KC_NO,          KC_NO,          
+    KC_NO,          LCTL(KC_TAB),   KC_MS_BTN2,     DRAG_SCROLL,    KC_MS_BTN1,     LGUI(KC_MS_BTN1),                                LALT(KC_LEFT),  KC_LEFT,        KC_DOWN,        KC_RIGHT,       RALT(KC_RIGHT), KC_NO,          
+    KC_NO,          LALT(LGUI(LCTL(LSFT(KC_C)))),KC_NO,          TOGGLE_SCROLL,  LALT(LGUI(LCTL(LSFT(KC_S)))),LSFT(KC_MS_BTN1),                                SELLINE,          SELWBAK,          SELWORD,          KC_NO,          KC_NO,          KC_NO,          
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 MAGIC,         REPEAT
   ),
   [6] = LAYOUT_voyager(
