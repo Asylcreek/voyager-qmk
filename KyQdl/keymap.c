@@ -90,17 +90,17 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT(
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case MT(MOD_LSFT, KC_S):
-            return TAPPING_TERM -80;
+            return TAPPING_TERM -180;
         case LT(2, KC_F23):
-            return TAPPING_TERM -80;
+            return TAPPING_TERM -180;
         case LT(4, KC_BSPC):
-            return TAPPING_TERM -80;
+            return TAPPING_TERM -180;
         case MT(MOD_LSFT, KC_H):
-            return TAPPING_TERM -80;
+            return TAPPING_TERM -180;
         case LT(1, KC_SPACE):
-            return TAPPING_TERM -80;
+            return TAPPING_TERM -180;
         case LT(3, KC_F23):
-            return TAPPING_TERM -80;
+            return TAPPING_TERM -180;
         default:
             return TAPPING_TERM;
     }
