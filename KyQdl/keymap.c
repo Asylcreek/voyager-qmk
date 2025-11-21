@@ -473,7 +473,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     } else {
       if (record->event.pressed) {
         register_code16(LGUI(KC_UP));
-        set_last_keycode(KC_UP);
       } else {
         unregister_code16(LGUI(KC_UP));
       }
@@ -490,7 +489,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     } else {
       if (record->event.pressed) {
         register_code16(LGUI(KC_DOWN));
-        set_last_keycode(KC_DOWN);
       } else {
         unregister_code16(LGUI(KC_DOWN));
       }
