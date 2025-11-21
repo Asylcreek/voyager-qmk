@@ -32,6 +32,8 @@ enum custom_keycodes {
 
 
 
+#define DUAL_FUNC_0 LT(8, KC_L)
+#define DUAL_FUNC_1 LT(1, KC_F10)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -64,8 +66,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [4] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    KC_NO,          KC_NO,          KC_NO,          TOGGLE_SCROLL,  KC_NO,          KC_NO,                                          KC_NO,          LGUI(KC_LEFT),  KC_UP,          LGUI(KC_RIGHT), KC_NO,          KC_NO,          
-    KC_NO,          LCTL(KC_TAB),   KC_MS_BTN2,     DRAG_SCROLL,    KC_MS_BTN1,     LALT(LGUI(LCTL(LSFT(KC_S)))),                                LALT(KC_LEFT),  KC_LEFT,        KC_DOWN,        KC_RIGHT,       RALT(KC_RIGHT), KC_NO,          
+    KC_NO,          KC_NO,          KC_NO,          TOGGLE_SCROLL,  KC_NO,          KC_NO,                                          KC_NO,          LGUI(KC_LEFT),  DUAL_FUNC_0,    LGUI(KC_RIGHT), KC_NO,          KC_NO,          
+    KC_NO,          LCTL(KC_TAB),   KC_MS_BTN2,     DRAG_SCROLL,    KC_MS_BTN1,     LALT(LGUI(LCTL(LSFT(KC_S)))),                                LALT(KC_LEFT),  KC_LEFT,        DUAL_FUNC_1,    KC_RIGHT,       RALT(KC_RIGHT), KC_NO,          
     KC_NO,          LALT(LGUI(LCTL(LSFT(KC_C)))),LALT(KC_MS_BTN1),LGUI(KC_MS_BTN1),LSFT(KC_MS_BTN1),QK_LLCK,                                        KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_F24,         KC_F23
   ),
@@ -208,6 +210,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case MAC_LOCK:
       HCS(0x19E);
 
+    case DUAL_FUNC_0:
+      if (record->tap.count > 0) {
+        if (record->event.pressed) {
+          register_code16(KC_UP);
+        } else {
+          unregister_code16(KC_UP);
+        }
+      } else {
+        if (record->event.pressed) {
+          register_code16(LGUI(KC_UP));
+        } else {
+          unregister_code16(LGUI(KC_UP));
+        }  
+      }  
+      return false;
+    case DUAL_FUNC_1:
+      if (record->tap.count > 0) {
+        if (record->event.pressed) {
+          register_code16(KC_DOWN);
+        } else {
+          unregister_code16(KC_DOWN);
+        }
+      } else {
+        if (record->event.pressed) {
+          register_code16(LGUI(KC_DOWN));
+        } else {
+          unregister_code16(LGUI(KC_DOWN));
+        }  
+      }  
+      return false;
     case DRAG_SCROLL:
       if (record->event.pressed) {
         set_scrolling = true;
