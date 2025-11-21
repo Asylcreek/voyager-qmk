@@ -10,6 +10,8 @@
 #define PRE_REPEAT LT(2, KC_F23)
 #define PRE_REPEAT2 LT(3, KC_F23)
 #define PRE_MAGIC LT(4, KC_F24)
+#define UP_CMD_UP LT(4, KC_A)
+#define DOWN_CMD_DOWN LT(4, KC_B)
 
 enum custom_keycodes {
   RGB_SLD = ZSA_SAFE_RANGE,
@@ -30,8 +32,6 @@ enum custom_keycodes {
   ST_MACRO_11,
   TMUX_UP,
   TMUX_DOWN,
-  UP_CMD_UP,
-  DOWN_CMD_DOWN,
   MAC_DND,
   MAC_LOCK,
   DRAG_SCROLL,
@@ -478,7 +478,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code16(LGUI(KC_UP));
       }
     }
-    return false;
+    break;
   case DOWN_CMD_DOWN:
     if (record->tap.count > 0) {
       if (record->event.pressed) {
@@ -495,7 +495,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code16(LGUI(KC_DOWN));
       }
     }
-    return false;
+    break;
 
   case QK_MODS ... QK_MODS_MAX:
     // Mouse keys with modifiers work inconsistently across operating
