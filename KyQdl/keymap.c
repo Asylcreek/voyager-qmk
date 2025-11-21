@@ -54,22 +54,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [1] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     KC_NO,          KC_NO,          KC_9,           KC_8,           KC_7,           KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    KC_NO,          KC_ESCAPE,      MT(MOD_LALT, KC_3),MT(MOD_LGUI, KC_2),MT(MOD_LSFT, KC_1),LCTL(KC_COMMA),                                 LCTL(KC_COMMA), MT(MOD_LSFT | MOD_LALT, KC_0),OSM(MOD_LGUI),  OSM(MOD_LALT),  KC_NO,          KC_NO,          
-    KC_NO,          KC_DELETE,      KC_6,           KC_5,           MT(MOD_LCTL, KC_4),KC_NO,                                          KC_NO,          MT(MOD_LCTL, KC_TAB),KC_NO,          KC_NO,          KC_NO,          KC_NO,          
+    KC_NO,          KC_ESCAPE,      MT(MOD_LALT, KC_3),MT(MOD_LGUI, KC_2),MT(MOD_LSFT, KC_1),LCTL(KC_COMMA),                                 LCTL(KC_COMMA), MT(MOD_LSFT | MOD_LALT, KC_0),OSM(MOD_LGUI),  OSM(MOD_LALT),  CW_TOGG,        KC_NO,          
+    KC_NO,          KC_DELETE,      KC_6,           KC_5,           MT(MOD_LCTL, KC_4),KC_NO,                                          KC_NO,          MT(MOD_LCTL, KC_TAB),KC_DOT,         KC_COMMA,       KC_NO,          KC_NO,          
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_NO,          KC_TRANSPARENT
   ),
   [2] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    KC_NO,          KC_BSLS,        KC_HASH,        KC_QUOTE,       KC_TILD,        KC_NO,                                          KC_UNDS,        KC_GRAVE,       KC_EQUAL,       KC_DLR,         KC_PERC,        KC_NO,          
-    KC_NO,          KC_PIPE,        KC_LCBR,        KC_LABK,        KC_LPRN,        KC_PLUS,                                        KC_MINUS,       KC_COLN,        KC_DQUO,        KC_AMPR,        KC_LBRC,        KC_NO,          
-    KC_NO,          KC_CIRC,        KC_RCBR,        KC_RABK,        KC_RPRN,        KC_ASTR,                                        KC_SLASH,       KC_QUES,        KC_AT,          KC_EXLM,        KC_RBRC,        KC_NO,          
+    KC_NO,          KC_BSLS,        KC_LABK,        KC_PIPE,        KC_TILD,        KC_PERC,                                        KC_QUOTE,       KC_GRAVE,       KC_EQUAL,       KC_RABK,        KC_NO,          KC_NO,          
+    KC_NO,          KC_LBRC,        KC_LCBR,        KC_AMPR,        KC_LPRN,        KC_PLUS,                                        KC_MINUS,       KC_RPRN,        KC_DQUO,        KC_RCBR,        KC_RBRC,        KC_NO,          
+    KC_NO,          KC_HASH,        KC_UNDS,        KC_DLR,         KC_QUES,        KC_ASTR,                                        KC_SLASH,       KC_COLN,        KC_AT,          KC_EXLM,        KC_CIRC,        KC_NO,          
                                                     KC_TRANSPARENT, KC_NO,                                          MAGIC,         LT(3, KC_F23)
   ),
   [3] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     KC_NO,          KC_NO,          KC_9,           KC_8,           KC_7,           KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     KC_NO,          KC_NO,          KC_3,           KC_2,           KC_1,           KC_NO,                                          KC_NO,          KC_0,           KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    KC_NO,          KC_NO,          KC_6,           KC_5,           KC_4,           KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
+    KC_NO,          KC_NO,          KC_6,           KC_5,           KC_4,           KC_NO,                                          KC_NO,          KC_NO,          KC_DOT,         KC_COMMA,       KC_NO,          KC_NO,          
                                                     KC_NO,          KC_NO,                                          KC_NO,          KC_TRANSPARENT
   ),
   [4] = LAYOUT_voyager(
@@ -102,27 +102,20 @@ const custom_shift_key_t custom_shift_keys[] = {
                         // {LT(3, KC_BSPC), KC_DEL}, // Shift + bspc is Del
 };
 
-const uint16_t PROGMEM combo0[] = {MT(MOD_LSFT, KC_H), MT(MOD_LSFT, KC_S),
-                                   COMBO_END};
-
-combo_t key_combos[COMBO_COUNT] = {
-    COMBO(combo0, CW_TOGG),
-};
-
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case MT(MOD_LSFT, KC_S):
-    return TAPPING_TERM - 55;
+    return TAPPING_TERM - 80;
   case LT(2, KC_F23):
-    return TAPPING_TERM - 55;
+    return TAPPING_TERM - 80;
   case LT(4, KC_BSPC):
-    return TAPPING_TERM - 55;
+    return TAPPING_TERM - 80;
   case MT(MOD_LSFT, KC_H):
-    return TAPPING_TERM - 55;
+    return TAPPING_TERM - 80;
   case LT(1, KC_SPACE):
-    return TAPPING_TERM - 55;
+    return TAPPING_TERM - 80;
   case LT(3, KC_F23):
-    return TAPPING_TERM - 55;
+    return TAPPING_TERM - 80;
   default:
     return TAPPING_TERM;
   }
