@@ -465,38 +465,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                       SS_LALT(SS_TAP(X_DOWN)));
     }
     break;
-  case UP_CMD_UP:
-    if (record->tap.count > 0) {
-      if (record->event.pressed) {
-        register_code16(KC_UP);
-        set_last_keycode(KC_UP);
-      } else {
-        unregister_code16(KC_UP);
-      }
-    } else {
-      if (record->event.pressed) {
-        register_code16(LGUI(KC_UP));
-      } else {
-        unregister_code16(LGUI(KC_UP));
-      }
-    }
-    return false;
-  case DOWN_CMD_DOWN:
-    if (record->tap.count > 0) {
-      if (record->event.pressed) {
-        register_code16(KC_DOWN);
-        set_last_keycode(KC_DOWN);
-      } else {
-        unregister_code16(KC_DOWN);
-      }
-    } else {
-      if (record->event.pressed) {
-        register_code16(LGUI(KC_DOWN));
-      } else {
-        unregister_code16(LGUI(KC_DOWN));
-      }
-    }
-    return false;
 
   case QK_MODS ... QK_MODS_MAX:
     // Mouse keys with modifiers work inconsistently across operating
