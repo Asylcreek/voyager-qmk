@@ -60,9 +60,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [2] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    KC_NO,          KC_BSLS,        KC_LABK,        KC_PIPE,        KC_TILD,        KC_PERC,                                        KC_QUOTE,       KC_GRAVE,       KC_EQUAL,       KC_RABK,        KC_NO,          KC_NO,          
+    KC_NO,          KC_BSLS,        KC_LABK,        KC_PIPE,        KC_PERC,        KC_TILD,                                        KC_QUOTE,       KC_UNDS,        KC_EQUAL,       KC_RABK,        KC_NO,          KC_NO,          
     KC_NO,          KC_LBRC,        KC_LCBR,        KC_AMPR,        KC_LPRN,        KC_PLUS,                                        KC_MINUS,       KC_RPRN,        KC_DQUO,        KC_RCBR,        KC_RBRC,        KC_NO,          
-    KC_NO,          KC_HASH,        KC_UNDS,        KC_DLR,         KC_QUES,        KC_ASTR,                                        KC_SLASH,       KC_COLN,        KC_AT,          KC_EXLM,        KC_CIRC,        KC_NO,          
+    KC_NO,          KC_HASH,        KC_GRAVE,       KC_DLR,         KC_EXLM,        KC_ASTR,                                        KC_SLASH,       KC_COLN,        KC_QUES,        KC_AT,          KC_CIRC,        KC_NO,          
                                                     KC_TRANSPARENT, KC_NO,                                          MAGIC,         LT(3, KC_F23)
   ),
   [3] = LAYOUT_voyager(
@@ -105,17 +105,17 @@ const custom_shift_key_t custom_shift_keys[] = {
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case MT(MOD_LSFT, KC_S):
-            return TAPPING_TERM -55;
+    return TAPPING_TERM - 55;
   case LT(2, KC_F23):
-            return TAPPING_TERM -55;
+    return TAPPING_TERM - 55;
   case LT(4, KC_BSPC):
-            return TAPPING_TERM -55;
+    return TAPPING_TERM - 55;
   case MT(MOD_LSFT, KC_H):
-            return TAPPING_TERM -55;
+    return TAPPING_TERM - 55;
   case LT(1, KC_SPACE):
-            return TAPPING_TERM -55;
+    return TAPPING_TERM - 55;
   case LT(3, KC_F23):
-            return TAPPING_TERM -55;
+    return TAPPING_TERM - 55;
   default:
     return TAPPING_TERM;
   }
