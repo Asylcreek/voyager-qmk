@@ -105,17 +105,17 @@ const custom_shift_key_t custom_shift_keys[] = {
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case MT(MOD_LSFT, KC_S):
-    return TAPPING_TERM - 55;
+            return TAPPING_TERM -80;
   case LT(2, KC_F23):
-    return TAPPING_TERM - 55;
+            return TAPPING_TERM -80;
   case LT(4, KC_BSPC):
-    return TAPPING_TERM - 55;
+            return TAPPING_TERM -80;
   case MT(MOD_LSFT, KC_H):
-    return TAPPING_TERM - 55;
+            return TAPPING_TERM -80;
   case LT(1, KC_SPACE):
-    return TAPPING_TERM - 55;
+            return TAPPING_TERM -80;
   case LT(3, KC_F23):
-    return TAPPING_TERM - 55;
+            return TAPPING_TERM -80;
   default:
     return TAPPING_TERM;
   }
