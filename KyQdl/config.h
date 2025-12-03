@@ -2,7 +2,7 @@
 #define PERMISSIVE_HOLD
 
 #define USB_SUSPEND_WAKEUP_DELAY 0
-#define SERIAL_NUMBER "KyQdl/ZPRo5p"
+#define SERIAL_NUMBER "KyQdl/AzdGPR"
 #define LAYER_STATE_8BIT
 #define HSS(report)                                                            \
   host_system_send(record->event.pressed ? report : 0);                        \
