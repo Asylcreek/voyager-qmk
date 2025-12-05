@@ -6,11 +6,13 @@
 #define PERMISSIVE_HOLD
 
 #define USB_SUSPEND_WAKEUP_DELAY 0
-#define SERIAL_NUMBER "KyQdl/x9mV0Y"
+#define SERIAL_NUMBER "KyQdl/eaZvv7"
 #define LAYER_STATE_8BIT
+#define COMBO_COUNT 2
 #define HSS(report) host_system_send(record->event.pressed ? report : 0); return false
 #define HCS(report) host_consumer_send(record->event.pressed ? report : 0); return false
 
+#define TAPPING_TERM_PER_KEY
 #define WHEEL_EXTENDED_SUPPORT
 #define POINTING_DEVICE_HIRES_SCROLL_ENABLE
 #define POINTING_DEVICE_HIRES_SCROLL_EXPONENT 1
