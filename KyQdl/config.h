@@ -1,8 +1,12 @@
+#define FLOW_TAP_TERM 100
 #define CHORDAL_HOLD
+#undef TAPPING_TERM
+#define TAPPING_TERM 240
+
 #define PERMISSIVE_HOLD
 
 #define USB_SUSPEND_WAKEUP_DELAY 0
-#define SERIAL_NUMBER "KyQdl/AzdGPR"
+#define SERIAL_NUMBER "KyQdl/x9mV0Y"
 #define LAYER_STATE_8BIT
 #define HSS(report)                                                            \
   host_system_send(record->event.pressed ? report : 0);                        \
