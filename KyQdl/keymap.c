@@ -364,8 +364,6 @@ extern bool navigator_turbo;
 extern bool navigator_aim;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  const uint8_t mods = get_mods();
-
   switch (keycode) {
   case PRE_REPEAT:
   case PRE_REPEAT2:
