@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [1] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     KC_NO,          KC_NO,          KC_9,           KC_8,           KC_7,           KC_NO,                                          KC_NO,          KC_NO,          LCTL(KC_COMMA), KC_NO,          KC_NO,          KC_NO,          
-    KC_NO,          CW_TOGG,        MT(MOD_LALT, KC_3),MT(MOD_LGUI, KC_2),MT(MOD_LSFT, KC_1),KC_DELETE,                                      KC_NO,          MT(MOD_LSFT | MOD_LALT, KC_0),OSM(MOD_LGUI),  OSM(MOD_LALT),  KC_NO,          KC_NO,          
+    KC_NO,          KC_DELETE,      MT(MOD_LALT, KC_3),MT(MOD_LGUI, KC_2),MT(MOD_LSFT, KC_1),KC_NO,                                          KC_NO,          MT(MOD_LSFT | MOD_LALT, KC_0),OSM(MOD_LGUI),  OSM(MOD_LALT),  KC_NO,          KC_NO,          
     KC_NO,          KC_NO,          KC_6,           KC_5,           MT(MOD_LCTL, KC_4),KC_NO,                                          KC_NO,          MT(MOD_LCTL, KC_TAB),KC_DOT,         KC_COMMA,       KC_NO,          KC_NO,          
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_NO,          KC_TRANSPARENT
   ),
@@ -96,6 +96,14 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
            '*', '*', '*', '*');
 // clang-format on
 
+const uint16_t PROGMEM combo0[] = {LT(2, KC_F23), LT(1, KC_SPACE), COMBO_END};
+const uint16_t PROGMEM combo1[] = {LT(5, KC_ENTER), LT(4, KC_BSPC), COMBO_END};
+
+combo_t key_combos[COMBO_COUNT] = {
+    COMBO(combo0, KC_ESCAPE),
+    COMBO(combo1, CW_TOGG),
+};
+
 bool is_flow_tap_key(uint16_t keycode) {
   // Disable Flow Tap on mod-tap keys.
   if (IS_QK_MOD_TAP(keycode)) {
@@ -115,6 +123,17 @@ bool is_flow_tap_key(uint16_t keycode) {
     return true;
   }
   return false;
+};
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+  case MT(MOD_LSFT, KC_S):
+    return TAPPING_TERM - 60;
+  case MT(MOD_LSFT, KC_H):
+    return TAPPING_TERM - 60;
+  default:
+    return TAPPING_TERM;
+  }
 }
 
 bool caps_word_press_user(uint16_t keycode) {
