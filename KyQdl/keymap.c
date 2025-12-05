@@ -96,13 +96,6 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
            '*', '*', '*', '*');
 // clang-format on
 
-// custom shift keys
-const custom_shift_key_t custom_shift_keys[] = {
-    {KC_QUOT, KC_UNDS},    // Shift ' is _
-    {PRE_REPEAT, KC_ESC},  // Shift PRE_REPEAT is Esc
-    {PRE_MAGIC, KC_ENTER}, // Shift PRE_MAGIC is Enter
-};
-
 bool is_flow_tap_key(uint16_t keycode) {
   // Disable Flow Tap on mod-tap keys.
   if (IS_QK_MOD_TAP(keycode)) {
@@ -405,29 +398,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         TAP_CODE_DELAY);
     }
     break;
-  case KC_QUOTE: {
-    static uint16_t registered_keycode = KC_NO;
-
-    if (record->event.pressed) {
-      process_caps_word(keycode, record);
-      const bool shifted = (mods | get_weak_mods()) & MOD_MASK_SHIFT;
-      clear_weak_mods();
-      clear_mods();
-
-      if (registered_keycode) { // Invoked through Repeat key.
-        unregister_code16(registered_keycode);
-      } else {
-        registered_keycode = shifted ? KC_UNDS : KC_QUOTE;
-      }
-
-      register_code16(registered_keycode);
-      set_mods(mods);
-    } else if (registered_keycode) {
-      unregister_code16(registered_keycode);
-      registered_keycode = KC_NO;
-    }
-  }
-    return false;
 
   case TMUX_UP:
     if (record->event.pressed) {

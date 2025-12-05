@@ -54,9 +54,6 @@
 #undef ENABLE_RGB_MATRIX_STARLIGHT_DUAL_SAT
 #undef ENABLE_RGB_MATRIX_RIVERFLOW
 
-// Don't apply custom shift keys when any non-shift mod is held.
-// #define CUSTOM_SHIFT_KEYS_NEGMODS ~MOD_MASK_SHIFT
-
 #define CAPS_WORD_IDLE_TIMEOUT 3500
 #define CAPS_WORD_INVERT_ON_SHIFT
 

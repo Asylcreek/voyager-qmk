@@ -1,8 +1,3 @@
 {
-  "modules": [
-    "zsa/oryx",
-    "zsa/defaults",
-    "getreuer/custom_shift_keys",
-    "getreuer/select_word"
-  ]
+  "modules": ["zsa/oryx", "zsa/defaults", "getreuer/select_word"]
 }
