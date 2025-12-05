@@ -98,10 +98,10 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
 
 // custom shift keys
 const custom_shift_key_t custom_shift_keys[] = {
-    {KC_QUOT, KC_UNDS}, // Shift ' is _
-                        // {LT(3, KC_BSPC), KC_DEL}, // Shift + bspc is Del
+    {KC_QUOT, KC_UNDS},    // Shift ' is _
+    {PRE_REPEAT, KC_ESC},  // Shift PRE_REPEAT is Esc
+    {PRE_MAGIC, KC_ENTER}, // Shift PRE_MAGIC is Enter
 };
-
 
 bool is_flow_tap_key(uint16_t keycode) {
   // Disable Flow Tap on mod-tap keys.
