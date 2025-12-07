@@ -86,8 +86,8 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT(
   '*', '*', '*', '*'
 );
 
-const uint16_t PROGMEM combo0[] = { LT(2, KC_F23), LT(1, KC_SPACE), COMBO_END};
-const uint16_t PROGMEM combo1[] = { LT(5, KC_ENTER), LT(4, KC_BSPC), COMBO_END};
+const uint16_t PROGMEM combo0[] = { KC_M, KC_X, COMBO_END};
+const uint16_t PROGMEM combo1[] = { KC_DOT, KC_COMMA, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo0, KC_ESCAPE),
