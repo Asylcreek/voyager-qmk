@@ -39,7 +39,8 @@ enum custom_keycodes {
   M_ARROW_FUNC,
   M_CLOSE_BRACE,
   M_ALT_DOLLAR,
-  M_SPREAD_PAIRS
+  M_SPREAD_PAIRS,
+  ZOOM_SCROLL
 };
 
 // clang-format off
@@ -74,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [4] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    KC_NO,          KC_NO,          LGUI(KC_LBRC),  TOGGLE_SCROLL,  LGUI(KC_RBRC),  KC_NO,                                          KC_NO,          LGUI(KC_LEFT),  KC_UP,          LGUI(KC_RIGHT), KC_NO,          KC_NO,          
+    KC_NO,          ZOOM_SCROLL,          LGUI(KC_LBRC),  TOGGLE_SCROLL,  LGUI(KC_RBRC),  KC_NO,                                          KC_NO,          LGUI(KC_LEFT),  KC_UP,          LGUI(KC_RIGHT), KC_NO,          KC_NO,          
     KC_NO,          LCTL(KC_TAB),   KC_MS_BTN2,     DRAG_SCROLL,    KC_MS_BTN1,     LALT(LGUI(LCTL(LSFT(KC_S)))),                                LALT(KC_LEFT),  KC_LEFT,        KC_DOWN,        KC_RIGHT,       RALT(KC_RIGHT), KC_NO,          
     KC_NO,          LALT(LGUI(LCTL(LSFT(KC_C)))),LALT(KC_MS_BTN1),LGUI(KC_MS_BTN1),LSFT(KC_MS_BTN1),QK_LLCK,                                        SELLINE,          SELWBAK,          SELWORD,          KC_NO,          KC_NO,          KC_NO,          
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 MAGIC,         REPEAT
@@ -129,16 +130,16 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case MT(MOD_LSFT, KC_S):
     return TAPPING_TERM - 60;
-        case LT(2, KC_F23):
-            return TAPPING_TERM -60;
-        case LT(4, KC_BSPC):
-            return TAPPING_TERM -60;
+  case LT(2, KC_F23):
+    return TAPPING_TERM - 60;
+  case LT(4, KC_BSPC):
+    return TAPPING_TERM - 60;
   case MT(MOD_LSFT, KC_H):
     return TAPPING_TERM - 60;
-        case MT(MOD_LCTL, KC_P):
-            return TAPPING_TERM -60;
-        case LT(1, KC_SPACE):
-            return TAPPING_TERM -60;
+  case MT(MOD_LCTL, KC_P):
+    return TAPPING_TERM - 60;
+  case LT(1, KC_SPACE):
+    return TAPPING_TERM - 60;
   default:
     return TAPPING_TERM;
   }
@@ -171,6 +172,7 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
   case MAGIC:
   case MT(MOD_LSFT, KC_F23):
   case DRAG_SCROLL:
+  case ZOOM_SCROLL:
     return false;
   };
   return true;
@@ -370,6 +372,28 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
 extern bool set_scrolling;
 extern bool navigator_turbo;
 extern bool navigator_aim;
+extern bool is_zooming;
+
+void process_mouse_user(report_mouse_t *mouse_report) {
+  if (is_zooming && set_scrolling) {
+
+    if (mouse_report->v != 0) {
+
+      int8_t scroll_dir = mouse_report->v;
+      mouse_report->v = 0;
+
+      if (scroll_dir > 0) {
+        // Scroll Up detected: Send Cmd + Equal/Plus (Zoom In)
+        tap_code16(LGUI(KC_EQUAL));
+      } else {
+        // Scroll Down detected: Send Cmd + Minus (Zoom Out)
+        tap_code16(LGUI(KC_MINUS));
+      }
+    }
+
+    return;
+  }
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -533,6 +557,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
     break;
+  case ZOOM_SCROLL:
+    if (record->event.pressed) {
+      is_zooming = true;
+    } else {
+      is_zooming = false;
+    }
+    return false;
   case RGB_SLD:
     if (record->event.pressed) {
       rgblight_mode(1);
