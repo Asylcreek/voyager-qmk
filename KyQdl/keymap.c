@@ -372,7 +372,7 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
 extern bool set_scrolling;
 extern bool navigator_turbo;
 extern bool navigator_aim;
-bool is_zooming;
+bool is_zooming = true;
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
   if (is_zooming) {
