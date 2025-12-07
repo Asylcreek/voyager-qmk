@@ -374,25 +374,24 @@ extern bool navigator_turbo;
 extern bool navigator_aim;
 bool is_zooming;
 
-void process_mouse_user(report_mouse_t *mouse_report) {
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
   if (is_zooming && set_scrolling) {
-
-    if (mouse_report->v != 0) {
-
-      int8_t scroll_dir = mouse_report->v;
-      mouse_report->v = 0;
+    if (mouse_report.v != 0) {
+      int8_t scroll_dir = mouse_report.v;
+      // Zero out the vertical scroll to prevent the default mouse scroll event
+      mouse_report.v = 0;
 
       if (scroll_dir > 0) {
-        // Scroll Up detected: Send Cmd + Equal/Plus (Zoom In)
         tap_code16(LGUI(KC_EQUAL));
       } else {
-        // Scroll Down detected: Send Cmd + Minus (Zoom Out)
         tap_code16(LGUI(KC_MINUS));
       }
     }
 
-    return;
+    return mouse_report;
   }
+
+  return mouse_report;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
