@@ -375,11 +375,14 @@ extern bool navigator_aim;
 bool is_zooming;
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-  if (is_zooming && set_scrolling) {
-    if (mouse_report.v != 0) {
-      int8_t scroll_dir = mouse_report.v;
-      // Zero out the vertical scroll to prevent the default mouse scroll event
+  if (is_zooming) {
+    if (mouse_report.y != 0) {
+      int8_t scroll_dir = mouse_report.y;
+
+      mouse_report.x = 0;
+      mouse_report.y = 0;
       mouse_report.v = 0;
+      mouse_report.h = 0;
 
       if (scroll_dir > 0) {
         tap_code16(LGUI(KC_EQUAL));
