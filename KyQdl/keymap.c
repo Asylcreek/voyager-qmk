@@ -43,7 +43,7 @@ enum custom_keycodes {
   ZOOM_SCROLL
 };
 
-bool is_zooming = true;
+bool is_zooming = false;
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -375,59 +375,6 @@ extern bool set_scrolling;
 extern bool navigator_turbo;
 extern bool navigator_aim;
 
-/* report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) { */
-/*   if (is_zooming) { */
-/*     int8_t scroll_dir = mouse_report.y; */
-/**/
-/*     mouse_report.x = 0; */
-/*     mouse_report.y = 0; */
-/*     mouse_report.v = 0; */
-/*     mouse_report.h = 0; */
-/**/
-/*     if (scroll_dir > 0) { */
-/*       tap_code16(LGUI(KC_EQUAL)); */
-/*     } else { */
-/*       tap_code16(LGUI(KC_MINUS)); */
-/*     } */
-/**/
-/*     return mouse_report; */
-/*   } */
-/**/
-/*   return mouse_report; */
-/* } */
-
-report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-
-  // 1. Check if our custom flag is active
-  if (is_zooming) {
-
-    // DEBUG: Print the incoming report data
-    // This tells us if the trackball is sending X/Y (cursor) or H/V (scroll)
-    // data.
-    uprintf("ZOOM ACTIVE: In-X:%d In-Y:%d\n", mouse_report.x, mouse_report.y);
-
-    int8_t scroll_dir = mouse_report.y;
-
-    // 2. Zero out the report
-    mouse_report.x = 0;
-    mouse_report.y = 0;
-    mouse_report.v = 0;
-    mouse_report.h = 0;
-
-    // 3. Inject keys
-    if (scroll_dir != 0) {
-      uprintf("  -> MOVEMENT DETECTED: %d\n", scroll_dir);
-      if (scroll_dir > 0) {
-        tap_code16(LGUI(KC_EQUAL));
-      } else {
-        tap_code16(LGUI(KC_MINUS));
-      }
-    }
-  }
-
-  return mouse_report;
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case PRE_REPEAT:
@@ -495,9 +442,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case ZOOM_SCROLL:
     if (record->event.pressed) {
       is_zooming = true;
+      set_scrolling = true;
       uprintf("KEY PRESS: ZOOM_SCROLL (is_zooming=TRUE)\n");
     } else {
       is_zooming = false;
+      set_scrolling = false;
       uprintf("KEY REL : ZOOM_SCROLL (is_zooming=FALSE)\n");
     }
     return false;
@@ -624,4 +573,56 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
   }
   return true;
+}
+
+/* report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) { */
+/*   if (is_zooming) { */
+/*     int8_t scroll_dir = mouse_report.y; */
+/**/
+/*     mouse_report.x = 0; */
+/*     mouse_report.y = 0; */
+/*     mouse_report.v = 0; */
+/*     mouse_report.h = 0; */
+/**/
+/*     if (scroll_dir > 0) { */
+/*       tap_code16(LGUI(KC_EQUAL)); */
+/*     } else { */
+/*       tap_code16(LGUI(KC_MINUS)); */
+/*     } */
+/**/
+/*     return mouse_report; */
+/*   } */
+/**/
+/*   return mouse_report; */
+/* } */
+
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+
+  // 1. Check if our custom flag is active
+  if (is_zooming) {
+
+    // DEBUG: Print the incoming report data
+    // This tells us if the trackball is sending X/Y (cursor) or H/V (scroll)
+    // data.
+    uprintf("ZOOM ACTIVE: In-X:%d In-Y:%d\n", mouse_report.h, mouse_report.v);
+
+    int8_t scroll_dir = mouse_report.v;
+
+    // 2. Zero out the report
+    mouse_report.v = 0;
+    mouse_report.h = 0;
+
+    // 3. Inject keys
+    if (scroll_dir != 0) {
+      uprintf("  -> MOVEMENT DETECTED: %d\n", scroll_dir);
+      if (scroll_dir > 0) {
+        tap_code16(LGUI(KC_EQUAL));
+      } else {
+        tap_code16(LGUI(KC_MINUS));
+      }
+    }
+  }
+  uprintf("ZOOM INACTIVE: In-X:%d In-Y:%d\n", mouse_report.h, mouse_report.v);
+
+  return mouse_report;
 }
