@@ -147,14 +147,13 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 bool caps_word_press_user(uint16_t keycode) {
   switch (keycode) {
   case KC_A ... KC_Z:
-  case KC_QUOTE:
-    add_weak_mods(MOD_BIT(KC_LSFT));
-    return true;
-
   case KC_1 ... KC_0:
   case KC_BSPC:
   case KC_DEL:
   case KC_LPRN:
+  case KC_UNDS:
+  case A(KC_BSPC):
+  case C(KC_W):
     return true;
 
   default:
