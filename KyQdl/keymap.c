@@ -464,10 +464,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case ZOOM_SCROLL:
     if (record->event.pressed) {
       is_zooming = true;
-      set_scrolling = true;
     } else {
       is_zooming = false;
-      set_scrolling = false;
     }
     return false;
 
