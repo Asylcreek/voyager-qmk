@@ -458,6 +458,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                       SS_LALT(SS_TAP(X_DOWN)));
     }
     break;
+  case ZOOM_SCROLL:
+    if (record->event.pressed) {
+      is_zooming = true;
+      set_scrolling = true;
+    } else {
+      is_zooming = false;
+      set_scrolling = false;
+    }
+    return false;
 
   case QK_MODS ... QK_MODS_MAX:
     // Mouse keys with modifiers work inconsistently across operating
@@ -556,13 +565,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
     break;
-  case ZOOM_SCROLL:
-    if (record->event.pressed) {
-      is_zooming = true;
-    } else {
-      is_zooming = false;
-    }
-    return false;
   case RGB_SLD:
     if (record->event.pressed) {
       rgblight_mode(1);
