@@ -96,13 +96,23 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
            '*', '*', '*', '*');
 // clang-format on
 
-const uint16_t PROGMEM combo0[] = { KC_M, KC_X, COMBO_END};
-const uint16_t PROGMEM combo1[] = { KC_DOT, KC_COMMA, COMBO_END};
+const uint16_t PROGMEM combo0[] = {KC_M, KC_X, COMBO_END};
+const uint16_t PROGMEM combo1[] = {KC_DOT, KC_COMMA, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo0, KC_ESCAPE),
     COMBO(combo1, CW_TOGG),
 };
+
+uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+  case PRE_REPEAT:
+  case PRE_REPEAT2:
+    return QUICK_TAP_TERM; // Enable key repeating.
+  default:
+    return 0; // Otherwise, force hold and disable key repeating.
+  }
+}
 
 bool is_flow_tap_key(uint16_t keycode) {
   // Disable Flow Tap on mod-tap keys.
@@ -368,8 +378,6 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
 }
 
 extern bool set_scrolling;
-extern bool navigator_turbo;
-extern bool navigator_aim;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
