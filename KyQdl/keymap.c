@@ -578,32 +578,62 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+// Add these variables outside any function (near 'bool is_zooming = false;')
+static int total_scroll_v = 0;
+static uint32_t last_zoom_time = 0;
+// You must define ZOOM_DIVIDER and ZOOM_THRESHOLD in config.h
+
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-  // 1. Check if our custom flag is active
   if (is_zooming) {
 
-    // DEBUG: Print the incoming report data
-    // This tells us if the trackball is sending X/Y (cursor) or H/V (scroll)
-    // data.
-    uprintf("ZOOM ACTIVE: In-X:%d In-Y:%d\n", mouse_report.x, mouse_report.y);
+    // 1. Accumulate movement (using the custom DIVIDER to slow it down)
+    // Note: We use mouse_report.y, since that is the raw trackball movement.
+    total_scroll_v += (mouse_report.y / ZOOM_DIVIDER);
 
-    int8_t scroll_dir = mouse_report.y;
+    // Debugging logs (optional, but useful)
+    uprintf("ZOOM: Acc:%d In-Y:%d\n", total_scroll_v, mouse_report.y);
 
-    // 2. Zero out the report
-    mouse_report.y = 0;
-    mouse_report.x = 0;
+    // --- Core Logic ---
 
-    // 3. Inject keys
-    if (scroll_dir != 0) {
-      uprintf("  -> MOVEMENT DETECTED: %d\n", scroll_dir);
-      if (scroll_dir < 0) {
-        tap_code16(LGUI(KC_EQUAL));
-      } else {
-        tap_code16(LGUI(KC_MINUS));
+    // Check if the accumulated scroll movement crosses the threshold
+    if (abs(total_scroll_v) >= ZOOM_THRESHOLD) {
+
+      // Check for debounce (throttle the key sending rate)
+      if (timer_elapsed_ms(last_zoom_time) > ZOOM_DEBOUNCE_MS) {
+
+        // Determine direction
+        if (total_scroll_v < 0) {
+          // Accumulation is negative (scrolling UP) -> Zoom IN
+          tap_code16(LGUI(KC_EQUAL));
+          uprintf("  -> ZOOM IN\n");
+        } else {
+          // Accumulation is positive (scrolling DOWN) -> Zoom OUT
+          tap_code16(LGUI(KC_MINUS));
+          uprintf("  -> ZOOM OUT\n");
+        }
+
+        // Reset the accumulator based on the direction we triggered.
+        // This makes the movement more predictable.
+        total_scroll_v = (total_scroll_v > 0) ? total_scroll_v - ZOOM_THRESHOLD
+                                              : total_scroll_v + ZOOM_THRESHOLD;
+
+        // Reset the debounce timer
+        last_zoom_time = timer_read();
       }
     }
+
+    // 2. Clear the mouse report's X/Y/H/V so no cursor movement or scroll is
+    // sent to the OS
+    mouse_report.x = 0;
+    mouse_report.y = 0;
+    mouse_report.h = 0;
+    mouse_report.v = 0;
   }
-  uprintf("ZOOM INACTIVE: In-X:%d In-Y:%d\n", mouse_report.x, mouse_report.y);
+
+  // Crucial: When releasing the ZOOM key, reset the accumulator immediately.
+  if (!is_zooming && total_scroll_v != 0) {
+    total_scroll_v = 0;
+  }
 
   return mouse_report;
 }
