@@ -585,13 +585,13 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     // DEBUG: Print the incoming report data
     // This tells us if the trackball is sending X/Y (cursor) or H/V (scroll)
     // data.
-    uprintf("ZOOM ACTIVE: In-X:%d In-Y:%d\n", mouse_report.h, mouse_report.v);
+    uprintf("ZOOM ACTIVE: In-X:%d In-Y:%d\n", mouse_report.x, mouse_report.y);
 
-    int8_t scroll_dir = mouse_report.v;
+    int8_t scroll_dir = mouse_report.y;
 
     // 2. Zero out the report
-    mouse_report.v = 0;
-    mouse_report.h = 0;
+    mouse_report.y = 0;
+    mouse_report.x = 0;
 
     // 3. Inject keys
     if (scroll_dir != 0) {
@@ -603,7 +603,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
       }
     }
   }
-  uprintf("ZOOM INACTIVE: In-X:%d In-Y:%d\n", mouse_report.h, mouse_report.v);
+  uprintf("ZOOM INACTIVE: In-X:%d In-Y:%d\n", mouse_report.x, mouse_report.y);
 
   return mouse_report;
 }
