@@ -7,7 +7,7 @@
 #define PERMISSIVE_HOLD
 
 #define USB_SUSPEND_WAKEUP_DELAY 0
-#define SERIAL_NUMBER "KyQdl/MaqQgb"
+#define SERIAL_NUMBER "KyQdl/Jazen0"
 #define LAYER_STATE_8BIT
 #define COMBO_COUNT 2
 #define HSS(report)                                                            \
@@ -64,15 +64,15 @@
 #define SELECT_WORD_OS_MAC
 
 // ZOOM CONTROLS
-// Lower this value to make zooming more sensitive (default is 10)
-// Recommended starting value is 20 for slower, more controlled zoom.
+// Lower this value to make zooming more sensitive
+// higher === slower, lower === faster
 #define ZOOM_DIVIDER 20
 
 // This is the minimum accumulated scroll movement (in absolute value)
-// needed to trigger one zoom step. Set to 3 to require a bigger movement
-// before a key is sent.
+// needed to trigger one zoom step.
+// higher === more movement, lower === less movement
 #define ZOOM_THRESHOLD 3
 
 // Set a minimum delay between key presses (in milliseconds) to smooth out
-// repeated zooming. 0 means no debounce. Try 20ms or higher.
+// repeated zooming. 0 means no debounce.
 #define ZOOM_DEBOUNCE_MS 50
