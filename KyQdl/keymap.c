@@ -11,6 +11,8 @@
 #define PRE_REPEAT2 LT(3, KC_F23)
 #define PRE_MAGIC LT(4, KC_F24)
 
+bool is_zooming = false;
+
 enum custom_keycodes {
   RGB_SLD = ZSA_SAFE_RANGE,
   HSV_0_255_255,
@@ -40,6 +42,7 @@ enum custom_keycodes {
   M_CLOSE_BRACE,
   M_ALT_DOLLAR,
   M_SPREAD_PAIRS,
+  ZOOM_SCROLL,
 };
 
 // clang-format off
@@ -74,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [4] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    KC_NO,          KC_NO,          LGUI(KC_LBRC),  TOGGLE_SCROLL,  LGUI(KC_RBRC),  KC_NO,                                          KC_NO,          LGUI(KC_LEFT),  KC_UP,          LGUI(KC_RIGHT), KC_NO,          KC_NO,          
+    KC_NO,          ZOOM_SCROLL,          LGUI(KC_LBRC),  TOGGLE_SCROLL,  LGUI(KC_RBRC),  KC_NO,                                          KC_NO,          LGUI(KC_LEFT),  KC_UP,          LGUI(KC_RIGHT), KC_NO,          KC_NO,          
     KC_NO,          LCTL(KC_TAB),   KC_MS_BTN2,     DRAG_SCROLL,    KC_MS_BTN1,     LALT(LGUI(LCTL(LSFT(KC_S)))),                                LALT(KC_LEFT),  KC_LEFT,        KC_DOWN,        KC_RIGHT,       RALT(KC_RIGHT), KC_NO,          
     KC_NO,          LALT(LGUI(LCTL(LSFT(KC_C)))),LALT(KC_MS_BTN1),LGUI(KC_MS_BTN1),LSFT(KC_MS_BTN1),QK_LLCK,                                        SELLINE,          SELWBAK,          SELWORD,          KC_NO,          KC_NO,          KC_NO,          
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 MAGIC,         REPEAT
@@ -443,6 +446,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                       SS_LALT(SS_TAP(X_DOWN)));
     }
     break;
+  case ZOOM_SCROLL:
+    if (record->event.pressed) {
+      is_zooming = true;
+    } else {
+      is_zooming = false;
+    }
+    return false;
 
   case QK_MODS ... QK_MODS_MAX:
     // Mouse keys with modifiers work inconsistently across operating
@@ -566,4 +576,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
   }
   return true;
+}
+
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+  // 1. Check if our custom flag is active
+  if (is_zooming) {
+
+    // DEBUG: Print the incoming report data
+    // This tells us if the trackball is sending X/Y (cursor) or H/V (scroll)
+    // data.
+    uprintf("ZOOM ACTIVE: In-X:%d In-Y:%d\n", mouse_report.h, mouse_report.v);
+
+    int8_t scroll_dir = mouse_report.v;
+
+    // 2. Zero out the report
+    mouse_report.v = 0;
+    mouse_report.h = 0;
+
+    // 3. Inject keys
+    if (scroll_dir != 0) {
+      uprintf("  -> MOVEMENT DETECTED: %d\n", scroll_dir);
+      if (scroll_dir > 0) {
+        tap_code16(LGUI(KC_EQUAL));
+      } else {
+        tap_code16(LGUI(KC_MINUS));
+      }
+    }
+  }
+  uprintf("ZOOM INACTIVE: In-X:%d In-Y:%d\n", mouse_report.h, mouse_report.v);
+
+  return mouse_report;
 }
