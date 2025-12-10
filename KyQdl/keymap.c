@@ -11,8 +11,6 @@
 #define PRE_REPEAT2 LT(3, KC_F23)
 #define PRE_MAGIC LT(4, KC_F24)
 
-bool is_zooming = false;
-
 enum custom_keycodes {
   RGB_SLD = ZSA_SAFE_RANGE,
   HSV_0_255_255,
@@ -77,9 +75,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [4] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    KC_NO,          ZOOM_SCROLL,          LGUI(KC_LBRC),  TOGGLE_SCROLL,  LGUI(KC_RBRC),  KC_NO,                                          KC_NO,          LGUI(KC_LEFT),  KC_UP,          LGUI(KC_RIGHT), KC_NO,          KC_NO,          
+    KC_NO,          KC_NO,          LGUI(KC_LBRC),  ZOOM_SCROLL,          LGUI(KC_RBRC),  QK_LLCK,                                        KC_NO,          LGUI(KC_LEFT),  KC_UP,          LGUI(KC_RIGHT), KC_NO,          KC_NO,          
     KC_NO,          LCTL(KC_TAB),   KC_MS_BTN2,     DRAG_SCROLL,    KC_MS_BTN1,     LALT(LGUI(LCTL(LSFT(KC_S)))),                                LALT(KC_LEFT),  KC_LEFT,        KC_DOWN,        KC_RIGHT,       RALT(KC_RIGHT), KC_NO,          
-    KC_NO,          LALT(LGUI(LCTL(LSFT(KC_C)))),LALT(KC_MS_BTN1),LGUI(KC_MS_BTN1),LSFT(KC_MS_BTN1),QK_LLCK,                                        SELLINE,          SELWBAK,          SELWORD,          KC_NO,          KC_NO,          KC_NO,          
+    KC_NO,          LALT(LGUI(LCTL(LSFT(KC_C)))),LALT(KC_MS_BTN1),LGUI(KC_MS_BTN1),LSFT(KC_MS_BTN1),TOGGLE_SCROLL,                                        SELLINE,          SELWBAK,          SELWORD,          KC_NO,          KC_NO,          KC_NO,          
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 MAGIC,         REPEAT
   ),
   [5] = LAYOUT_voyager(
@@ -578,23 +576,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-// Change to uint32_t to match timer_read32() and timer_elapsed32()
-static uint32_t last_zoom_time = 0;
+bool is_zooming = false;
 
-// The rest of the variables can remain the same
+static uint32_t last_zoom_time = 0;
 static int total_scroll_v = 0;
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
   if (is_zooming) {
 
     // 1. Accumulate movement (using the custom DIVIDER to slow it down)
-    // Note: We use mouse_report.y, since that is the raw trackball movement.
     total_scroll_v += (mouse_report.y / ZOOM_DIVIDER);
-
-    // Debugging logs (optional, but useful)
-    uprintf("ZOOM: Acc:%d In-Y:%d\n", total_scroll_v, mouse_report.y);
-
-    // --- Core Logic ---
 
     // Check if the accumulated scroll movement crosses the threshold
     if (abs(total_scroll_v) >= ZOOM_THRESHOLD) {
@@ -606,11 +597,9 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
         if (total_scroll_v < 0) {
           // Accumulation is negative (scrolling UP) -> Zoom IN
           tap_code16(LGUI(KC_EQUAL));
-          uprintf("  -> ZOOM IN\n");
         } else {
           // Accumulation is positive (scrolling DOWN) -> Zoom OUT
           tap_code16(LGUI(KC_MINUS));
-          uprintf("  -> ZOOM OUT\n");
         }
 
         // Reset the accumulator based on the direction we triggered.
