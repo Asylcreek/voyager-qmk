@@ -578,10 +578,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-// Add these variables outside any function (near 'bool is_zooming = false;')
-static int total_scroll_v = 0;
+// Change to uint32_t to match timer_read32() and timer_elapsed32()
 static uint32_t last_zoom_time = 0;
-// You must define ZOOM_DIVIDER and ZOOM_THRESHOLD in config.h
+
+// The rest of the variables can remain the same
+static int total_scroll_v = 0;
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
   if (is_zooming) {
@@ -599,7 +600,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     if (abs(total_scroll_v) >= ZOOM_THRESHOLD) {
 
       // Check for debounce (throttle the key sending rate)
-      if (timer_elapsed_ms(last_zoom_time) > ZOOM_DEBOUNCE_MS) {
+      if (timer_elapsed32(last_zoom_time) > ZOOM_DEBOUNCE_MS) {
 
         // Determine direction
         if (total_scroll_v < 0) {
@@ -618,7 +619,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
                                               : total_scroll_v + ZOOM_THRESHOLD;
 
         // Reset the debounce timer
-        last_zoom_time = timer_read();
+        last_zoom_time = timer_read32();
       }
     }
 
