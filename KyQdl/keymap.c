@@ -596,7 +596,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     // 3. Inject keys
     if (scroll_dir != 0) {
       uprintf("  -> MOVEMENT DETECTED: %d\n", scroll_dir);
-      if (scroll_dir > 0) {
+      if (scroll_dir < 0) {
         tap_code16(LGUI(KC_EQUAL));
       } else {
         tap_code16(LGUI(KC_MINUS));
