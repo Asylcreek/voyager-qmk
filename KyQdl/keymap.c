@@ -379,6 +379,7 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
 }
 
 extern bool set_scrolling;
+bool is_zooming = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -575,8 +576,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
-
-bool is_zooming = false;
 
 static uint32_t last_zoom_time = 0;
 static int total_scroll_v = 0;
