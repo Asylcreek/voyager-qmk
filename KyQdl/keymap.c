@@ -115,6 +115,19 @@ uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
   }
 }
 
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+  case LT(2, KC_F23):
+    return TAPPING_TERM - 70;
+  case LT(4, KC_BSPC):
+    return TAPPING_TERM - 70;
+  case LT(1, KC_SPACE):
+    return TAPPING_TERM - 70;
+  default:
+    return TAPPING_TERM;
+  }
+}
+
 bool is_flow_tap_key(uint16_t keycode) {
   // Disable Flow Tap on mod-tap keys.
   if (IS_QK_MOD_TAP(keycode)) {
