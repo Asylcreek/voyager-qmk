@@ -7,9 +7,9 @@
 #define PERMISSIVE_HOLD
 
 #define USB_SUSPEND_WAKEUP_DELAY 0
-#define SERIAL_NUMBER "KyQdl/40RB5M"
+#define SERIAL_NUMBER "KyQdl/bvlalP"
 #define LAYER_STATE_8BIT
-#define COMBO_COUNT 2
+#define COMBO_COUNT 4
 #define HSS(report)                                                            \
   host_system_send(record->event.pressed ? report : 0);                        \
   return false
@@ -71,7 +71,7 @@
 // This is the minimum accumulated scroll movement (in absolute value)
 // needed to trigger one zoom step.
 // higher === more movement, lower === less movement
-#define ZOOM_THRESHOLD 3
+#define ZOOM_THRESHOLD 2
 
 // Set a minimum delay between key presses (in milliseconds) to smooth out
 // repeated zooming. 0 means no debounce.
