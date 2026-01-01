@@ -103,7 +103,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case LT(4, KC_BSPC):
             return TAPPING_TERM -70;
         case MT(MOD_LSFT, KC_H):
-            return TAPPING_TERM -80;
+            return TAPPING_TERM -60;
         case LT(1, KC_SPACE):
             return TAPPING_TERM -70;
         default:
