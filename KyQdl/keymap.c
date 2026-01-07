@@ -108,13 +108,13 @@ combo_t key_combos[COMBO_COUNT] = {
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case MT(MOD_LSFT, KC_S):
-    return TAPPING_TERM - 70;
+    return TAPPING_TERM - 80;
   case LT(2, KC_F23):
     return TAPPING_TERM - 70;
   case LT(4, KC_BSPC):
     return TAPPING_TERM - 70;
   case MT(MOD_LSFT, KC_H):
-    return TAPPING_TERM - 70;
+    return TAPPING_TERM - 60;
   case LT(1, KC_SPACE):
     return TAPPING_TERM - 70;
   default:
@@ -124,40 +124,24 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 
 bool is_flow_tap_key(uint16_t keycode) {
   // Disable Flow Tap on mod-tap keys.
-  /* if (IS_QK_MOD_TAP(keycode)) { */
-  /*   switch (QK_MOD_TAP_GET_MODS(keycode)) { */
-  /*   case MOD_LSFT: */
-  /*   case MOD_LCTL: */
-  /*     return false; */
-  /*   } */
-  /* } */
+  if (IS_QK_MOD_TAP(keycode)) {
+    switch (QK_MOD_TAP_GET_MODS(keycode)) {
+    case MOD_LSFT:
+    case MOD_LCTL:
+      return false;
+    }
+  }
 
   switch (get_tap_keycode(keycode)) {
   case KC_A ... KC_Z:
   case KC_DOT:
   case KC_COMM:
   case KC_SCLN:
+  case KC_QUOTE:
     return true;
   }
   return false;
 };
-
-uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record,
-                           uint16_t prev_keycode) {
-  if (is_flow_tap_key(keycode) && is_flow_tap_key(prev_keycode)) {
-    if (IS_QK_MOD_TAP(keycode)) {
-      switch (QK_MOD_TAP_GET_MODS(keycode)) {
-      case MOD_LSFT:
-      case MOD_LCTL:
-        return FLOW_TAP_TERM - 50;
-      }
-    }
-
-    return FLOW_TAP_TERM;
-  }
-
-  return 0; // Disable Flow Tap.
-}
 
 bool caps_word_press_user(uint16_t keycode) {
   switch (keycode) {
