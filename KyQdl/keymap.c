@@ -62,8 +62,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [2] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     KC_NO,          KC_BSLS,        KC_LABK,        KC_PIPE,        KC_PERC,        KC_TILD,                                        KC_UNDS,        KC_QUOTE,       KC_EQUAL,       KC_RABK,        KC_NO,          KC_NO,          
-    KC_NO,          KC_LBRC,        KC_LCBR,        KC_AMPR,        KC_LPRN,        KC_PLUS,                                        KC_MINUS,       KC_RPRN,        KC_DQUO,        KC_RCBR,        KC_RBRC,        KC_NO,          
-    KC_NO,          KC_HASH,        KC_GRAVE,       KC_DLR,         KC_EXLM,        KC_ASTR,                                        KC_SLASH,       KC_COLN,        KC_QUES,        KC_AT,          KC_CIRC,        KC_NO,          
+    KC_NO,          KC_LBRC,        KC_LPRN,        KC_AMPR,        KC_LCBR,        KC_PLUS,                                        KC_MINUS,       KC_RCBR,        KC_DQUO,        KC_RPRN,        KC_RBRC,        KC_NO,          
+    KC_NO,          KC_HASH,        KC_CIRC,        KC_DLR,         KC_EXLM,        KC_ASTR,                                        KC_SLASH,       KC_COLN,        KC_QUES,        KC_AT,          KC_GRAVE,       KC_NO,          
                                                     KC_TRANSPARENT, KC_NO,                                          MAGIC,         LT(3, KC_F23)
   ),
   [3] = LAYOUT_voyager(
@@ -108,13 +108,17 @@ combo_t key_combos[COMBO_COUNT] = {
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case MT(MOD_LSFT, KC_S):
-    return TAPPING_TERM - 80;
+    return TAPPING_TERM - 70;
+  case MT(MOD_LCTL, KC_C):
+    return TAPPING_TERM - 70;
   case LT(2, KC_F23):
     return TAPPING_TERM - 70;
   case LT(4, KC_BSPC):
     return TAPPING_TERM - 70;
   case MT(MOD_LSFT, KC_H):
-    return TAPPING_TERM - 60;
+    return TAPPING_TERM - 70;
+  case MT(MOD_LCTL, KC_P):
+    return TAPPING_TERM - 70;
   case LT(1, KC_SPACE):
     return TAPPING_TERM - 70;
   default:
