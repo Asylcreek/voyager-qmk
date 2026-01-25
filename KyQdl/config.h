@@ -6,20 +6,19 @@
 #define PERMISSIVE_HOLD
 
 #define USB_SUSPEND_WAKEUP_DELAY 0
-#define SERIAL_NUMBER "KyQdl/x9PvB5"
+#define SERIAL_NUMBER "KyQdl/PBW4Qj"
 #define LAYER_STATE_8BIT
 #define COMBO_COUNT 2
 #define HSS(report) host_system_send(record->event.pressed ? report : 0); return false
 #define HCS(report) host_consumer_send(record->event.pressed ? report : 0); return false
 
 #define TAPPING_TERM_PER_KEY
-#define WHEEL_EXTENDED_SUPPORT
 #define POINTING_DEVICE_HIRES_SCROLL_ENABLE
-#define POINTING_DEVICE_HIRES_SCROLL_EXPONENT 1
-#define POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
+#define POINTING_DEVICE_HIRES_SCROLL_EXPONENT 0
 #define MOUSE_EXTENDED_REPORT
+#define WHEEL_EXTENDED_REPORT
 #define NAVIGATOR_TRACKBALL_CPI 15
-#define NAVIGATOR_SCROLL_DIVIDER 50 
+#define NAVIGATOR_SCROLL_DIVIDER 50
 
 #define NAVIGATOR_SCROLL_INVERT_X
 #define NAVIGATOR_SCROLL_INVERT_Y
