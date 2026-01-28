@@ -341,6 +341,7 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
   case KC_O:
   case KC_V:
   case KC_DOT:
+  case KC_BACKSLASH:
     return KC_ENTER;
 
   case KC_EQL:
