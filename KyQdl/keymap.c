@@ -46,7 +46,7 @@ enum custom_keycodes {
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
-    MAC_LOCK,       LGUI(LSFT(KC_5)),LGUI(KC_V),     LGUI(KC_A),     LGUI(KC_C),     LGUI(LCTL(LSFT(KC_4))),                                KC_MEDIA_PREV_TRACK,KC_AUDIO_VOL_UP,KC_AUDIO_VOL_DOWN,KC_MEDIA_PLAY_PAUSE,KC_MEDIA_NEXT_TRACK,KC_AUDIO_MUTE,  
+    KC_MS_JIGGLER_TOGGLE,LGUI(LSFT(KC_5)),LGUI(KC_V),     LGUI(KC_A),     LGUI(KC_C),     LGUI(LCTL(LSFT(KC_4))),                                KC_MEDIA_PREV_TRACK,KC_AUDIO_VOL_UP,KC_AUDIO_VOL_DOWN,KC_MEDIA_PLAY_PAUSE,KC_MEDIA_NEXT_TRACK,KC_AUDIO_MUTE,  
     KC_NO,          KC_Z,           KC_L,           MEH_T(KC_D),    KC_W,           KC_B,                                           KC_J,           KC_F,           MEH_T(KC_O),    KC_U,           KC_NO,          KC_NO,          
     KC_NO,          ALL_T(KC_N),    MT(MOD_LALT, KC_R),MT(MOD_LGUI, KC_T),MT(MOD_LSFT, KC_S),KC_G,                                           KC_Y,           MT(MOD_LSFT, KC_H),MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_E),ALL_T(KC_I),    KC_NO,          
     KC_NO,          KC_Q,           KC_X,           KC_M,           MT(MOD_LCTL, KC_C),KC_V,                                           KC_K,           MT(MOD_LCTL, KC_P),KC_DOT,         KC_COMMA,       KC_SCLN,        KC_NO,          
@@ -75,15 +75,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [4] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    KC_NO,          KC_NO,          LGUI(KC_LBRC),  ZOOM_SCROLL,          LGUI(KC_RBRC),  QK_LLCK,                                        KC_NO,          LGUI(KC_LEFT),  KC_UP,          LGUI(KC_RIGHT), KC_NO,          KC_NO,          
-    KC_NO,          LCTL(KC_TAB),   KC_MS_BTN2,     DRAG_SCROLL,    KC_MS_BTN1,     LALT(LGUI(LCTL(LSFT(KC_S)))),                                LALT(KC_LEFT),  KC_LEFT,        KC_DOWN,        KC_RIGHT,       RALT(KC_RIGHT), KC_NO,          
-    KC_NO,          LALT(LGUI(LCTL(LSFT(KC_C)))),LALT(KC_MS_BTN1),LGUI(KC_MS_BTN1),LSFT(KC_MS_BTN1),TOGGLE_SCROLL,                                        SELLINE,          SELWBAK,          SELWORD,          KC_NO,          KC_NO,          KC_NO,          
+    KC_NO,          TOGGLE_SCROLL,  LGUI(KC_LBRC),  KC_NO,          LGUI(KC_RBRC),  QK_LLCK,                                        KC_NO,          LGUI(KC_LEFT),  KC_UP,          LGUI(KC_RIGHT), KC_NO,          KC_NO,          
+    KC_NO,          LCTL(KC_TAB),   KC_MS_BTN2,     DRAG_SCROLL,    KC_MS_BTN1,     KC_MS_DBL_CLICK,                                LALT(KC_LEFT),  KC_LEFT,        KC_DOWN,        KC_RIGHT,       RALT(KC_RIGHT), KC_NO,          
+    KC_NO,          LALT(LGUI(LCTL(LSFT(KC_C)))),LALT(KC_MS_BTN1),LGUI(KC_MS_BTN1),LSFT(KC_MS_BTN1),LALT(LGUI(LCTL(LSFT(KC_S)))),                                KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 MAGIC,         REPEAT
   ),
   [5] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    KC_NO,          ST_MACRO_0,     ST_MACRO_1,     KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          RGB_VAD,        RGB_VAI,        KC_NO,          KC_NO,          
-    KC_NO,          ST_MACRO_2,     ST_MACRO_3,     ST_MACRO_4,     ST_MACRO_5,     ST_MACRO_6,                                     LED_LEVEL,      LALT(LGUI(LCTL(LSFT(KC_M)))),KC_BRIGHTNESS_DOWN,KC_BRIGHTNESS_UP,MAC_DND,        KC_NO,          
+    KC_NO,          ST_MACRO_0,     ST_MACRO_1,     KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          LALT(LGUI(LCTL(LSFT(KC_M)))),RGB_VAD,        RGB_VAI,        KC_NO,          KC_NO,          
+    KC_NO,          ST_MACRO_2,     ST_MACRO_3,     ST_MACRO_4,     ST_MACRO_5,     ST_MACRO_6,                                     LED_LEVEL,      MAC_LOCK,       KC_BRIGHTNESS_DOWN,KC_BRIGHTNESS_UP,MAC_DND,        KC_NO,          
     KC_NO,          ST_MACRO_7,     ST_MACRO_8,     ST_MACRO_9,     ST_MACRO_10,    ST_MACRO_11,                                    RGB_TOG,        RGB_MODE_FORWARD,HSV_0_255_255,  HSV_169_255_255,HSV_74_255_255, QK_BOOT,        
                                                     TMUX_DOWN,      TMUX_UP,                                    KC_TRANSPARENT, KC_NO
   ),
@@ -447,10 +447,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
 
   case QK_MODS ... QK_MODS_MAX:
-    // Mouse keys with modifiers work inconsistently across operating
-    // systems, this makes sure that modifiers are always applied to the
-    // mouse key that was pressed.
-    if (IS_MOUSE_KEYCODE(QK_MODS_GET_BASIC_KEYCODE(keycode))) {
+    // Mouse and consumer keys (volume, media) with modifiers work
+    // inconsistently across operating systems, this makes sure that modifiers
+    // are always applied to the key that was pressed.
+    if (IS_MOUSE_KEYCODE(QK_MODS_GET_BASIC_KEYCODE(keycode)) ||
+        IS_CONSUMER_KEYCODE(QK_MODS_GET_BASIC_KEYCODE(keycode))) {
       if (record->event.pressed) {
         add_mods(QK_MODS_GET_MODS(keycode));
         send_keyboard_report();
@@ -523,6 +524,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case ST_MACRO_11:
     if (record->event.pressed) {
       SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_TAP(X_LBRC));
+    }
+    break;
+  case ST_MACRO_12:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100)
+                      SS_LALT(SS_TAP(X_DOWN)));
+    }
+    break;
+  case ST_MACRO_13:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTL(SS_TAP(X_COMMA)) SS_DELAY(100) SS_LALT(SS_TAP(X_UP)));
     }
     break;
   case MAC_DND:
