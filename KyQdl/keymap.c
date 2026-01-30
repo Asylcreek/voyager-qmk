@@ -28,6 +28,8 @@ enum custom_keycodes {
   ST_MACRO_9,
   ST_MACRO_10,
   ST_MACRO_11,
+  ST_MACRO_12,
+  ST_MACRO_13,
   TMUX_UP,
   TMUX_DOWN,
   MAC_DND,
