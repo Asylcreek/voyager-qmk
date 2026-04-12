@@ -7,7 +7,7 @@
 #define PERMISSIVE_HOLD
 
 #define USB_SUSPEND_WAKEUP_DELAY 0
-#define SERIAL_NUMBER "KyQdl/jZYnv7"
+#define SERIAL_NUMBER "KyQdl/PBYbjL"
 #define LAYER_STATE_8BIT
 #define COMBO_COUNT 2
 #define HSS(report)                                                            \
@@ -18,10 +18,6 @@
   return false
 
 #define TAPPING_TERM_PER_KEY
-#define POINTING_DEVICE_HIRES_SCROLL_ENABLE
-#define POINTING_DEVICE_HIRES_SCROLL_EXPONENT 0
-#define MOUSE_EXTENDED_REPORT
-#define WHEEL_EXTENDED_REPORT
 #define NAVIGATOR_TRACKBALL_CPI 15
 #define NAVIGATOR_SCROLL_DIVIDER 50
 
