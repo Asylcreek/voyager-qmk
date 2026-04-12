@@ -34,8 +34,6 @@ enum custom_keycodes {
   TMUX_DOWN,
   MAC_DND,
   MAC_LOCK,
-  DRAG_SCROLL,
-  TOGGLE_SCROLL,
   // Macros invoked through the Magic key.
   M_EQEQ,
   M_ARROW_FUNC,
