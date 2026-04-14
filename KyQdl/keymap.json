@@ -5,6 +5,7 @@
     "zsa/doubleclick",
     "zsa/navigator_trackball",
     "zsa/defaults",
-    "getreuer/select_word"
+    "getreuer/select_word",
+    "getreuer/custom_shift_keys"
   ]
 }
