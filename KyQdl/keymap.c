@@ -48,21 +48,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
     KC_MS_JIGGLER_TOGGLE,LGUI(LSFT(KC_5)),LGUI(KC_V),     LGUI(KC_A),     LGUI(KC_C),     LGUI(LCTL(LSFT(KC_4))),                                KC_MEDIA_PREV_TRACK,KC_AUDIO_VOL_UP,KC_AUDIO_VOL_DOWN,KC_MEDIA_PLAY_PAUSE,KC_MEDIA_NEXT_TRACK,KC_AUDIO_MUTE,  
     KC_NO,          KC_NO,          KC_L,           MEH_T(KC_D),    KC_W,           KC_B,                                           KC_J,           KC_F,           MEH_T(KC_O),    KC_U,           KC_NO,          KC_NO,          
-    KC_Z,           ALL_T(KC_N),    MT(MOD_LALT, KC_R),MT(MOD_LGUI, KC_T),MT(MOD_LSFT, KC_S),KC_G,                                           KC_Y,           MT(MOD_LSFT, KC_H),MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_E),ALL_T(KC_I),    KC_COMMA,       
-    KC_NO,          KC_Q,           KC_X,           KC_M,           MT(MOD_LCTL, KC_C),KC_V,                                           KC_K,           MT(MOD_LCTL, KC_P),KC_DOT,         KC_QUOTE,       KC_SCLN,        KC_NO,          
+    KC_Z,           ALL_T(KC_N),    MT(MOD_LALT, KC_R),MT(MOD_LGUI, KC_T),MT(MOD_LSFT, KC_S),KC_G,                                           KC_Y,           MT(MOD_LSFT, KC_H),MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_E),ALL_T(KC_I),    KC_TAB,         
+    KC_NO,          KC_Q,           KC_X,           KC_M,           MT(MOD_LCTL, KC_C),KC_V,                                           KC_K,           MT(MOD_LCTL, KC_P),KC_DOT,         KC_COMMA,       KC_SCLN,        MT(MOD_LALT, KC_ESCAPE),
                                                     LT(2, KC_F23),  LT(3, KC_BSPC),                                 LT(4, KC_ENTER),LT(1, KC_SPACE)
   ),
   [1] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
     KC_NO,          KC_NO,          KC_9,           KC_8,           KC_7,           KC_NO,                                          KC_NO,          KC_NO,          LCTL(KC_COMMA), KC_NO,          KC_NO,          KC_NO,          
-    KC_NO,          KC_TAB,         MT(MOD_LALT, KC_3),MT(MOD_LGUI, KC_2),MT(MOD_LSFT, KC_1),KC_DELETE,                                      KC_NO,          MT(MOD_LSFT, KC_0),KC_LEFT_GUI,    KC_LEFT_ALT,    KC_NO,          KC_COMMA,       
-    KC_NO,          KC_NO,          KC_6,           KC_5,           MT(MOD_LCTL, KC_4),KC_NO,                                          KC_NO,          KC_LEFT_CTRL,   KC_DOT,         KC_NO,          KC_NO,          KC_NO,          
+    KC_NO,          KC_NO,          MT(MOD_LALT, KC_3),MT(MOD_LGUI, KC_2),MT(MOD_LSFT, KC_1),KC_DELETE,                                      KC_NO,          MT(MOD_LSFT, KC_0),KC_LEFT_GUI,    KC_LEFT_ALT,    KC_NO,          KC_TAB,         
+    KC_NO,          KC_NO,          KC_6,           KC_5,           MT(MOD_LCTL, KC_4),KC_NO,                                          KC_NO,          KC_LEFT_CTRL,   KC_DOT,         KC_COMMA,       KC_NO,          KC_NO,          
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_NO,          KC_TRANSPARENT
   ),
   [2] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    KC_NO,          KC_NO,          KC_LABK,        KC_PIPE,        KC_PERC,        KC_BSLS,                                        KC_UNDS,        KC_GRAVE,       KC_EQUAL,       KC_RABK,        KC_NO,          KC_NO,          
-    KC_TILD,        KC_LBRC,        KC_LCBR,        KC_AMPR,        KC_LPRN,        KC_PLUS,                                        KC_MINUS,       KC_RPRN,        KC_DQUO,        KC_RCBR,        KC_RBRC,        KC_COMMA,       
+    KC_NO,          KC_NO,          KC_LABK,        KC_PIPE,        KC_PERC,        KC_BSLS,                                        KC_UNDS,        KC_QUOTE,       KC_EQUAL,       KC_RABK,        KC_NO,          KC_NO,          
+    KC_TILD,        KC_LBRC,        KC_LCBR,        KC_AMPR,        KC_LPRN,        KC_PLUS,                                        KC_MINUS,       KC_RPRN,        KC_DQUO,        KC_RCBR,        KC_RBRC,        KC_GRAVE,       
     KC_NO,          KC_NO,          KC_CIRC,        KC_DLR,         KC_EXLM,        KC_ASTR,                                        KC_SLASH,       KC_COLN,        KC_QUES,        KC_AT,          KC_HASH,        KC_NO,          
                                                     KC_TRANSPARENT, KC_NO,                                          MAGIC,         REPEAT
   ),
@@ -91,7 +91,7 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
 // clang-format on
 
 const uint16_t PROGMEM combo0[] = {KC_M, KC_X, COMBO_END};
-const uint16_t PROGMEM combo1[] = {KC_DOT, KC_QUOTE, COMBO_END};
+const uint16_t PROGMEM combo1[] = { KC_DOT, KC_COMMA, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo0, KC_ESCAPE),
