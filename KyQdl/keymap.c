@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_MS_JIGGLER_TOGGLE,LGUI(LSFT(KC_5)),LGUI(KC_V),     LGUI(KC_A),     LGUI(KC_C),     LGUI(LCTL(LSFT(KC_4))),                                KC_MEDIA_PREV_TRACK,KC_AUDIO_VOL_UP,KC_AUDIO_VOL_DOWN,KC_MEDIA_PLAY_PAUSE,KC_MEDIA_NEXT_TRACK,KC_AUDIO_MUTE,  
     KC_NO,          KC_NO,          KC_L,           MEH_T(KC_D),    KC_W,           KC_B,                                           KC_J,           KC_F,           MEH_T(KC_O),    KC_U,           KC_NO,          KC_NO,          
     KC_Z,           ALL_T(KC_N),    MT(MOD_LALT, KC_R),MT(MOD_LGUI, KC_T),MT(MOD_LSFT, KC_S),KC_G,                                           KC_Y,           MT(MOD_LSFT, KC_H),MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_E),ALL_T(KC_I),    KC_TAB,         
-    KC_NO,          KC_Q,           KC_X,           KC_M,           MT(MOD_LCTL, KC_C),KC_V,                                           KC_K,           MT(MOD_LCTL, KC_P),KC_DOT,         KC_COMMA,       KC_SCLN,        KC_NO,          
+    KC_NO,          KC_Q,           KC_X,           KC_M,           MT(MOD_LCTL, KC_C),KC_V,                                           KC_K,           MT(MOD_LCTL, KC_P),KC_DOT,         KC_COMMA,       KC_SCLN,        MT(MOD_LALT, KC_ESCAPE),
                                                     LT(2, KC_F23),  LT(3, KC_BSPC),                                 LT(4, KC_ENTER),LT(1, KC_SPACE)
   ),
   [1] = LAYOUT_voyager(
@@ -79,12 +79,10 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT(
 
 const uint16_t PROGMEM combo0[] = { KC_M, KC_X, COMBO_END};
 const uint16_t PROGMEM combo1[] = { KC_DOT, KC_COMMA, COMBO_END};
-const uint16_t PROGMEM combo2[] = { KC_DOT, KC_COMMA, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo0, KC_ESCAPE),
     COMBO(combo1, CW_TOGG),
-    COMBO(combo2, CW_TOGG),
 };
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
