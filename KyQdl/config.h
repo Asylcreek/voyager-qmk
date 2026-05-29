@@ -1,13 +1,13 @@
 #define FLOW_TAP_TERM 150
 #define CHORDAL_HOLD
 #undef TAPPING_TERM
-#define TAPPING_TERM 350
+#define TAPPING_TERM 300
 #define QUICK_TAP_TERM 0
 
 #define PERMISSIVE_HOLD
 
 #define USB_SUSPEND_WAKEUP_DELAY 0
-#define SERIAL_NUMBER "KyQdl/RjyeNb"
+#define SERIAL_NUMBER "KyQdl/aNOKEG"
 #define LAYER_STATE_8BIT
 #define COMBO_COUNT 2
 #define HSS(report)                                                            \
@@ -17,7 +17,6 @@
   host_consumer_send(record->event.pressed ? report : 0);                      \
   return false
 
-#define TAPPING_TERM_PER_KEY
 #define NAVIGATOR_TRACKBALL_CPI 15
 #define NAVIGATOR_SCROLL_DIVIDER 50
 
